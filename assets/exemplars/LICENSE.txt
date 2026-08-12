@@ -1,0 +1,39 @@
+EXEMPLAR IMAGE LICENSE — NON-COMMERCIAL / ALL RIGHTS RESERVED
+
+Copyright © 2026. All rights reserved by the image rights holder.
+
+This asset-specific license supplements, and does not replace, the root
+LICENSE governing the complete skill. When terms overlap, comply with the more
+restrictive requirement.
+
+This license applies only to the following original/processed exemplar pairs:
+
+- pastoral-living-cluster/original.jpg
+- pastoral-living-cluster/processed.png
+- huizhou-window-framing/original.jpg
+- huizhou-window-framing/processed.png
+- botanical-unity/original.jpg
+- botanical-unity/processed.png
+
+Permission is granted to store, inspect, and use these images solely for:
+
+1. personal, non-commercial use;
+2. internal evaluation and quality control of the interweave-photo-abstraction skill; and
+3. non-commercial reference during creation of new, source-specific work.
+
+Without the rights holder's prior written permission, you may not:
+
+- use the images or substantially identical reproductions for commercial purposes;
+- sell, license, sublicense, rent, or monetize the images;
+- publish or distribute the images as standalone assets, stock images, templates, or examples in a commercial product;
+- include the images in a public or private training dataset, benchmark dataset, model fine-tuning corpus, or retrieval corpus;
+- remove, obscure, or separate this license from a permitted copy;
+- claim ownership or authorship of the images; or
+- authorize any third party to perform a prohibited act.
+
+The images are provided "AS IS", without warranty. No trademark, publicity,
+privacy, or other third-party rights are granted. All rights not expressly
+granted are reserved.
+
+For commercial licensing or any use outside this license, obtain prior written
+permission from the image rights holder.

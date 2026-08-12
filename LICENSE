@@ -1,0 +1,115 @@
+INTERWEAVE PHOTO ABSTRACTION
+PERSONAL, ATTRIBUTION-REQUIRED, NON-COMMERCIAL LICENSE
+Version 1.0 — 2026
+
+Copyright © 2026 LeoLittleLeo, the original author and rights holder of the
+interweave-photo-abstraction repository. All rights reserved.
+
+Original repository:
+https://github.com/LeoLittleLeo/interweave-photo-abstraction
+
+1. SCOPE
+
+This license applies to the complete interweave-photo-abstraction skill,
+including its instructions, prompts, reference documents, scripts, metadata,
+examples, exemplar images, modifications, and derivative versions, except where
+a file carries additional terms. Additional asset-specific terms remain in
+force and may impose further restrictions.
+
+2. LIMITED PERMISSION
+
+You may download, install, inspect, run, and modify this skill solely for your
+own personal, non-commercial use, subject to every condition in this license.
+No other rights are granted.
+
+3. REQUIRED ATTRIBUTION
+
+Whenever you publicly share, publish, display, demonstrate, distribute, or post:
+
+- this skill or any modified or derivative version of it; or
+- any image, poster, prompt, template, tutorial, demonstration, or other work
+  materially created using this skill,
+
+you must provide a clear, reasonably prominent attribution that includes:
+
+- the name "interweave-photo-abstraction";
+- the original author's name or GitHub handle as displayed in the original
+  GitHub repository; and
+- a working link to the original GitHub repository from which the skill was
+  obtained, not merely to a fork or redistributed copy.
+
+Recommended attribution:
+
+  Created with "interweave-photo-abstraction" by the original repository
+  author LeoLittleLeo:
+  https://github.com/LeoLittleLeo/interweave-photo-abstraction
+
+For visual work posted on a platform that supports captions or descriptions,
+place the attribution in the caption or description. For video, include it in
+the description and end credits. For a website, application, article, or
+repository, place it in a visible credits, acknowledgements, or documentation
+section. Do not hide the attribution only in inaccessible metadata.
+
+You may not remove, obscure, falsify, or detach existing copyright, license,
+source, or attribution notices.
+
+4. NO COMMERCIAL USE
+
+You may not use the skill or work materially created with it for commercial
+purposes. Prohibited commercial use includes, without limitation:
+
+- paid client work, commissions, consulting, or professional services;
+- advertising, marketing, sponsorship, brand promotion, or product promotion;
+- monetized content, paid publications, subscriptions, memberships, courses,
+  exhibitions, events, or social-media channels;
+- sale, licensing, sublicensing, rental, resale, merchandising, stock-asset
+  distribution, or inclusion in a paid product or service;
+- use by or for a company, organization, employer, commercial studio, agency,
+  or revenue-generating project, including internal business use;
+- use to train, fine-tune, evaluate, benchmark, or operate a commercial model,
+  dataset, retrieval system, or generative service; and
+- any activity intended to obtain direct or indirect commercial advantage or
+  monetary compensation.
+
+Commercial use requires separate prior written permission from the rights
+holder.
+
+5. REDISTRIBUTION AND MODIFICATION
+
+You may share a modified version only on a non-commercial basis and only when:
+
+- the complete text of this license is included unchanged;
+- the original author and original GitHub repository remain clearly credited;
+- your modifications are identified as modifications;
+- you do not imply endorsement by the original author; and
+- you apply terms at least as restrictive as this license to the modified or
+  derivative version.
+
+You may not relicense the skill under an open-source, commercial, or more
+permissive license, nor remove the non-commercial or attribution requirements.
+
+6. EXEMPLAR IMAGES AND THIRD-PARTY RIGHTS
+
+The files under assets/exemplars are also governed by their accompanying
+LICENSE.txt. No trademark, privacy, publicity, personality, location, artwork,
+or other third-party right is granted by this license. You are responsible for
+obtaining any additional permission required for your use.
+
+7. TERMINATION
+
+Your permission terminates automatically if you breach this license. Upon
+termination, you must stop using and distributing the skill and remove all
+copies under your control, except where retention is required by law. The rights
+holder may offer reinstatement only in writing.
+
+8. NO WARRANTY
+
+THE SKILL AND ALL INCLUDED MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE RIGHTS HOLDER IS NOT LIABLE
+FOR ANY CLAIM, DAMAGE, OR OTHER LIABILITY ARISING FROM USE OF THE SKILL.
+
+9. RESERVED RIGHTS
+
+All rights not expressly granted are reserved. For commercial licensing,
+alternative licensing, or permission beyond these terms, contact the rights
+holder through the original GitHub repository.
