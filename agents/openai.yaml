@@ -1,4 +1,4 @@
 interface:
   display_name: "虚实交织影像"
-  short_description: "Interweave photos with Huizhou spatial logic"
-  default_prompt: "Use $interweave-photo-abstraction to create an ordered real/abstract editorial poster, fully abstract disposable support fixtures, preserve living-subject integrity, and apply Huizhou-derived spatial logic to Western hero architecture without adding literal cultural motifs."
+  short_description: "以艺术效果优先重构高身份保真的虚实交织照片海报作品"
+  default_prompt: "Use $interweave-photo-abstraction to create an ordered real/abstract editorial poster that prioritizes the final artistic effect, preserves the primary face at approximately 95% perceptual identity fidelity, and allows clothing, color, edges, lighting, texture, and silhouette transitions to integrate with the artwork."
