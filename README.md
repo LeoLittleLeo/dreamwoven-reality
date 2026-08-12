@@ -12,6 +12,48 @@ Interweave Photo Abstraction 不是简单的滤镜、风格迁移或“一键插
 项目通过场景分析、语义区域划分、抽象强度控制、人物完整性保护、视觉语言约束和最终质量检查，将普通照片转化为具有编辑设计感的海报式图像。
 
 ---
+## 效果示例
+
+### Botanical Unity
+
+<table>
+  <tr>
+    <td align="center"><strong>原图</strong></td>
+    <td align="center"><strong>处理后</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/exemplars/botanical-unity/original.jpg" width="420"></td>
+    <td><img src="assets/exemplars/botanical-unity/processed.png" width="420"></td>
+  </tr>
+</table>
+
+### Huizhou Window Framing
+
+<table>
+  <tr>
+    <td align="center"><strong>原图</strong></td>
+    <td align="center"><strong>处理后</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/exemplars/huizhou-window-framing/original.jpg" width="420"></td>
+    <td><img src="assets/exemplars/huizhou-window-framing/processed.png" width="420"></td>
+  </tr>
+</table>
+
+### Pastoral Living Cluster
+
+<table>
+  <tr>
+    <td align="center"><strong>原图</strong></td>
+    <td align="center"><strong>处理后</strong></td>
+  </tr>
+  <tr>
+    <td><img src="assets/exemplars/pastoral-living-cluster/original.jpg" width="420"></td>
+    <td><img src="assets/exemplars/pastoral-living-cluster/processed.png" width="420"></td>
+  </tr>
+</table>
+
+---
 
 ## 核心理念
 
