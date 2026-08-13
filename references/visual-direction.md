@@ -51,7 +51,7 @@ Rebuild 85–100% of the lower artwork as broad semantic planes, sparse structur
 
 Use a strict 4–6 color `robot-dreams-logic` construction: softened warm/cool opposition, 2–3 value steps per mass, charcoal or deep blue instead of pure black, and at most one concentrated accent. Natural regions need not preserve literal local color. Preserve source-derived color relationships, semantic association, warm/cool hierarchy, and environmental separation; reject random unrelated color.
 
-If a primary person exists, preserve immediate human readability through an approximate source-related pose, orientation, gesture, body rhythm, and head/torso/limb relationship. Use 2–5 broad planes or a sparse contour system. Remove realistic face, skin, hands, hair strands, garment construction, fabric texture, and photographic shading.
+If a primary person exists, preserve immediate human readability through an approximate source-related pose, orientation, gesture, body rhythm, and head/torso/limb relationship. Use one or at most two flat colors across the complete figure. Do not use different colors to distinguish garments, garment layers, skin, limbs, torso, joints, lighting, or anatomical structure. If a second color is necessary, use it only as a restrained compositional accent or edge/overlap aid. Remove realistic face, skin, hands, hair strands, garment construction, fabric texture, gradients, tonal modeling, and photographic shading.
 
 Reconstruct architecture extremely. Preserve only the same architectural semantic identity, minimum recognition skeleton, and source-derived structural relationships. Do not retain or test a 70% photographic body in lower.
 
@@ -98,7 +98,7 @@ Derive the complete canvas from source dimensions, aspect ratio, and orientation
 
 ## Typography
 
-Processed defaults to both title and subtitle unless the user explicitly requests copy-free output or one text level. Center warm-white restrained editorial serif copy inside the two black bands. Do not search artwork corners, reserve quiet zones, place copy beside panels, use left alignment, or add dates in processed.
+Processed defaults to both title and subtitle unless the user explicitly requests copy-free output or one text level. Center warm-white restrained editorial serif copy inside the two black bands. Title and subtitle use exactly the same font size; when one line is longer, reduce one shared size until both fit rather than shrinking either line independently. Do not search artwork corners, reserve quiet zones, place copy beside panels, use left alignment, or add dates in processed.
 
 Only `fullbleed` may use source-aware negative-space placement, including `--text-position`. Keep fullbleed copy subordinate and use the same restrained editorial serif direction.
 
@@ -114,7 +114,7 @@ upper_primary_face: <approximately-95-percent or none>
 upper_hero_architecture: <70/30 plan and colored sketch zone or none>
 lower_semantic_anchors: [<identity and relationship cues>]
 lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
-lower_primary_person: <readable abstract silhouette plan or none>
+lower_primary_person: <readable abstract silhouette using one or at most two flat colors; no clothing/body color segmentation; or none>
 lower_architecture: <minimum skeleton plus extreme reconstruction or none>
 lower_robot_dreams_palette: [<4-6 semantic colors and warm/cool roles>]
 processed_layout: 52/4/40/4-no-date
@@ -127,7 +127,7 @@ upper_board_occupancy: 65-85-percent-prefer-75
 - If the upper face drifts, correct only the failing identity carrier through generation or localized editing; never source-composite.
 - If upper architecture is monochrome or detached, restore colored structural planes and aligned contour continuation.
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
-- If lower personhood is lost, restore a readable source-related human silhouette without realistic facial or material detail.
+- If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.
 - If lower architecture is being judged by 70/30, remove that scope error and evaluate semantic identity plus extreme reconstruction.
 - If processed typography enters artwork or uses left/quiet-zone placement, return it to centered black bands.
 - If any date area, equal-panel system, or top seam appears, restore `52 / 4 / 40 / 4`.

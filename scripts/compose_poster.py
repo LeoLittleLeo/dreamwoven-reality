@@ -169,6 +169,16 @@ def fit_wrapped(font_path: Path, text: str, max_width: int, start_size: int, max
     return font, wrap_text(text, font, max_width, tracking, max_lines) or [text]
 
 
+def fit_processed_band_font(font_path: Path, texts: tuple[str, ...], max_width: int, start_size: int):
+    """Return one shared font size that fits every non-empty processed-band line."""
+    active = tuple(text for text in texts if text)
+    for size in range(max(12, start_size), 11, -2):
+        font = ImageFont.truetype(str(font_path), size)
+        if all(font.getlength(text) <= max_width for text in active):
+            return font
+    return ImageFont.truetype(str(font_path), 12)
+
+
 def draw_tracked_text(draw, position, text, font, fill, tracking=0):
     x, y = position
     cursor = float(x)
@@ -464,8 +474,13 @@ def main() -> None:
             upper_mask.save(args.output_dir / f"{base}-upper-mask.png")
         if has_copy and font_path:
             ink = args.text_color or (244, 239, 226)
-            title_font, title_lines = fit_wrapped(font_path, args.title, round(paper_width * 0.82), max(12, round(title_band_h * 0.58)), args.max_title_lines)
-            subtitle_font, subtitle_lines = fit_wrapped(font_path, args.subtitle, round(paper_width * 0.82), max(12, round(subtitle_band_h * 0.42)), 2)
+            band_text_width = round(paper_width * 0.82)
+            band_font = fit_processed_band_font(
+                font_path,
+                (args.title, args.subtitle),
+                band_text_width,
+                max(12, round(min(title_band_h, subtitle_band_h) * 0.52)),
+            )
 
             def centered(draw_obj, text_value, font_obj, y, fill):
                 bbox = draw_obj.textbbox((0, 0), text_value, font=font_obj)
@@ -473,11 +488,9 @@ def main() -> None:
                 draw_obj.text((x, y), text_value, font=font_obj, fill=fill)
 
             if args.title:
-                line = title_lines[0] if title_lines else args.title
-                centered(draw, line, title_font, max(1, title_y + (title_band_h - title_font.size) // 2 - 3), ink)
+                centered(draw, args.title, band_font, max(1, title_y + (title_band_h - band_font.size) // 2 - 2), ink)
             if args.subtitle:
-                line = subtitle_lines[0] if subtitle_lines else args.subtitle
-                centered(draw, line, subtitle_font, max(1, subtitle_y + (subtitle_band_h - subtitle_font.size) // 2 - 2), ink)
+                centered(draw, args.subtitle, band_font, max(1, subtitle_y + (subtitle_band_h - band_font.size) // 2 - 2), ink)
         output = args.output_dir / f"{base}-processed.png"
         canvas.save(output)
         print(f"upper authored-image occupancy: {upper_occupancy:.1%}", file=sys.stderr)
