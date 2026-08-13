@@ -343,6 +343,8 @@ def main() -> None:
     parser.add_argument("--poster", required=True, type=Path, help="strong lower abstraction without final typography")
     parser.add_argument("--title", default="")
     parser.add_argument("--subtitle", default="")
+    parser.add_argument("--copy-free", action="store_true", help="processed mode: explicitly omit both title and subtitle")
+    parser.add_argument("--single-text-level", choices=("title", "subtitle"), help="processed mode: explicitly use only the selected text level")
     parser.add_argument("--date", dest="date_text", default=None, help="optional fullbleed copy; unsupported in processed mode")
     parser.add_argument("--no-date", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--text-position", choices=("auto", "lower-left", "bottom-centered", "source-aware-quiet-zone") + POSITIONS, default="auto")
@@ -367,6 +369,19 @@ def main() -> None:
             parser.error("processed mode requires --upper-poster")
         if args.date_text:
             parser.error("processed mode has no date band or date copy; remove --date")
+        if args.text_position != "auto":
+            parser.error("--text-position applies only to fullbleed mode")
+        if args.copy_free:
+            if args.title or args.subtitle or args.single_text_level:
+                parser.error("--copy-free cannot be combined with title, subtitle, or --single-text-level")
+        elif args.single_text_level == "title":
+            if not args.title or args.subtitle:
+                parser.error("--single-text-level title requires --title and prohibits --subtitle")
+        elif args.single_text_level == "subtitle":
+            if not args.subtitle or args.title:
+                parser.error("--single-text-level subtitle requires --subtitle and prohibits --title")
+        elif not args.title or not args.subtitle:
+            parser.error("processed mode requires both --title and --subtitle unless --copy-free or --single-text-level is explicit")
         if Image.open(args.upper_poster).mode not in ("RGBA", "LA"):
             parser.error("processed mode requires --upper-poster with an alpha channel for the non-rectangular upper panel")
         required_paths.append(args.upper_poster)
