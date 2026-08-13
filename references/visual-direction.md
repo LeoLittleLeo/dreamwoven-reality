@@ -59,6 +59,8 @@ Reconstruct architecture extremely. Preserve only the same architectural semanti
 
 Plan 3–6 unequal semantic masses and keep each color field inside its subject. In upper, protect source-neighbor natural/living hues and use architecture, paving, walls, fixtures, roads, and other designed regions as stronger color levers. In lower, let the mandatory Robot Dreams palette reinterpret all masses through source-derived semantic relationships.
 
+For upper hero architecture, make the reconstructed zone clearly different from the retained photographic building tone. Use strong hue, value, or temperature separation across the complete reconstructed region so the real/abstract division reads immediately. Do not use near-matching local color, scattered accent patches, or arbitrary neon; preserve source light direction, structural credibility, architectural identity, and protected natural/living hues.
+
 Choose the upper board base through scene semantics plus Robot Dreams color logic. Diagnose atmosphere, dominant temperature, light level, natural/built balance, season/weather impression, and the largest upper color masses. Select one quiet pale family that separates the free-edged artwork without competing with it: warm ivory for dark/neutral structural scenes; dusty peach as a counterpoint to cool/blue scenes; powder blue against warm scenes; soft lilac for pale neutral or reflective scenes; mineral sage for bright vegetation-led scenes only when it remains distinct from the foliage. Keep chroma low, retain a subtle source echo, and record the semantic and contrast reason. Avoid literal average-color matching, random accents, and a board hue so similar to the upper artwork that its contour disappears.
 
 Use an echo color only when it supports structure or proposition. Recolor complete semantic regions rather than scattering accents. Avoid random neon, indiscriminate hue rotation, skin contamination, copied film frames, or palette choices unrelated to source light/material/atmosphere.
@@ -112,6 +114,7 @@ upper_preserved_geometry: [<framing, position, perspective, pose, landmark ancho
 upper_reconstructed_regions: [<at least two nonliving regions>]
 upper_primary_face: <approximately-95-percent or none>
 upper_hero_architecture: <55/45 plan; contiguous planar-replacement plus optional semantic-omission, constrained by a non-counting recognition skeleton; or none>
+upper_architecture_reconstruction_color_separation: <strong hue, value, or temperature contrast against the retained photographic building tone>
 upper_board_base: <scene diagnosis; dominant temperature; Robot Dreams pale family; contrast purpose>
 lower_semantic_anchors: [<identity and relationship cues>]
 lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
@@ -127,6 +130,7 @@ upper_board_occupancy: 65-85-percent-prefer-75
 - If upper loses photographic dominance, restore material depth and source geometry without weakening counted abstraction.
 - If the upper face drifts, correct only the failing identity carrier through generation or localized editing; never source-composite.
 - If upper architecture is detached or merely decorated, restore contiguous planar material replacement and credible structural connections; use the recognition skeleton only to constrain geometry.
+- If the upper architectural reconstruction blends into the retained building tone, recolor the complete reconstruction zone with a coherent strongly contrasting hue, value, or temperature family while preserving source light and identity.
 - If the upper board competes with the artwork or loses its free-edge contrast, reselect a quieter source-semantic Robot Dreams pale base.
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
 - If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.
