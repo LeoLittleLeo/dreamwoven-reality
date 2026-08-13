@@ -1,4 +1,4 @@
 interface:
   display_name: "Dreamwoven Reality"
-  short_description: "生成仅含局部抽象与强抽象两阶段的虚实交织海报"
-  default_prompt: "Use $dreamwoven-reality to create a two-generated-stage editorial poster containing only a photographic-led partial abstraction above and a stronger abstraction below. Use the uploaded original only as visual, geometry, identity, palette, and metadata reference; do not show it in the final poster."
+  short_description: "生成摄影主导与极端抽象上下二分图，并按需输出明信片版本"
+  default_prompt: "Use $dreamwoven-reality to turn the uploaded photograph into the default two-panel artwork: a photographic-led partial abstraction above and an extreme semantic abstraction below. Use the postcard layout only when I explicitly request a postcard."

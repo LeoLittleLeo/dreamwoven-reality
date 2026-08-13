@@ -1,6 +1,6 @@
 ---
 name: dreamwoven-reality
-description: "Transform user-supplied photographs into two-stage editorial posters with an upper photographic-led partial abstraction and a lower extreme semantic abstraction. Keep the original as analysis and geometry authority only; never show it as a panel. Preserve an upper primary face at about 95% perceptual fidelity without source-person compositing, while reducing the lower primary person to a readable abstract silhouette. Use for photo posterization, virtual/real contrast, materially replaced architecture constrained by a recognition skeleton, controlled palettes, paper-field posters, and full-bleed interpretations."
+description: "Transform user-supplied photographs into a default source-derived 52/4/40/4 editorial diptych with an upper photographic-led partial abstraction, a black title band, a full-width lower extreme semantic abstraction, and a black subtitle band. Use the orientation-aware postcard with semantic colored board motifs, stamp sticker, postmark, postal-code date cells, and message field only when explicitly requested. Preserve upper facial identity without source-person compositing and reduce lower people to readable abstract silhouettes. Use for photo posterization, virtual/real contrast, architecture reconstruction, editorial diptychs, explicit postcards, and full-bleed interpretations."
 ---
 
 # Dreamwoven Reality
@@ -153,6 +153,22 @@ At thumbnail size, the viewer should be able to describe the boundary with one s
 11. Optional modules.
 12. Decorative refinement.
 
+## Output Mode Priority Contract
+
+This contract overrides every later statement that calls the postcard or `processed` mode the default.
+
+```yaml
+output_mode_priority:
+  default: diptych
+  diptych_trigger: any ordinary request to process, transform, posterize, or create artwork from a source photo when no output mode is named
+  diptych_layout: source-derived-52/4/40/4-editorial-collage; upper photographic-led board, black title band, lower extreme abstraction, black subtitle band
+  postcard_mode: processed
+  postcard_trigger: explicit user request containing postcard, 明信片, processed, stamp sticker, 邮票, 邮戳, 邮编日期, or an unambiguous request for the postcard layout
+  fullbleed_trigger: explicit fullbleed or edge-to-edge request
+```
+
+Never infer postcard mode merely because copy or a date is supplied. In default `diptych`, use the original `52 / 4 / 40 / 4` editorial collage: upper paper board, black centered-title band, full-width lower extreme-abstraction panel, and black centered-subtitle band. Omit the date in this default mode; use a supplied date only in explicit postcard or fullbleed modes. Only `processed` may use the colored semantic board, postal-code date cells, postmark, and lower-right stamp sticker.
+
 ## Source-Faithfulness / No Fabrication Lock
 
 Transform what exists; do not invent a different scene. Apply faithfulness in three scopes:
@@ -182,7 +198,7 @@ Before delivery, verify that every primary person, major building, natural featu
 8. Let final artistic coherence take priority outside core facial identity. Permit restrained changes to garment color, garment edges, lighting, texture, peripheral hair, body contour, and local silhouette transitions when they improve palette integration, material continuity, or the real/abstract thesis. Preserve pose, anatomy, gesture, and meaningful contact relationships.
 9. Compare the upper candidate with the source at matched face scale using the upper identity rubric. Review lower personhood through silhouette, pose rhythm, and scene relationship instead. Judge both stages against their own quality gates; never repair either by pasting source pixels back.
 10. Before generation, assign every visible object to exactly one treatment using the Object Treatment Lock below. Do not begin generation while secondary people, seating fixtures, ground planes, hero-architecture photographic core, hero-architecture reconstruction zone, or secondary architecture remain unassigned.
-11. Generate two coordinated interpretations from the same source: an upper photographic-led partial abstraction and a lower strong abstraction. Use `scripts/inspect_photo.py` for metadata when useful. Before composition, run the Upper Architecture Execution Lock below; do not assemble a candidate that fails it. Use `scripts/compose_poster.py` in default `processed` mode to assemble exactly those two generated stages, or explicit `fullbleed` mode for one edge-to-edge interpretation. The upper stage must be supplied as a free-edged authored image and the lower stage as a complete rectangular image. Never place the untouched source in the final composition.
+11. Generate two coordinated interpretations from the same source: a dominant photographic-led partial abstraction and an extreme semantic abstraction. Use `scripts/inspect_photo.py` for metadata when useful. Before composition, run the Upper Architecture Execution Lock below; do not assemble a candidate that fails it. Use `scripts/compose_poster.py` in default `diptych` mode to assemble the two stages as full-width coordinated panels. Use `processed` only for an explicit postcard request, where the lower stage becomes a stamp sticker. Use explicit `fullbleed` for one edge-to-edge interpretation. Never place the untouched source in the final composition.
 
 ## Strategy Record
 
@@ -191,7 +207,7 @@ Before editing, record the decisions in this compact form. Omit fields that do n
 ```yaml
 scene_type: person | landmark | nature | street | crowd | minimal | mixed
 source_orientation: landscape | portrait | near-square
-layout_adaptation: orientation-aware-editorial-collage
+layout_adaptation: orientation-aware-postcard
 photo_section_priority: source-integrity-first
 abstract_axis_bias: horizontal | vertical | balanced
 section_proportions_profile: landscape-default | portrait-adapted | square-adapted
@@ -201,8 +217,8 @@ crop_policy: minimal-and-source-aware
 fixed_master_canvas: disabled
 size_policy: {basis: source, export_long_edge: adaptive, preserve_source_ratio: true, allow_upscale: limited, allow_downscale: true, allow_nonuniform_scale: false}
 output_mode: processed | fullbleed
-layout_profile: fixed-four-band-editorial-no-date
-default_poster_mode: two-image-collage
+layout_profile: postcard-hero-plus-stamp-and-message
+default_poster_mode: orientation-aware-postcard
 upper_stage: photographic-led-partial-abstraction
 upper_abstraction_strength: light | medium
 upper_photographic_read: dominant
@@ -252,23 +268,24 @@ architectural_structural_connections: [<photographic structure -> credible recon
 upper_reconstruction_language: colored-line-study | exposed-frame | scaffolded-skeleton | structural-color-planes | transparent-construction | paper-omission | mixed-source-grounded
 upper_secondary_architecture_treatment: simplified-structural-abstraction | quiet-silhouette
 lower_architecture_treatment: extreme-semantic-reconstruction
-title_text: <processed default required unless copy-free or subtitle-only requested>
-subtitle_text: <processed default required unless copy-free or title-only requested>
+title_text: <short postcard heading; optional when copy-free>
+subtitle_text: <short postcard message; optional when copy-free>
+date_text: <reliable metadata date or exact user-supplied date; omit when unknown>
 fullbleed_typography_layout: lower-left | bottom-centered | source-aware-quiet-zone
-processed_typography_layout: centered-fixed-title-and-subtitle-bands
-processed_band_font_size: identical-for-title-and-subtitle
+processed_typography_layout: left-aligned-postcard-message-field
 typography_family: book-serif | humanist-serif | restrained-editorial-serif
-processed_typography_color: warm-white-on-black
+processed_typography_color: source-derived-dark-ink-on-paper
 upper_board_base_color: <source-semantic Robot Dreams pale base; record source mood, dominant temperature, selected family, and contrast purpose>
 fullbleed_typography_zone: <protected source-aware negative-space region>
 copy_mode: none | poetic | editorial | cinematic
 content_field_boundary: <one dominant source-semantic contour; optional one supporting contour; 3-7 major direction changes; paper-entry/exit points; subordinate edge material>
 content_field_occupancy: <target 68-82% of paper area; justified exception>
-editorial_collage_layout_landscape: {upper_board: 52%, title_band: 4%, lower_panel: 40%, subtitle_band: 4%, top_date_band: removed, panel_size_relation: upper-larger}
-editorial_collage_layout_portrait: {upper_board: 52%, title_band: 4%, lower_panel: 40%, subtitle_band: 4%, top_date_band: removed, panel_size_relation: upper-larger}
-editorial_collage_layout_square: {upper_board: 52%, title_band: 4%, lower_panel: 40%, subtitle_band: 4%, top_date_band: removed, panel_size_relation: upper-larger}
-upper_artwork_board_occupancy: 65-85%
-text_hierarchy: {date: omitted, title: upper-board-bottom-band-required, subtitle: lower-panel-bottom-band-required}
+postcard_layout_landscape: {canvas: 3:2, hero_field: upper-74%, message_field: lower-26%, stamp: lower-right-overlapping-seam}
+postcard_layout_portrait: {canvas: 2:3, hero_field: upper-68%, message_field: lower-32%, stamp: lower-right-overlapping-seam}
+postcard_layout_near_square: {direction: choose-from-exact-source-width-versus-height, canvas: 3:2-or-2:3}
+upper_artwork_board_occupancy: 45-90% (prefer 78%; lower values only when contour geometry prevents enlargement)
+stamp_scale: {landscape: approximately-20%-canvas-width, portrait: approximately-30%-canvas-width}
+text_hierarchy: {title: heading, subtitle: message, date: subordinate-and-reliable-only}
 ```
 
 ## Rule Priority
@@ -388,11 +405,11 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - Keep each large color field within one semantic region. Do not wash across architecture, sky, ground, water, people, or another major subject.
 - **Unified-sky field:** treat the entire visible sky as one continuous natural color field. Preserve one source-derived dominant hue family across the sky; allow only smooth same-family value, temperature, or atmospheric gradients and source-grounded cloud transitions. Never split an abstracted sky into multiple discrete large polygons, cut-paper blocks, ribbons, wedges, or unrelated color fields. Reserve hard-edged plane fragmentation for built structures and designed surfaces, not open sky.
 - Keep exact final lettering legible. Add it deterministically when image generation cannot render it reliably.
-- **Source-derived canvas geometry:** preserve the user's original image geometry first and adapt the poster around it. Read the source width, height, and aspect ratio before allocating any band or abstract section. The source dimensions are the composition basis; fixed `1800×3000`, `3000×1800`, `3:5`, or `5:3` master canvases are disabled. Fixed export dimensions may exist only as proportional long-edge limits, bounding caps, or metadata-failure fallbacks and must never control source-image geometry.
-- **Proportional scaling only:** never stretch, squeeze, widen, flatten, or independently scale the source on x and y. Preserve the full authored upper contour with assertive contain-style placement. The upper authored image must occupy approximately 65–85% of the upper board area, with 75% preferred, while retaining its irregular alpha contour. The lower rectangular stage must use aspect-ratio-preserving cover placement and may crop modestly and source-aware to fill its panel completely.
-- **Default four-band editorial field:** unless the user explicitly requests `fullbleed`, derive the canvas from source geometry using `52 / 4 / 40 / 4`: upper warm-paper board, black title band, lower rectangular abstraction panel, black subtitle band. Remove the date band entirely and reassign its space to the upper board. The lower artwork fills its complete panel edge-to-edge with no internal margins or letterboxing.
-- **Upper-board semantic Robot Dreams base:** choose the 52% upper board's base color from both scene meaning and source palette relationships. Diagnose scene atmosphere, dominant temperature, natural/built balance, light level, season/weather impression, and the upper artwork's largest color masses. Select one pale low-chroma Robot Dreams family—warm ivory, dusty peach, powder blue, soft lilac, or mineral sage—that supports the proposition and creates calm figure/ground separation. Prefer a restrained temperature counterpoint: cool/blue scenes may receive dusty peach; warm scenes may receive powder blue; dark or neutral structural scenes may receive warm ivory; quiet pale neutrals may receive soft lilac; bright vegetation-led scenes may receive mineral sage when it remains distinct from the artwork. This is semantic art direction, not literal average-color sampling.
-- Keep the board visually quiet and materially paper-like. It must not compete with the upper authored image, repeat its dominant hue so closely that the free edge disappears, or introduce random accent color. Preserve a subtle source echo while using Robot Dreams warm/cool logic. An explicit user color overrides automatic selection; otherwise record the chosen family and contrast purpose in the strategy record.
+- **Postcard canvas geometry:** inspect the exact source width and height. Use a `3:2` landscape postcard when width is at least height and a `2:3` portrait postcard when height is greater. This orientation decision comes from the user image; do not extend the work into a long stacked poster. Export caps may resize only the complete postcard proportionally.
+- **Proportional scaling only:** never stretch, squeeze, widen, flatten, or independently scale either generated stage. Preserve the full authored hero contour with assertive contain-style placement. Target 78% occupancy and accept 45–90% when contour geometry prevents further enlargement without clipping. Fit the extreme abstraction by proportional cover inside its small stamp frame; modest source-aware crop is allowed.
+- **Default postcard field:** unless the user explicitly requests `fullbleed`, allocate approximately 74% of a landscape canvas to the hero field and 26% to the message field; retain the portrait profile's 68/32 split when the taller message field is needed. Place the stamp-sized abstract sticker at the lower right, allowing a restrained 10–20% overlap across the hero/message seam. Never restore the lower abstraction as a full-width second panel.
+- **Postcard paper base:** choose the full card's base color from scene meaning and source palette relationships. Diagnose scene atmosphere, dominant temperature, natural/built balance, light level, season/weather impression, and the hero artwork's largest color masses. Select one visibly tinted low-chroma Robot Dreams family—warm ivory, dusty peach, powder blue, soft lilac, or mineral sage—that supports the proposition and creates calm figure/ground separation. Pure white, off-white that reads as white, and neutral near-white gray are prohibited unless the user explicitly requests a white card. Prefer a restrained temperature counterpoint: cool/blue scenes may receive dusty peach; warm scenes may receive powder blue; dark or neutral structural scenes may receive warm ivory; quiet pale neutrals may receive soft lilac; bright vegetation-led scenes may receive mineral sage when it remains distinct from the artwork. This is semantic art direction, not literal average-color sampling.
+- Keep the board visually quiet, visibly colored, materially paper-like, and intentionally structured rather than vacant. In processed mode, use one subtle darker same-family message-field tint. When the source clearly supports it, construct the whole board with exactly one source-semantic family of 2–3 broad, filled, low-contrast color masses—not substituted line art: layered colored wave fields for ocean/river/lake/harbor, filled ridge silhouettes for mountain terrain, filled compressed skyline masses for architecture-led cities, or broad overlapping leaf masses for vegetation-led scenes. Let the motif travel behind the hero and through the message field while remaining visibly subordinate and preserving copy contrast. Use `none` only when no dominant motif is reliable; it falls back to three fine postal/address guides. Never combine motif families, invent an absent landscape feature, or let the motif become a second illustration. Add one low-contrast postal cancellation mark near the sticker: two simple concentric rings plus three restrained wavy cancellation lines, partially covered by the sticker. Keep it text-free unless the user supplies exact postmark wording; never fabricate a location, postal service, or date. These marks must avoid the copy and stay materially subordinate. The board must not compete with the upper authored image, repeat its dominant hue so closely that the free edge disappears, introduce random accent color, or collapse toward white. Preserve a subtle source echo while using Robot Dreams warm/cool logic. An explicit non-white user color overrides automatic selection; otherwise record the chosen family and contrast purpose in the strategy record.
 - **Upper outer boundary:** follow the Upper Boundary Contract. Do not improvise another contour system elsewhere in the workflow.
 - **Upper-panel color-preservation lock:** implement the Upper Boundary Contract with authored RGBA or an explicit outer-contour mask. Never derive alpha from sampled color. Keep pale architecture, clouds, skin, highlights, water glints, and paper-like reconstructed planes opaque and color-identical after compositing. Compare isolated and composited RGB at matched scale; reject hue/value shift or interior deletion.
 
@@ -534,44 +551,56 @@ Use `light`, `medium`, or `strong` for upper/fullbleed intervention planning. Th
 
 ## Editorial Copy and Date
 
-1. Use exact user-provided wording whenever the user supplies fixed text. In `processed` mode, omit date copy entirely: do not create a date strip, top timing area, reserved date space, or date text inside the upper board. An explicitly requested date may appear only in `fullbleed` mode as ordinary subordinate copy.
+1. Use exact user-provided wording whenever the user supplies fixed text. In `processed` mode, treat a reliable capture date or exact user-supplied date as postcard content. Never infer or invent a date; omit it cleanly when metadata and user input do not provide one.
 2. Otherwise derive one concise title from visible subject relationships, light, movement, distance, time-of-day impression, structural axis, spatial tension, or a meaningful source-color relationship. Prefer a restrained metaphor grounded in visible evidence. Avoid generic words such as `Memory`, `Dream`, or `Moment` unless specifically justified; avoid travel-advertising language, camera terminology, grand narratives, and arbitrary location labels.
-3. In `processed` mode, default to both a 2–5 word main title and a 2–5 word subtitle. Omit both only for an explicitly copy-free result; omit one level only when the user explicitly requests one text level. In `fullbleed` mode, one main title may be the default when additional copy would weaken the artwork.
-4. In the default four-band layout, center the title in the black band below the upper board and the subtitle in the black band below the lower panel. Use exactly the same font size for both lines. If either line is too long, reduce one shared size until both fit; never shrink only one line.
+3. In `processed` mode, default to a 2–5 word heading plus one short message of up to three compact lines. A single text level or copy-free result is allowed when it better fits the user's request. In `fullbleed` mode, one main title may be the default when additional copy would weaken the artwork.
+4. Left-align heading, message, and optional date in the lower postcard content field. Keep the heading clearly larger than the message and the date smallest. Reserve the right side for the stamp sticker; do not place copy beneath it.
 5. If the user requests film-title matching or the optional cinematic-title module is justified, select only a semantically fitting released film and verify its exact title and release status. Do not imply that the photo depicts the film, actors, or filming location.
 6. Use an `elegant restrained editorial serif` by default. For architecture, city, and structural scenes use a composed book serif with stable proportions and restrained contrast. For nature, light, and lyrical scenes use a fine humanist serif with lighter visual weight. Do not default to bold commercial sans serif, advertising typography, cartoon fonts, exaggerated handwriting, decorative display fonts, or oversized all-caps.
-7. In `processed`, use restrained warm-white serif text in the two black bands. In `fullbleed`, choose a subordinate source-derived dark or light hue with sufficient contrast.
-8. In `processed`, do not reserve artwork negative space or search for text positions; the two fixed bands own typography. Reserve an artwork typography zone only in `fullbleed`.
+7. In `processed`, use restrained source-derived dark ink on the pale postcard field. In `fullbleed`, choose a subordinate source-derived dark or light hue with sufficient contrast.
+8. In `processed`, keep typography inside the dedicated lower message field. Reserve an artwork typography zone only in `fullbleed`.
 9. Apply the following placement choices only in `fullbleed`:
    - **Lower-left editorial alignment:** use when the subject or visual weight is right-biased, the composition extends horizontally, and stable lower-left space exists. Keep the text approximately 6–9% from the left and bottom edges.
    - **Bottom-centered editorial alignment:** use when the subject is near center, the building or composition has a clear central axis, the visual relation is relatively symmetrical, and stable lower space exists. Align the title with the visual axis without placing it close to the subject or abstract motif.
    - **Source-aware quiet zone:** use another position only when it has explicit support from the visual weight, axis, motif position, or eye-path exit. Never choose a corner solely because it has the lowest edge density.
-10. Keep typography clearly subordinate. At normal viewing size it must be legible but must not become the first visual entry point. Do not enlarge the title merely because the quiet area is large. Use no decorative rules, icons, fake metadata, high-contrast headline blocks, or multiple competing font families.
+10. Keep typography clearly subordinate. At normal viewing size it must be legible but must not become the first visual entry point. A single fine separator rule is allowed as postcard structure. Use no icons, fake metadata, high-contrast headline blocks, or multiple competing font families.
 
 ## Output Modes
 
-### Two-Image Collage — Default
+### Diptych — Default
 
-Unless the user explicitly requests `fullbleed` or another output mode, `processed` uses the fixed four-band editorial collage:
+Unless the user explicitly requests postcard/明信片/`processed` or `fullbleed`, compose a source-derived vertical two-stage artwork:
 
 ```text
-[ upper warm-paper board containing a non-rectangular interwoven image ]
-[ black main-title band ]
-[ lower rectangular highly abstract image ]
-[ black subtitle band ]
+[ 52% upper paper board: free-edged photographic-led partial abstraction ]
+[ black title band ]
+[ 40% full-width lower: extreme semantic abstraction ]
+[ black message band ]
 ```
 
-This is an integrated diptych with editorial text bands, not a before/after comparison, postcard, social-media grid, or two unrelated blocks. The upper panel is the primary authored image: photographic-led, source-semantic, richer, and bounded according to the Upper Boundary Contract. It is never the untouched original. The lower panel is a strict rectangle and a materially stronger abstraction of the same scene, subject, structure, or proposition. It must be a deeper abstraction layer rather than a crop, duplicate, or lightly altered copy.
+Derive the canvas height from the source height divided by the 52% upper-board fraction; do not use a fixed master canvas or stretch either stage. Use exactly `52 / 4 / 40 / 4`: upper paper board, first charcoal-black title band, lower extreme-abstraction panel, second charcoal-black message band. Center title and message in identical-sized warm-ivory type. Omit the date. Keep the upper artwork free-edged and visibly larger; fit the lower rectangle edge-to-edge with source-aware proportional cover. The lower is a complete panel in this mode, never a stamp. The postcard board motif, postal-code cells, postmark, sticker border, and postal shadow are inactive.
 
-### Editorial Collage Hierarchy
+### Postcard — Explicit Only
 
-Do not treat the stages as equally weighted stacked blocks. Use the asymmetric `52 / 4 / 40 / 4` hierarchy. Inside the 52% upper board, the authored image must occupy 65–85% of the board area, with 75% preferred. Reject timid thumbnail-like placement and edge crowding that destroys the free contour. The lower artwork must cover its complete panel edge-to-edge with preserved aspect ratio, modest source-aware cropping when needed, and no internal margins, letterboxing, stretching, or squeezing.
+Only when the user explicitly requests postcard/明信片/`processed`, use an orientation-aware postcard:
 
-The panels share the same source, proposition, semantic identities, and source-derived palette relationships, but they must use different stage-specific rendering treatments: `upper = photographic-led interweaving`; `lower = extreme semantic distillation`. The upper panel carries the main identity, landmark, and scene-reading burden. The lower panel is supporting and must not dominate.
+```text
+[ dominant upper hero: photographic-led partial abstraction ]
+[ quiet lower message field: heading, short message, optional reliable date ]
+[ lower-right stamp sticker: extreme abstraction, slightly overlapping the seam ]
+```
+
+This is one postcard composition, not a before/after comparison, diptych, social-media grid, or two unrelated blocks. The hero is the primary authored image: photographic-led, source-semantic, richer, and bounded according to the Upper Boundary Contract. It is never the untouched original. The extreme abstraction is a small rectangular sticker derived from the same scene and proposition; it must read as a secondary tactile accent rather than a competing panel.
+
+### Postcard Hierarchy
+
+Do not treat the stages as equally weighted blocks. Use a `74 / 26` hero-to-message-field hierarchy for landscape cards and retain `68 / 32` for portrait cards. Target 78% visible hero occupancy and accept 45–90% only when the authored contour prevents further enlargement without clipping. Size the stamp at approximately 20% of canvas width for landscape cards and 30% for portrait cards, add a restrained off-white border and quiet shadow, and permit only a slight seam overlap. Reject a timid hero, an oversized stamp, or a stamp that hides the copy.
+
+The hero and stamp share the same source, proposition, semantic identities, and source-derived palette relationships, but they must use different stage-specific rendering treatments: `hero = photographic-led interweaving`; `stamp = extreme semantic distillation`. The hero carries the main identity, landmark, and scene-reading burden. The stamp is supporting and must not dominate.
 
 **Original-image exclusion is non-negotiable:** the uploaded photograph is an analysis, geometry, palette, identity, and metadata reference only. It must not appear as a panel, inset, thumbnail, comparison strip, background layer, or visible source fragment in the finished poster. Both visible image sections must be newly generated or coherently edited interpretations.
 
-Before constructing this system, read `original.width` and `original.height`, compute the source aspect ratio, classify orientation, and derive the complete collage canvas from that source geometry plus relative section heights. Do not create a fixed poster canvas first and force the source into it. The upper stage preserves the source ratio, framing logic, subject placement, landmark identity, perspective, and major spatial structure through proportional contain-style scaling. The lower stage keeps the source-derived canvas ratio and semantic anchors, but may substantially recompose spatial arrangement, scale, depth, direction, negative space, and relationships between masses. Width and height parameters are export caps, not composition dimensions.
+Before constructing this system, read `original.width` and `original.height`. Select `3:2` landscape when width is at least height and `2:3` portrait otherwise. The hero preserves source ratio, framing logic, subject placement, landmark identity, perspective, and major spatial structure through proportional contain-style scaling. The stamp may substantially recompose spatial arrangement, scale, depth, direction, negative space, and relationships between masses. Width and height parameters are export caps, not composition dimensions.
 
 ### Upper Panel — Interwoven Main Image
 
@@ -586,9 +615,9 @@ The upper panel is not the untouched original photograph. Generate or edit the c
 - Build the upper outer contour exactly through the Upper Boundary Contract; do not substitute a blob, cutout, torn-paper perimeter, or distressed rectangle.
 - Preserve the main recognition anchors and allow the upper panel to carry the primary identity and landmark burden.
 
-### Lower Panel — Rectangular Extreme Abstraction
+### Stamp Sticker — Rectangular Extreme Abstraction
 
-The lower panel materially advances the same scene into **extreme semantic abstraction**. It is a strict rectangular image field reconstructed through the Canonical Abstraction Vocabulary, with `spatial-reauthoring` available. It is not required to preserve the source's original spatial pattern or literal spatial continuity. Preserve only enough source-derived semantic anchors for the lower panel to remain recognizably related to the same scene—for example, a landmark rhythm or mass, environmental direction, re-authored figure mass, ground or horizon gesture, and one or two source-specific structural relationships. These are continuity cues, not instructions to trace the original. Remove photographic microdetail almost completely.
+The stamp sticker materially advances the same scene into **extreme semantic abstraction**. It is a strict rectangular image field reconstructed through the Canonical Abstraction Vocabulary, with `spatial-reauthoring` available. Preserve only enough source-derived semantic anchors for it to remain recognizably related to the same scene. Remove photographic microdetail almost completely and simplify more aggressively than a large panel because the final reading size is small.
 
 The lower panel must not visibly contain human faces, realistic skin, detailed hands, garment construction, clothing folds, fabric texture, hair strands, or photographic shading. When a main person exists, preserve a clearly readable human silhouette, approximate body contour, pose, gesture, orientation, and head/torso/limb relationship using one or at most two flat colors across the complete figure. Do not use color changes to explain clothing hierarchy or anatomy. Never reduce the person to an unreadable blob or pure non-human mass. Secondary people become re-authored grouped marks or unified semantic masses. Seats, cushions, furniture, paving, windows, and repeated architectural detail become broad planes, omissions, or sparse lines.
 
@@ -604,17 +633,18 @@ The lower panel normally uses the `extreme` tier, stronger than `strong`: target
 
 For portrait sources, prioritize source integrity in the upper stage and poster geometry over template regularity. Mild cropping is allowed in the upper stage; do not stretch, compress, severely horizontal-crop, or unnaturally truncate a person, building, tower, tree, doorway, column, mountain, or other tall subject there. The lower abstract motif may crop, reorder, resize, or reposition these semantic masses and may alter the source's vertical axis, height hierarchy, and subject-to-blank-space relationship, provided it remains a deliberate reconstruction of the same scene rather than an unrelated image.
 
-**Orientation adaptation is non-negotiable:** keep the four-band system, but adapt panel proportions and geometry to source orientation. Portrait images must remain portrait-led compositions; landscape images may extend horizontally; near-square images should be balanced without mechanically forcing a landscape template. Never stretch or compress a panel to fit a fixed template.
+**Orientation adaptation is non-negotiable:** choose the postcard direction from the exact source dimensions. Portrait images produce `2:3` portrait cards; landscape and exactly square images produce `3:2` landscape cards. Never stretch or compress either artwork to fit.
 
-### Typography in Two-Image Collage
+### Typography in Postcard Mode
 
-Use the fixed four-band typography layout: upper warm-paper board, black main-title band, lower full-bleed panel, black subtitle band. Omit date entirely in `processed` mode; there is no date strip, date area, or reserved date space. Title and subtitle are required unless the user explicitly requests a copy-free result. Each text band is approximately 4% of the complete canvas height. Render title and subtitle at one identical font size selected to fit both strings. Typography must remain legible and subordinate.
+Use the lower message field for a short heading, one compact message, and an optional reliable date. Keep the heading and message left-aligned, dark-on-paper, and clear of the stamp. Render a supplied or reliable date as a postal-code row: one literal character per outlined square, including separators exactly as supplied. A text-free postmark may overlap the sticker edge but must never overlap copy. Use hierarchy through size and spacing rather than black bands. Typography must remain legible and subordinate.
 
 **Source geometry is non-negotiable:** preserve the user's original image geometry first; adapt the poster around it. Fixed export size may exist, but fixed composition size must not control the source image.
 
 Selectable modes:
 
-- **`processed` — default:** orientation-adaptive photographic-led partial abstraction above and stronger abstraction below.
+- **`diptych` — default:** two full-width coordinated stages with restrained editorial copy fields.
+- **`processed` — explicit postcard:** orientation-aware postcard with a dominant hero, lower message field, and stamp-sized extreme abstraction.
 - **`fullbleed` — edge-to-edge treatment:** one complete rectangular interpretation.
 
 When the user asks for a poster or processed result without specifying a mode, use `processed`.
@@ -655,7 +685,8 @@ python scripts/inspect_photo.py input.jpg
 
 Compose final files with the two generated stages. Pass `--font /path/to/font.ttf` when automatic cross-platform CJK font discovery cannot find a suitable font. Use `--background-color` to apply the strategy record's semantically selected Robot Dreams board base. If omitted, the compositor performs a deterministic source-palette fallback: cool-dominant -> dusty peach, warm-dominant -> powder blue, green-dominant -> warm ivory or mineral sage by light level, neutral-dark -> warm ivory, and neutral-light -> soft lilac, each with a subtle source echo.
 
-In default `processed`, pass both `--title` and `--subtitle`; `--date` is unsupported. Use `--copy-free` only for an explicitly copy-free request. Use `--single-text-level title` or `--single-text-level subtitle` only when the user explicitly requests one level. `--text-position` is fullbleed-only. Long Chinese or Latin titles wrap automatically up to `--max-title-lines 3`, but keep each band one or two lines maximum.
+In default `processed`, pass a short `--title`, a compact `--subtitle`, and `--date` only when the date is reliable or user supplied. Any text level may be omitted when appropriate; use `--copy-free` only for an explicitly copy-free request. `--text-position` is fullbleed-only. Long Chinese or Latin copy wraps automatically up to `--max-title-lines 3`.
+Pass `--board-motif waves|mountains|city|foliage` only after source inspection identifies that dominant semantic family. Use `--board-motif none` when the source does not support one reliably.
 
 For the lower abstract artwork, use the safest available background mode:
 
@@ -666,7 +697,7 @@ For the lower abstract artwork, use the safest available background mode:
 
 For the upper artwork, treat transparency as the implementation of the Upper Boundary Contract, never as color removal. Use either (1) model-generated RGBA with the authored semantic contour or (2) a deterministic white-foreground/black-background outer-contour mask passed with `--background-removal mask --art-mask`. Do not use `--background-removal edge-key`. Inspect the mask preview and verify that the interior is opaque, especially over identity-critical face/skin, architectural shells, clouds, and light ground planes.
 
-Default fixed four-band collage output:
+Default postcard output:
 
 ```bash
 python scripts/compose_poster.py \
@@ -675,13 +706,15 @@ python scripts/compose_poster.py \
   --upper-poster partial-abstraction.png \
   --poster strong-abstraction.png \
   --title "Exact main title" \
-  --subtitle "Short lower-band subtitle" \
+  --subtitle "Short postcard message" \
+  --date "2026.08.13" \
+  --board-motif waves \
   --output-dir outputs
 ```
 
-In `processed` mode, `--upper-poster` supplies the complete photographic-led partial abstraction and `--poster` supplies the stronger lower abstraction. The compositor uses the asymmetric fixed four-band profile: 52% upper warm-paper board, 4% black main-title band, 40% lower panel, and 4% black subtitle band. It fits the visible alpha-shaped upper artwork toward 75% board occupancy and rejects inputs that cannot reach the required 65–85% range without clipping or distortion. The lower artwork uses aspect-ratio-preserving cover placement to fill its complete rectangular field. The untouched `--original` remains the geometry and metadata authority; it is not pasted into the upper section. Use `fullbleed` when the artwork itself must define the exact rectangular canvas.
-By default, `compose_poster.py` reads the original image dimensions and derives the final canvas from them. `--width` and `--height` are optional export bounding caps only; they never define a fixed composition canvas or permit non-uniform scaling. `--export-long-edge` is an adaptive proportional output limit and defaults to `3000`; pass `--export-long-edge 0` when the uncapped source-native derived size is required.
-`--text-position` applies only to `fullbleed`. Processed typography is always centered in its fixed title and subtitle bands; do not run corner search, quiet-zone placement, or artwork-negative-space placement in `processed`.
+In `processed` mode, `--upper-poster` supplies the dominant photographic-led partial abstraction and `--poster` supplies the extreme abstraction used inside the stamp sticker. The compositor selects a `3:2` landscape or `2:3` portrait card from the source orientation, assigns 74/26 to a landscape hero/message field and 68/32 to portrait, and fits the visible alpha-shaped hero toward 78% occupancy. The stamp uses proportional cover inside its bordered frame. The untouched `--original` remains the geometry and metadata authority; it is not pasted into the card. Use `fullbleed` when the artwork itself must define the exact rectangular canvas.
+By default, `compose_poster.py` reads the original image dimensions to choose postcard orientation. `--width` and `--height` are optional export bounding caps only; they never permit non-uniform scaling. `--export-long-edge` defaults to `3000`; pass `--export-long-edge 0` when the uncapped derived size is required.
+`--text-position` applies only to `fullbleed`. Processed typography stays left-aligned in the lower postcard message field and clear of the stamp.
 
 ## Quality Gate
 
@@ -697,7 +730,7 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`C04 sky-fragmentation`:** upper sky loses its continuous source-neighbor atmospheric field, or lower sky loses recognizable environmental association under source-derived semantic color relationships. Lower need not preserve literal same-family local color.
 - **`C03 accent-scatter`:** the source-derived echo color is concentrated, visible, and subordinate.
 - **`C05 weak-palette-separation`:** upper fails to improve separation through coherent built-region interventions while protecting source-neighbor natural hues, or lower fails semantic separation within its Robot Dreams hierarchy.
-- **`C06 upper-board-base-misfire` (blocking):** the upper board base ignores scene semantics, lacks a source-derived relationship, competes with the authored image, collapses the free-edge contrast, or uses a saturated/random color outside the restrained Robot Dreams pale families. Re-select a quiet warm ivory, dusty peach, powder blue, soft lilac, or mineral sage base with a documented semantic and contrast purpose.
+- **`C06 upper-board-base-misfire` (blocking):** the upper board base ignores scene semantics, lacks a source-derived relationship, competes with the authored image, collapses the free-edge contrast, reads as pure/near white without an explicit user request, or uses a saturated/random color outside the restrained Robot Dreams pale families. Re-select a visibly tinted warm ivory, dusty peach, powder blue, soft lilac, or mineral sage base with a documented semantic and contrast purpose.
 - **`C07 upper-architecture-reconstruction-color-collapse` (blocking):** the upper hero reconstruction uses a color too close to the retained photographic building tone, so the real/abstract partition is not immediately legible. Recolor the complete reconstruction zone with a coherent family that creates strong hue, value, or temperature separation without introducing random neon, breaking source light direction, weakening architectural identity, or contaminating protected natural/living hues.
 - **`L01 upper-landmark-generic`:** the upper hero loses decisive identifiers or its reconstructed portion no longer derives from the source recognition skeleton. Lower is evaluated by semantic identity and minimum recognition skeleton, not the upper 55/45 balance.
 - **`L02 hierarchy-conflict` (blocking):** one dominant hero building remains unmistakable. Every upper supporting building must be a quiet silhouette or simplified structural abstraction, materially quieter and lower-contrast than the hero. Any visible photographic window, façade texture, roof or masonry microdetail, or individually readable repetitive detail in upper secondary architecture fails this gate; blur, grading, desaturation, distance, or small scale do not make photographic retention compliant.
@@ -738,8 +771,8 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`M09 upper-hero-selection-failure`:** no upper hero is identified by source dominance or compositional harmony when architecture is present.
 - **`M04 robot-dreams-auto-misfire`:** for upper automatic palette selection, Robot Dreams lacks sufficient built/design levers, weakens source truth, or fails its comparison against `shifted`. Lower Robot Dreams is mandatory and is instead evaluated by `X09` for coherent source-derived semantic color relationships.
 - **`T01 copy-generic`:** original copy is specific to the source and proposition; quotations and cinematic references are verified.
-- **`T02 typography-failure`:** in processed, title and subtitle are exact, centered, legible, refined, subordinate warm-white serif copy at exactly the same font size inside their dedicated black bands; if fitting is necessary, reduce one shared size rather than either line independently. No date or artwork-position search is permitted. In fullbleed, keep selected copy subordinate and source-aware without covering critical evidence.
-- **`O01 wrong-mode`:** processed two-image collage and fullbleed deliveries follow their respective composition rules.
+- **`T02 typography-failure`:** in processed, exact copy is legible, refined, subordinate, dark-on-paper, left-aligned in the message field, and clear of the stamp. Date appears only when reliable or user supplied and is rendered one literal character per postal-code square. Any postmark remains text-free unless exact wording is supplied and never overlaps copy. In fullbleed, keep selected copy subordinate and source-aware without covering critical evidence.
+- **`O01 wrong-mode`:** processed postcard and fullbleed deliveries follow their respective composition rules.
 - **`O03 semantic-boundary-failure`:** the upper architectural reconstruction boundary or other authored content boundary is generic, arbitrary, or unrelated to source geometry and structure. The lower panel itself remains a complete rectangle; its internal abstraction must still express the scene's dominant structure.
 - **`O14 original-panel-retention` (blocking):** the untouched source photograph appears anywhere in the finished composition as a panel, inset, thumbnail, comparison strip, background, or visible source fragment. Remove it and restore exactly two visible generated stages: photographic-led partial abstraction above and stronger abstraction below.
 - **`X01 panel-redundancy`:** the lower panel is too similar to the upper panel in structure, abstraction depth, or visual role.
@@ -750,22 +783,22 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`X15 lower-primary-person-color-oversegmentation` (blocking):** the lower primary person uses more than two colors, gradients or tonal modeling, or assigns different colors to clothing layers, skin, limbs, torso, joints, or anatomical structure. Collapse the complete figure to one or two flat colors and recover readability through silhouette and pose rather than internal color separation.
 - **`X09 lower-panel-robot-dreams-palette-failure` (blocking):** the lower panel does not use a coherent 4–6 color `robot-dreams-logic` system with warm/cool hierarchy, softened colors, 2–3 value steps, charcoal/deep blue instead of pure black, and at most one concentrated accent. Rebuild the palette through complete semantic masses.
 - **`X05 diptych-incoherence`:** the two panels do not feel like one unified poster or one shared proposition.
-- **`X06 processed-copy-placement-failure`:** processed title or subtitle leaves its dedicated black band, is not centered, or is replaced by quiet-zone/corner placement. A missing level fails unless the user explicitly requested copy-free or one-level copy.
-- **`X07 role-reversal`:** the lower panel dominates the composition or the upper panel fails to remain the primary visual entry point.
-- **`X10 excessive-band-or-gap`:** a text strip becomes a large empty area, an unintended gap appears between a panel and its adjacent text band, or any top date/timing space remains. Keep title and subtitle bands at 4%, attach them directly to their panels, use a 52% upper board and 40% lower panel, and reject internal lower-panel margins.
-- **`X11 asymmetric-panel-hierarchy-failure` (blocking):** the upper board is not 52% and visibly larger than the 40% lower panel, the removed date-band space is not absorbed into the upper board, or the composition reads as a mechanical 1:1 split. Restore the `52 / 4 / 40 / 4` hierarchy without distorting either artwork.
-- **`X13 lower-panel-full-bleed-failure` (blocking):** the lower rectangular artwork does not cover its complete panel edge-to-edge, contains internal margins or letterboxing, or is stretched/squeezed. Refit it with aspect-ratio-preserving cover placement and modest source-aware cropping.
-- **`X14 upper-authored-image-underoccupancy` (blocking):** the visible alpha-shaped upper artwork occupies less than 65% or more than 85% of its 52% board, feels like a timid floating insert, or is enlarged through clipping, stretching, or rectangularization. Refit toward 75% visible board occupancy while preserving the complete irregular contour and proportional geometry.
+- **`X06 processed-copy-placement-failure`:** processed copy leaves the lower message field, collides with the stamp, loses left alignment, or uses a fabricated date.
+- **`X07 role-reversal`:** the stamp dominates the composition or the hero fails to remain the primary visual entry point.
+- **`X10 postcard-spacing-failure`:** the message field becomes cramped or excessively empty, the seam reads as a heavy band, or the stamp blocks copy. Restore the orientation-specific 74/26 landscape or 68/32 portrait relationship, add only the permitted low-contrast postal field structure when needed, and preserve restrained seam overlap.
+- **`X11 postcard-hierarchy-failure` (blocking):** the composition reads as a stacked diptych, the extreme abstraction returns to a full-width panel, or the stamp is not clearly subordinate. Restore the dominant hero plus small corner-sticker hierarchy.
+- **`X13 stamp-fit-failure` (blocking):** the abstract artwork is stretched, squeezed, letterboxed, or clipped by its border. Refit it with aspect-ratio-preserving cover placement and modest source-aware cropping.
+- **`X14 upper-authored-image-underoccupancy` (blocking):** the visible alpha-shaped hero occupies less than 45% or more than 90% of its field, feels timid despite available enlargement room, or is enlarged through clipping, stretching, or rectangularization. Refit toward 78% visible occupancy while preserving the complete irregular contour and proportional geometry.
 - **`X12 upper-alpha-color-shift` (blocking):** the upper panel changes hue/value after being placed in the collage, or pale interior artwork (warm ivory architecture, clouds, highlights, skin, or paper planes) becomes transparent/gray because a sampled background color was keyed out. Rebuild the alpha from the authored outer contour only, use an explicit mask or true RGBA generation, and compare isolated versus composited RGB before delivery. Never repair this by recoloring the whole upper panel.
 - **`O06 upper-boundary-contract-failure` (blocking):** the upper contour is a random blob, generic torn-paper shape, full-object cutout, noisy micro-contour, arbitrary crop, or color-key-derived alpha; or it cannot be explained by one dominant and at most one supporting source-semantic contour with 3–7 major directional changes. Rebuild only the boundary from source geometry without redesigning the upper composition. The lower panel remains a strict rectangle.
 - **`O15 upper-boundary-overtracing` (blocking):** the upper alpha follows leaves, hair, windows, railings, pedestrians, animals, furniture, ornaments, or other small-object silhouettes. Remove micro-contours and restore one calm scene-level field.
 - **`O16 upper-boundary-source-disconnection` (blocking):** the contour's entry, exit, dissolution, or major turns cannot be traced to roofline/façade, ridge/slope, shoreline/current, canopy/branch fall, cloud-bank flow, road/ground perspective, or primary pose/contact-ground evidence in the source.
-- **`O07 orientation-adaptive-collage-failure` (blocking):** the two-image collage ignores source orientation, flattens portrait subjects, severely crops tall anchors, or forces either panel into a rigid template.
-- **`O08 fixed-band-role-inconsistency` (blocking):** default `processed` output does not use the fixed four-band order and proportions—52% upper warm-paper board, 4% black main-title band, 40% full-bleed lower panel, and 4% black subtitle band—or retains any date band/date area, misplaces a band, or allows text to drift into an image panel.
+- **`O07 orientation-adaptive-postcard-failure` (blocking):** the card direction ignores source orientation, flattens portrait subjects, severely crops tall anchors, or chooses a portrait card for a landscape source or vice versa.
+- **`O08 postcard-role-inconsistency` (blocking):** default `processed` output lacks the dominant upper hero, lower message field, or lower-right stamp sticker; or allows text and sticker to collide.
 - **`F01 major-content-fabrication` (blocking):** a person, major object, building, landmark structure, or natural feature cannot be traced to visible source evidence or an explicit user request. Remove or regenerate it; never retain invented content for composition, symbolism, or aesthetics.
 - **`F02 unsupported-person-replacement` (blocking):** the primary person changes semantic identity, age/gender presentation, source-related pose/gesture/orientation, interaction, clothing category, or is replaced, multiplied, or given unsupported accessories. Enforce strict position and facial identity in upper; permit lower spatial re-authoring and facial removal under the Stage Contract.
 - **`F03 unsupported-structure-completion` (blocking):** architecture, anatomy, landscape, text, signage, or objects hidden, cropped, blurred, or ambiguous are confidently completed with unsupported detail. Simplify, omit, use negative space, or leave incomplete marks instead.
-- **`O09 source-geometry-distortion` (blocking):** the complete poster canvas and upper stage must preserve the original aspect ratio and source framing logic. Reject non-uniform x/y scaling, stretching, squeezing, widening, flattening, or fixed-placeholder fitting in the canvas and upper stage. The lower stage may use source-aware crop, recomposition, spatial rearrangement, scale shifts, altered depth ordering, and a different perspective emphasis when these serve the artistic proposition; it must retain semantic relation to the source rather than becoming unrelated imagery.
+- **`O09 source-geometry-distortion` (blocking):** the hero must preserve source framing logic and both generated stages must preserve proportional geometry. The postcard canvas may normalize to `3:2` or `2:3`, but reject non-uniform x/y scaling, stretching, squeezing, widening, or flattening. The stamp stage may use source-aware crop and spatial reconstruction while remaining semantically related to the source.
 - **`O11 upper-stage-untouched` (blocking):** the upper section is merely the original photograph or differs only through minor grading, contrast, saturation, texture overlay, or white balance. Regenerate it as a coherent photographic-led partial abstraction.
 - **`O12 stage-progression-failure` (blocking):** the lower section is not materially more abstract than upper, either stage violates its rendering contract, or semantic identity/source-derived relationships no longer connect them. Different spatial organization and rendering vocabulary are expected and must not fail by themselves.
 - **`O13 upper-stage-overabstraction` (blocking):** the upper section loses photographic dominance, facial/landmark recognition, natural light logic, material depth, or source framing and reads as equally flat or abstract as the lower section.

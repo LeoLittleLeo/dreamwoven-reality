@@ -1,6 +1,8 @@
 # Visual Direction Reference
 
-`SKILL.md` owns all hard workflow, stage, layout, geometry, typography, and rule-priority requirements. This file elaborates visual direction only. If it differs from `SKILL.md`, `SKILL.md` wins. The guidance below is synchronized to the current Stage Contract; do not revive older equal-panel, date-band, quiet-zone processed typography, or shared-treatment rules.
+`SKILL.md` owns all hard workflow, stage, layout, geometry, typography, and rule-priority requirements. This file elaborates visual direction only. If it differs from `SKILL.md`, `SKILL.md` wins. The guidance below is synchronized to the current Stage Contract. Use the current source-derived diptych contract, never a rigid legacy fixed-band template or shared rendering treatment.
+
+The current default is the source-derived `52 / 4 / 40 / 4` editorial diptych defined by the Output Mode Priority Contract in `SKILL.md`: larger upper paper board with free-edged upper stage, black centered-title band, full-width lower stage, and black centered-message band. It has no date. Treat every postcard-specific direction below as conditional on an explicit postcard/明信片/`processed` request.
 
 ## Contents
 
@@ -61,7 +63,7 @@ Plan 3–6 unequal semantic masses and keep each color field inside its subject.
 
 For upper hero architecture, make the reconstructed zone clearly different from the retained photographic building tone. Use strong hue, value, or temperature separation across the complete reconstructed region so the real/abstract division reads immediately. Do not use near-matching local color, scattered accent patches, or arbitrary neon; preserve source light direction, structural credibility, architectural identity, and protected natural/living hues.
 
-Choose the upper board base through scene semantics plus Robot Dreams color logic. Diagnose atmosphere, dominant temperature, light level, natural/built balance, season/weather impression, and the largest upper color masses. Select one quiet pale family that separates the free-edged artwork without competing with it: warm ivory for dark/neutral structural scenes; dusty peach as a counterpoint to cool/blue scenes; powder blue against warm scenes; soft lilac for pale neutral or reflective scenes; mineral sage for bright vegetation-led scenes only when it remains distinct from the foliage. Keep chroma low, retain a subtle source echo, and record the semantic and contrast reason. Avoid literal average-color matching, random accents, and a board hue so similar to the upper artwork that its contour disappears.
+Choose the upper board base through scene semantics plus Robot Dreams color logic. Diagnose atmosphere, dominant temperature, light level, natural/built balance, season/weather impression, and the largest upper color masses. Select one visibly tinted quiet family that separates the free-edged artwork without competing with it: warm ivory for dark/neutral structural scenes; dusty peach as a counterpoint to cool/blue scenes; powder blue against warm scenes; soft lilac for pale neutral or reflective scenes; mineral sage for bright vegetation-led scenes only when it remains distinct from the foliage. Keep chroma low but perceptible, retain a subtle source echo, and record the semantic and contrast reason. Reject pure white, off-white that reads as white, and neutral near-white gray unless explicitly requested. Avoid literal average-color matching, random accents, and a board hue so similar to the upper artwork that its contour disappears.
 
 Use an echo color only when it supports structure or proposition. Recolor complete semantic regions rather than scattering accents. Avoid random neon, indiscriminate hue rotation, skin contamination, copied film frames, or palette choices unrelated to source light/material/atmosphere.
 
@@ -88,19 +90,18 @@ In upper, fully abstract disposable seating/support fixtures and retain zero pho
 Use exactly:
 
 ```text
-[ 52% upper warm-paper board with free-edged partial abstraction ]
-[  4% black centered main-title band ]
-[ 40% lower full-bleed rectangular extreme abstraction ]
-[  4% black centered subtitle band ]
+[ 74% landscape hero field (68% portrait) with free-edged partial abstraction ]
+[ 26% landscape message field (32% portrait) with left-aligned copy/date ]
+[ lower-right bordered stamp sticker containing extreme abstraction ]
 ```
 
-There is no date band or processed date copy. The upper visible alpha-shaped artwork occupies 65–85% of its board, with 75% preferred. Preserve the complete contour created under the Upper Boundary Contract without stretching, clipping, rectangularization, or color-key removal. Fit lower by proportional cover with modest source-aware crop and no margins or letterboxing.
+Choose `3:2` landscape when source width is at least height and `2:3` portrait otherwise. Target 78% hero occupancy and accept 45–90% when contour geometry prevents safe enlargement. Preserve its complete contour without stretching, clipping, rectangularization, or color-key removal. Fit the extreme abstraction by proportional cover inside a stamp sized at about 20% of card width in landscape or 30% in portrait. Let it overlap the hero/message seam slightly, never the copy.
 
 Derive the complete canvas from source dimensions, aspect ratio, and orientation. Never use a fixed `1800x3000`, `3000x1800`, `3:5`, or `5:3` master canvas; never stretch or squeeze.
 
 ## Typography
 
-Processed defaults to both title and subtitle unless the user explicitly requests copy-free output or one text level. Center warm-white restrained editorial serif copy inside the two black bands. Title and subtitle use exactly the same font size; when one line is longer, reduce one shared size until both fit rather than shrinking either line independently. Do not search artwork corners, reserve quiet zones, place copy beside panels, use left alignment, or add dates in processed.
+Processed defaults to a short heading and compact message. Add a date only when metadata is reliable or the user supplies it, and render the exact date one character per outlined postal-code square. Left-align restrained editorial serif copy in dark source-derived ink on a subtly tinted message field, with clear size hierarchy and enough room for the stamp. Derive one broad colored-mass family from dominant source evidence across the whole board: 2–3 layered filled wave fields for water-led scenes, filled ridge silhouettes for mountains, compressed filled skyline masses for city scenes, or broad overlapping leaf masses for vegetation-led scenes. These are low-contrast color fields, not replacement line patterns. Use plain postal guides only when no motif is reliable. Never mix motif families or add a feature absent from the source. Add one text-free, low-contrast postmark near the sticker using two concentric rings and three wavy cancellation lines, partially hidden behind the sticker; never fabricate location or date text. Omit unknown dates rather than inventing them.
 
 Only `fullbleed` may use source-aware negative-space placement, including `--text-position`. Keep fullbleed copy subordinate and use the same restrained editorial serif direction.
 
@@ -121,8 +122,8 @@ lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
 lower_primary_person: <readable abstract silhouette using one or at most two flat colors; no clothing/body color segmentation; or none>
 lower_architecture: <minimum skeleton plus extreme reconstruction or none>
 lower_robot_dreams_palette: [<4-6 semantic colors and warm/cool roles>]
-processed_layout: 52/4/40/4-no-date
-upper_board_occupancy: 65-85-percent-prefer-75
+processed_layout: orientation-aware-3:2-landscape-74/26-or-2:3-portrait-68/32-hero-message-plus-stamp
+upper_board_occupancy: 45-90-percent-prefer-78
 ```
 
 ## Targeted Corrections
@@ -135,5 +136,5 @@ upper_board_occupancy: 65-85-percent-prefer-75
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
 - If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.
 - If lower architecture is being judged by 55/45, remove that scope error and evaluate semantic identity plus extreme reconstruction.
-- If processed typography enters artwork or uses left/quiet-zone placement, return it to centered black bands.
-- If any date area, equal-panel system, or top seam appears, restore `52 / 4 / 40 / 4`.
+- If processed typography collides with the stamp or enters the hero field, return it to the left side of the lower message field.
+- If the composition becomes a long stacked diptych or the stamp grows into a second panel, restore the orientation-specific 74/26 landscape or 68/32 portrait hierarchy and small corner-sticker scale.
