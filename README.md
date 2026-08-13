@@ -1,9 +1,9 @@
-# Interweave Photo Abstraction
+# Dreamwoven Reality
 
 > **虚实交织影像**
 > 一个用于将真实照片转化为「摄影 × 抽象」编辑式视觉作品的 Codex Skill。
 
-Interweave Photo Abstraction 不是简单的滤镜、风格迁移或“一键插画化”工具。
+Dreamwoven Reality 不是简单的滤镜、风格迁移或“一键插画化”工具。
 
 它尝试解决的是另一个问题：
 
@@ -284,20 +284,20 @@ Skill 提供三种主要抽象等级：
 将 Skill 安装到 Codex 的 Skills 目录后，即可在任务中调用：
 
 ```text
-$interweave-photo-abstraction
+$dreamwoven-reality
 ```
 
 例如：
 
 ```text
-Use $interweave-photo-abstraction to transform this photo into an
+Use $dreamwoven-reality to transform this photo into an
 ordered real/abstract editorial poster.
 ```
 
 也可以直接描述你希望的抽象程度：
 
 ```text
-Use $interweave-photo-abstraction.
+Use $dreamwoven-reality.
 
 Abstraction strength: medium.
 
@@ -311,7 +311,7 @@ photography, structural linework, and abstract color planes.
 ## 项目结构
 
 ```text
-interweave-photo-abstraction/
+dreamwoven-reality/
 │
 ├── SKILL.md
 │
@@ -477,7 +477,7 @@ interweave-photo-abstraction/
 
 **LeoLittleLeo**
 
-Interweave Photo Abstraction / 虚实交织影像
+Dreamwoven Reality / 梦织现实
 
 > Reality remains visible.
 > Abstraction becomes structural.

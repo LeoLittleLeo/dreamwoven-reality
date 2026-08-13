@@ -1,9 +1,9 @@
 ---
-name: interweave-photo-abstraction
+name: dreamwoven-reality
 description: "Transform user-supplied photographs into two-stage editorial posters with an upper photographic-led partial abstraction and a lower extreme semantic abstraction. Keep the original as analysis and geometry authority only; never show it as a panel. Preserve an upper primary face at about 95% perceptual fidelity without source-person compositing, while reducing the lower primary person to a readable abstract silhouette. Use for photo posterization, virtual/real contrast, colored architectural sketch deconstruction, controlled palettes, paper-field posters, and full-bleed interpretations."
 ---
 
-# Interweave Photo Abstraction
+# Dreamwoven Reality
 
 > **License notice:** This skill is licensed for personal, non-commercial use only. Whenever the skill, a modified version, or work materially created with it is published or shared, credit **LeoLittleLeo** and link to the [original GitHub repository](https://github.com/LeoLittleLeo/interweave-photo-abstraction). Commercial use is prohibited. See [LICENSE](LICENSE) for the complete terms.
 
