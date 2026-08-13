@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import argparse
 import platform
+import sys
 from collections import deque
-from datetime import date
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps, ImageStat
@@ -28,9 +28,9 @@ FONT_CANDIDATES = {
 }
 POSITIONS = ("top-left", "top-right", "bottom-left", "bottom-right")
 ORIENTATION_PROFILES = {
-    "landscape": {"panel_fraction": 0.44, "band_fraction": 0.04},
-    "portrait": {"panel_fraction": 0.44, "band_fraction": 0.04},
-    "near-square": {"panel_fraction": 0.44, "band_fraction": 0.04},
+    "landscape": {"upper_panel_fraction": 0.52, "lower_panel_fraction": 0.40, "band_fraction": 0.04},
+    "portrait": {"upper_panel_fraction": 0.52, "lower_panel_fraction": 0.40, "band_fraction": 0.04},
+    "near-square": {"upper_panel_fraction": 0.52, "lower_panel_fraction": 0.40, "band_fraction": 0.04},
 }
 
 
@@ -81,6 +81,11 @@ def fit_source_contain(image: Image.Image, size: tuple[int, int], ground: tuple[
     return layer
 
 
+def fit_source_cover(image: Image.Image, size: tuple[int, int]) -> Image.Image:
+    """Proportionally cover the complete target, allowing centered cropping without distortion."""
+    return cover(image.convert("RGB"), size)
+
+
 def source_derived_canvas(
     original: Image.Image,
     mode: str,
@@ -93,9 +98,11 @@ def source_derived_canvas(
     if mode == "fullbleed":
         raw_width, raw_height = original.size
     else:
-        photo_fraction = ORIENTATION_PROFILES[orientation]["panel_fraction"]
+        upper_fraction = ORIENTATION_PROFILES[orientation]["upper_panel_fraction"]
         raw_width = original.width
-        raw_height = round(original.height / photo_fraction)
+        # The source-derived upper panel is the geometry authority. The complete
+        # canvas then follows the asymmetric 52/4/40/4 editorial hierarchy.
+        raw_height = round(original.height / upper_fraction)
 
     limits = [1.0]
     if width_cap:
@@ -270,6 +277,34 @@ def artwork_layer(artwork: Image.Image, size, removal: str, mask_path: Path | No
     return art.convert("RGB"), edge_key_mask(art.convert("RGB"), feather)
 
 
+def fit_upper_authored_image(
+    artwork: Image.Image,
+    board_size: tuple[int, int],
+    target_occupancy: float = 0.75,
+) -> tuple[Image.Image, Image.Image, float]:
+    """Fit an RGBA authored image by visible alpha area, preserving its free contour."""
+    source = artwork.convert("RGBA")
+    source_alpha = source.getchannel("A")
+    bbox = source_alpha.getbbox()
+    if not bbox:
+        raise ValueError("upper authored image has no visible alpha content")
+    source = source.crop(bbox)
+    source_alpha = source_alpha.crop(bbox)
+
+    alpha_area = sum(ImageStat.Stat(source_alpha).sum) / 255.0
+    board_area = board_size[0] * board_size[1]
+    desired_scale = (target_occupancy * board_area / max(alpha_area, 1.0)) ** 0.5
+    fit_scale = min(board_size[0] / source.width, board_size[1] / source.height)
+    scale = min(desired_scale, fit_scale)
+    fitted_size = (max(1, round(source.width * scale)), max(1, round(source.height * scale)))
+
+    fitted = source.resize(fitted_size, Image.Resampling.LANCZOS)
+    fitted_alpha = fitted.getchannel("A")
+    visible_area = sum(ImageStat.Stat(fitted_alpha).sum) / 255.0
+    occupancy = visible_area / board_area
+    return fitted.convert("RGB"), fitted_alpha, occupancy
+
+
 def build_copy(font_path, title, subtitle, date_text, max_width, scale, max_title_lines):
     title_font, title_lines = fit_wrapped(font_path, title, max_width, round(scale * 0.052), max_title_lines)
     subtitle_font, subtitle_lines = fit_wrapped(font_path, subtitle, max_width, round(scale * 0.020), 3, max(0, round(scale / 900)))
@@ -308,8 +343,8 @@ def main() -> None:
     parser.add_argument("--poster", required=True, type=Path, help="strong lower abstraction without final typography")
     parser.add_argument("--title", default="")
     parser.add_argument("--subtitle", default="")
-    parser.add_argument("--date", dest="date_text", default=None, help="explicit date text; processed mode defaults to today's date")
-    parser.add_argument("--no-date", action="store_true")
+    parser.add_argument("--date", dest="date_text", default=None, help="optional fullbleed copy; unsupported in processed mode")
+    parser.add_argument("--no-date", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--text-position", choices=("auto", "lower-left", "bottom-centered", "source-aware-quiet-zone") + POSITIONS, default="auto")
     parser.add_argument("--max-title-lines", type=int, default=3)
     parser.add_argument("--background-removal", choices=("alpha", "edge-key", "none", "mask"), default="alpha")
@@ -330,6 +365,8 @@ def main() -> None:
     if args.mode == "processed":
         if not args.upper_poster:
             parser.error("processed mode requires --upper-poster")
+        if args.date_text:
+            parser.error("processed mode has no date band or date copy; remove --date")
         if Image.open(args.upper_poster).mode not in ("RGBA", "LA"):
             parser.error("processed mode requires --upper-poster with an alpha channel for the non-rectangular upper panel")
         required_paths.append(args.upper_poster)
@@ -344,7 +381,7 @@ def main() -> None:
     artwork_source = Image.open(args.poster)
     original = original_source.convert("RGB")
     artwork = artwork_source.convert("RGB")
-    date_text = "" if args.no_date else (args.date_text or (date.today().strftime("%Y.%m.%d") if args.mode == "processed" else ""))
+    date_text = "" if args.no_date else (args.date_text or "")
     has_copy = bool(args.title or args.subtitle or date_text)
     font_path = find_font(args.font) if has_copy else None
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -377,54 +414,49 @@ def main() -> None:
         draw = ImageDraw.Draw(canvas)
 
         profile = ORIENTATION_PROFILES[orientation]
-        panel_h = round(paper_height * profile["panel_fraction"])
         band_h = max(1, round(paper_height * profile["band_fraction"]))
-        upper_h = panel_h
-        lower_h = panel_h
+        upper_h = round(paper_height * profile["upper_panel_fraction"])
+        lower_h = round(paper_height * profile["lower_panel_fraction"])
         title_band_h = band_h
         subtitle_band_h = band_h
-        date_band_h = paper_height - upper_h - lower_h - title_band_h - subtitle_band_h
-        if date_band_h <= 0:
-            parser.error("source-derived canvas leaves no room for the fixed five-band layout")
+        residual_h = paper_height - upper_h - lower_h - title_band_h - subtitle_band_h
+        upper_h += residual_h
 
-        # The upper artwork must carry an authored alpha contour; the lower panel is
-        # always a complete rectangle.
+        # Top-free / bottom-stable hierarchy: the larger upper stage keeps its
+        # complete authored alpha contour, while the lower stage is full-bleed.
         upper_box = (paper_width, upper_h)
-        upper_art, upper_mask = artwork_layer(upper_artwork_source, upper_box, "alpha", None, max(8, paper_width // 110))
+        upper_art, upper_mask, upper_occupancy = fit_upper_authored_image(upper_artwork_source, upper_box)
+        if not 0.65 <= upper_occupancy <= 0.85:
+            parser.error(
+                "upper authored image occupies "
+                f"{upper_occupancy:.1%} of its board; provide a fuller free-edged RGBA artwork "
+                "so visible occupancy can reach 65%-85% without clipping or distortion"
+            )
         upper_x = (paper_width - upper_art.width) // 2
-        upper_y = date_band_h
+        upper_y = (upper_h - upper_art.height) // 2
         canvas.paste(upper_art, (upper_x, upper_y), upper_mask)
 
-        title_y = date_band_h + upper_h
+        title_y = upper_h
         lower_y = title_y + title_band_h
-        lower_art = fit_source_contain(artwork_source.convert("RGB"), (paper_width, lower_h), ground)
+        lower_art = fit_source_cover(artwork_source, (paper_width, lower_h))
         canvas.paste(lower_art, (0, lower_y))
 
         subtitle_y = lower_y + lower_h
         black = (28, 28, 28)
         canvas.paste(Image.new("RGB", (paper_width, title_band_h), black), (0, title_y))
         canvas.paste(Image.new("RGB", (paper_width, subtitle_band_h), black), (0, subtitle_y))
-        # The date strip is a dedicated warm-white editorial band, independent
-        # of the source-derived paper ground used around the authored upper edge.
-        date_band_color = (246, 238, 220)
-        canvas.paste(Image.new("RGB", (paper_width, date_band_h), date_band_color), (0, 0))
-
         if args.mask_preview:
             upper_mask.save(args.output_dir / f"{base}-upper-mask.png")
         if has_copy and font_path:
             ink = args.text_color or (244, 239, 226)
-            dark = args.text_color or (44, 42, 38)
             title_font, title_lines = fit_wrapped(font_path, args.title, round(paper_width * 0.82), max(12, round(title_band_h * 0.58)), args.max_title_lines)
             subtitle_font, subtitle_lines = fit_wrapped(font_path, args.subtitle, round(paper_width * 0.82), max(12, round(subtitle_band_h * 0.42)), 2)
-            date_font = ImageFont.truetype(str(font_path), max(12, round(date_band_h * 0.44)))
 
             def centered(draw_obj, text_value, font_obj, y, fill):
                 bbox = draw_obj.textbbox((0, 0), text_value, font=font_obj)
                 x = (paper_width - (bbox[2] - bbox[0])) // 2
                 draw_obj.text((x, y), text_value, font=font_obj, fill=fill)
 
-            if date_text:
-                centered(draw, date_text, date_font, max(1, (date_band_h - date_font.size) // 2 - 2), dark)
             if args.title:
                 line = title_lines[0] if title_lines else args.title
                 centered(draw, line, title_font, max(1, title_y + (title_band_h - title_font.size) // 2 - 3), ink)
@@ -433,6 +465,7 @@ def main() -> None:
                 centered(draw, line, subtitle_font, max(1, subtitle_y + (subtitle_band_h - subtitle_font.size) // 2 - 2), ink)
         output = args.output_dir / f"{base}-processed.png"
         canvas.save(output)
+        print(f"upper authored-image occupancy: {upper_occupancy:.1%}", file=sys.stderr)
         print(output.resolve())
         return
 
