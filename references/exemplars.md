@@ -15,7 +15,7 @@ Route here when architecture is seen through a window, doorway, arch, passage, l
 
 Use it to verify:
 
-- architectural framing remains source-grounded and any sketch treatment follows the visible building's own Chinese/East Asian or Western visual language;
+- architectural framing remains source-grounded and any reconstruction derives from the visible building's recognition skeleton;
 - the hero architecture remains unmistakable through decisive silhouette and a calm recognition core;
 - windows and room planes act as spatial thresholds instead of rectangular photo frames pasted into an illustration;
 - interior fixtures and support surfaces reduce to broad abstract planes with zero photographic material;
@@ -39,12 +39,12 @@ Use it to verify:
 
 - each tree or connected botanical subject is wholly photographic or wholly abstract from roots through trunk, branches, and crown;
 - a grove cluster shares one coherent botanical language instead of mixing photographic trunks with painted foliage;
-- sparse charcoal structure and broad matte planes remain visually distinct but limited to one primary and one supporting medium;
+- structural distillation and planar replacement remain visually distinct but limited to one primary and one supporting canonical operation;
 - architecture retains its source location while repetitive façade detail is compressed;
 - the content boundary follows canopy fall, branch spread, root/ground contact, and slope rather than a generic cutout;
 - one warm built mass can separate protected sky and vegetation without scattering accent color.
 
-Do not copy the orange building, tree arrangement, or exact charcoal density unless the new source supports them.
+Do not copy the orange building, tree arrangement, or exact mark density unless the new source supports them.
 
 ## Exemplar Discipline
 

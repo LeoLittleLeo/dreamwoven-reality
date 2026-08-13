@@ -22,7 +22,7 @@
 
 Use one source and one semantic scene with two deliberately different rendering contracts:
 
-- **Upper:** photographic-led partial abstraction; strict source geometry; approximately 95% perceptual fidelity for the primary face; upper hero architecture approximately 55% photographic plus 45% visibly colored partial sketch; free-edged alpha contour.
+- **Upper:** photographic-led partial abstraction; strict source geometry; default 45–60% material reconstruction; approximately 95% perceptual fidelity for the primary face; upper hero architecture approximately 55% photographic plus 45% skeleton-driven reconstruction; free-edged alpha contour.
 - **Lower:** 85–100% non-photographic semantic distillation; spatial re-authoring allowed; no realistic face or skin; readable abstract primary-person silhouette; extreme architectural reconstruction; strict rectangle; mandatory `robot-dreams-logic` palette.
 
 Preserve semantic identity across stages. Do not preserve rendering treatment across stages.
@@ -39,7 +39,7 @@ Write one source-grounded sentence about a visible relationship—such as person
 
 ## Upper Direction
 
-Keep photography dominant while materially reconstructing 30–40% for `light` or 45–60% for default `medium`, distributed across at least two nonliving semantic regions. Count only replaced structure/material/boundary organization, not grading, blur, grain, texture, or global filtering.
+Keep photography dominant while materially reconstructing 30–40% for `light` or 45–60% for default `medium`, distributed across at least two nonliving semantic regions. Use only the Canonical Abstraction Vocabulary in `SKILL.md`; this reference does not define additional methods.
 
 Apply the <=35% photographic-corridor cap only to uncontrolled connected upper environmental corridors. Exclude the upper primary-face identity region and the designated upper hero architecture governed by its 55/45 balance.
 
@@ -73,9 +73,7 @@ The 95% facial target is upper-only. Lower realistic facial content is a failure
 
 ## Architecture
 
-Apply partial-sketch deconstruction only to the upper hero. Identify its recognition skeleton; compress repeated windows, columns, trim, seams, and ornament into structural rhythms; continue selected real contours into aligned drawn contours; and make visible source-derived color build roof, façade, tower, depth, and light planes. The result should read as approximately 55% built reality and 45% colored, partially unbuilt architectural study.
-
-Match Chinese/East Asian and Western line-and-color languages to the source. Avoid monochrome tracing, surface-only decoration, hard masks, shifted overlays, invented openings, foreign components, scattered sketch zones, or generic patches.
+For the upper hero architecture, use `structural-distillation` as the primary operation: identify its recognition skeleton and compress repeated windows, columns, trim, seams, and ornament into structural rhythms. Optionally support it with either `planar-replacement` or `semantic-omission`. The result should read as approximately 55% photographic reality and 45% actual material reconstruction, not surface decoration.
 
 For lower architecture, use broad color planes and sparse lines under extreme reconstruction. Retain the same building identity and minimum recognition skeleton, but permit spatial re-authoring and do not apply upper photographic-balance checks.
 
@@ -113,7 +111,7 @@ artistic_proposition: <source-grounded sentence>
 upper_preserved_geometry: [<framing, position, perspective, pose, landmark anchors>]
 upper_reconstructed_regions: [<at least two nonliving regions>]
 upper_primary_face: <approximately-95-percent or none>
-upper_hero_architecture: <55/45 plan and colored sketch zone or none>
+upper_hero_architecture: <55/45 plan; structural-distillation plus optional planar-replacement or semantic-omission; or none>
 upper_board_base: <scene diagnosis; dominant temperature; Robot Dreams pale family; contrast purpose>
 lower_semantic_anchors: [<identity and relationship cues>]
 lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
@@ -128,7 +126,7 @@ upper_board_occupancy: 65-85-percent-prefer-75
 
 - If upper loses photographic dominance, restore material depth and source geometry without weakening counted abstraction.
 - If the upper face drifts, correct only the failing identity carrier through generation or localized editing; never source-composite.
-- If upper architecture is monochrome or detached, restore colored structural planes and aligned contour continuation.
+- If upper architecture is detached or merely decorated, restore recognition-skeleton-driven material replacement and credible structural connections.
 - If the upper board competes with the artwork or loses its free-edge contrast, reselect a quieter source-semantic Robot Dreams pale base.
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
 - If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.
