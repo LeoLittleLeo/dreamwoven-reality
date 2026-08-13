@@ -43,7 +43,7 @@ Keep photography dominant while materially reconstructing 30–40% for `light` o
 
 Apply the <=35% photographic-corridor cap only to uncontrolled connected upper environmental corridors. Exclude the upper primary-face identity region and the designated upper hero architecture governed by its 55/45 balance.
 
-Preserve natural/living hues within plausible source-neighbor ranges. Route stronger color displacement through coherent built or designed regions. Keep the upper free edge source-semantic and implemented through authored alpha or an explicit outer-contour mask; never use color keying that deletes pale architecture, clouds, skin, highlights, or water glints.
+Preserve natural/living hues within plausible source-neighbor ranges. Route stronger color displacement through coherent built or designed regions. For the upper free edge, follow the canonical Upper Boundary Contract in `SKILL.md`; this reference does not define alternative contour geometry. Implement it through authored alpha or an explicit outer-contour mask and never through color keying.
 
 ## Lower Direction
 
@@ -94,7 +94,7 @@ Use exactly:
 [  4% black centered subtitle band ]
 ```
 
-There is no date band or processed date copy. The upper visible alpha-shaped artwork occupies 65–85% of its board, with 75% preferred. Preserve its complete irregular contour without stretching, clipping, rectangularization, or color-key removal. Fit lower by proportional cover with modest source-aware crop and no margins or letterboxing.
+There is no date band or processed date copy. The upper visible alpha-shaped artwork occupies 65–85% of its board, with 75% preferred. Preserve the complete contour created under the Upper Boundary Contract without stretching, clipping, rectangularization, or color-key removal. Fit lower by proportional cover with modest source-aware crop and no margins or letterboxing.
 
 Derive the complete canvas from source dimensions, aspect ratio, and orientation. Never use a fixed `1800x3000`, `3000x1800`, `3:5`, or `5:3` master canvas; never stretch or squeeze.
 

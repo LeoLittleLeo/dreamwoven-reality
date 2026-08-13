@@ -41,6 +41,47 @@ stage_contract:
 
 Stage-specific rules override generic rendering rules. Upper-stage fidelity requirements must never leak into the lower extreme-abstraction stage. Lower-stage spatial freedom must never leak backward into the upper source-faithful stage.
 
+## Upper Boundary Contract
+
+Treat this contract as the single source of truth for the upper outer contour in `processed` mode. Other boundary instructions may explain implementation or review, but must not redefine its geometry.
+
+```yaml
+upper_boundary_contract:
+  stage: upper
+  mode: processed
+  boundary_type: source-semantic-free-edge
+  geometry_source: source-image
+  output: authored-alpha-contour
+  target_character: [calm, intentional, structurally-derived, visually-simple, non-rectangular]
+  contour_model:
+    dominant_semantic_contour: exactly-one
+    supporting_contours: zero-or-one
+    major_direction_changes: 3-7
+    micro-object-tracing: prohibited
+    rectangular_edge_retention: maximum-two-partial-sides
+  prohibited:
+    - random-blob
+    - generic-torn-paper-shape
+    - full-object-cutout
+    - noisy-micro-contour
+    - color-key-derived-alpha
+    - arbitrary-rectangular-crop
+    - rectangle-with-damaged-edges
+```
+
+Derive the contour in this order:
+
+1. Identify the scene's dominant structural flow from the source: roofline or façade axis; ridge, slope, or dune; shoreline, current, coast, or wake; canopy fall or branch spread; cloud-bank flow; road or ground perspective; or a primary pose plus contact-ground relationship.
+2. Choose exactly one dominant semantic contour that carries most of the outer edge. Add at most one supporting contour only when it clarifies a second major source relationship.
+3. Simplify both into broad segments. Preserve only 3–7 major directional changes across the complete boundary. Ignore leaves, hair strands, windows, railings, sheep, pedestrians, furniture, ornaments, and other small-object silhouettes.
+4. Let the artwork enter and leave the board through source-grounded continuations. A contour may dissolve into paper where source evidence becomes weak, low-priority, cropped, atmospherically soft, or compositionally quiet. Do not trace every visible object to keep it inside.
+5. Preserve a substantial calm interior field. The boundary shapes the scene as one authored field, not as a union of object cutouts. It may retain no more than two partial source-image sides; never keep a near-complete rectangle and distress its perimeter.
+6. Implement the final geometry as true RGBA alpha or an explicit outer-contour mask. Keep all pixels inside the chosen field opaque unless transparency is intentionally part of the outer dissolution. Never infer alpha from color.
+
+Use edge material only as a subordinate finish after geometry is locked. Dry brush, watercolor bloom, pigment depletion, soft atmospheric fade, or paper-fiber disappearance may soften limited boundary segments, but must not create the contour, add extra lobes, or simulate generic torn paper.
+
+At thumbnail size, the viewer should be able to describe the boundary with one short source-grounded phrase, such as “roofline into harbor horizon,” “canopy falling into the slope,” or “cloud bank into field.” If it reads only as “an irregular shape,” simplify and rebuild it.
+
 ## Global Rule Priority
 
 1. Explicit user instruction.
@@ -51,7 +92,7 @@ Stage-specific rules override generic rendering rules. Upper-stage fidelity requ
 6. Stage Treatment Matrix.
 7. Abstraction coverage.
 8. Palette system.
-9. Boundary and material language.
+9. Upper Boundary Contract, then other boundary and material language.
 10. Typography.
 11. Optional modules.
 12. Decorative refinement.
@@ -164,7 +205,7 @@ processed_typography_color: warm-white-on-black
 upper_board_base_color: <source-semantic Robot Dreams pale base; record source mood, dominant temperature, selected family, and contrast purpose>
 fullbleed_typography_zone: <protected source-aware negative-space region>
 copy_mode: none | poetic | editorial | cinematic
-content_field_boundary: <dominant semantic contour; supporting contour; paper-entry/exit points; edge material>
+content_field_boundary: <one dominant source-semantic contour; optional one supporting contour; 3-7 major direction changes; paper-entry/exit points; subordinate edge material>
 content_field_occupancy: <target 68-82% of paper area; justified exception>
 editorial_collage_layout_landscape: {upper_board: 52%, title_band: 4%, lower_panel: 40%, subtitle_band: 4%, top_date_band: removed, panel_size_relation: upper-larger}
 editorial_collage_layout_portrait: {upper_board: 52%, title_band: 4%, lower_panel: 40%, subtitle_band: 4%, top_date_band: removed, panel_size_relation: upper-larger}
@@ -252,8 +293,8 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - **Default four-band editorial field:** unless the user explicitly requests `fullbleed`, derive the canvas from source geometry using `52 / 4 / 40 / 4`: upper warm-paper board, black title band, lower rectangular abstraction panel, black subtitle band. Remove the date band entirely and reassign its space to the upper board. The lower artwork fills its complete panel edge-to-edge with no internal margins or letterboxing.
 - **Upper-board semantic Robot Dreams base:** choose the 52% upper board's base color from both scene meaning and source palette relationships. Diagnose scene atmosphere, dominant temperature, natural/built balance, light level, season/weather impression, and the upper artwork's largest color masses. Select one pale low-chroma Robot Dreams family—warm ivory, dusty peach, powder blue, soft lilac, or mineral sage—that supports the proposition and creates calm figure/ground separation. Prefer a restrained temperature counterpoint: cool/blue scenes may receive dusty peach; warm scenes may receive powder blue; dark or neutral structural scenes may receive warm ivory; quiet pale neutrals may receive soft lilac; bright vegetation-led scenes may receive mineral sage when it remains distinct from the artwork. This is semantic art direction, not literal average-color sampling.
 - Keep the board visually quiet and materially paper-like. It must not compete with the upper authored image, repeat its dominant hue so closely that the free edge disappears, or introduce random accent color. Preserve a subtle source echo while using Robot Dreams warm/cool logic. An explicit user color overrides automatic selection; otherwise record the chosen family and contrast purpose in the strategy record.
-- **Content-boundary semantics:** derive one dominant outer contour and at most one quieter supporting contour from visible evidence: canopy/branch fall for foliage, roofline/façade/street perspective for architecture, ridge/slope/dune for terrain, tide/current/coast/wake for water, cloud flow for sky-led scenes, or pose/gesture/shadow/contact-ground for person-led scenes. Dry brush, ink depletion, watercolor bloom, and paper-fiber disappearance may soften this structure but cannot replace it. Alpha or an explicit mask implements the design; color-based edge-keying never chooses it.
-- **Upper-panel color-preservation lock:** never derive the upper panel's alpha by removing a sampled paper/ground color when that color also occurs inside the artwork. Warm ivory architecture, white clouds, pale skin, highlights, water glints, and paper-like reconstructed planes must remain fully opaque and color-identical after compositing. Prefer an authored semantic alpha mask (painted from the outer contour only) or generate the upper panel with a true transparent background. If neither is available, keep the upper panel RGB and use a conservative outer contour mask; do not use `remove_chroma_key.py`, `--background-removal edge-key`, or any flood-fill keyed by a sampled color. Always compare the isolated upper RGB against the composited upper panel at matched scale; reject any hue/value shift or pale-region deletion.
+- **Upper outer boundary:** follow the Upper Boundary Contract. Do not improvise another contour system elsewhere in the workflow.
+- **Upper-panel color-preservation lock:** implement the Upper Boundary Contract with authored RGBA or an explicit outer-contour mask. Never derive alpha from sampled color. Keep pale architecture, clouds, skin, highlights, water glints, and paper-like reconstructed planes opaque and color-identical after compositing. Compare isolated and composited RGB at matched scale; reject hue/value shift or interior deletion.
 
 ### Default strategies
 
@@ -368,7 +409,7 @@ Unless the user explicitly requests `fullbleed` or another output mode, `process
 [ black subtitle band ]
 ```
 
-This is an integrated diptych with editorial text bands, not a before/after comparison, postcard, social-media grid, or two unrelated blocks. The upper panel is the primary authored image: photographic-led, source-semantic, richer, and bounded by a free-edged non-rectangular contour. It is never the untouched original. The lower panel is a strict rectangle and a materially stronger abstraction of the same scene, subject, structure, or proposition. It must be a deeper abstraction layer rather than a crop, duplicate, or lightly altered copy.
+This is an integrated diptych with editorial text bands, not a before/after comparison, postcard, social-media grid, or two unrelated blocks. The upper panel is the primary authored image: photographic-led, source-semantic, richer, and bounded according to the Upper Boundary Contract. It is never the untouched original. The lower panel is a strict rectangle and a materially stronger abstraction of the same scene, subject, structure, or proposition. It must be a deeper abstraction layer rather than a crop, duplicate, or lightly altered copy.
 
 ### Editorial Collage Hierarchy
 
@@ -390,7 +431,7 @@ The upper panel is not the untouched original photograph. Generate or edit the c
 - Do not create it by placing cut-out source people, faces, bodies, garments, or local source patches over generated content. Generate or locally edit the whole scene coherently.
 - Apply the same palette and material family used below so the two stages feel authored together.
 - When architecture is present, make approximately 45% of the upper hero visibly reconstructed from its recognition skeleton. Select a coherent structural language—such as colored linework, exposed frame, assembled skeleton, structural planes, transparent construction, or paper omission—without prescribing one medium.
-- Use a source-semantic, free-edged, non-rectangular outer contour; do not render the upper panel as a clean rectangular box.
+- Build the upper outer contour exactly through the Upper Boundary Contract; do not substitute a blob, cutout, torn-paper perimeter, or distressed rectangle.
 - Preserve the main recognition anchors and allow the upper panel to carry the primary identity and landmark burden.
 
 ### Lower Panel — Rectangular Extreme Abstraction
@@ -471,7 +512,7 @@ For the lower abstract artwork, use the safest available background mode:
 - `--background-removal mask --art-mask mask.png`: use an explicit white-foreground/black-background mask.
 - `--background-removal none`: preserve the complete rectangular artwork.
 
-For the upper artwork, treat transparency as geometry, never as color removal. The preferred order is: (1) a model-generated RGBA upper image with an authored outer contour; (2) a deterministic explicit white-foreground/black-background contour mask passed with `--background-removal mask --art-mask`; (3) an RGB upper image placed on a paper field only when the artwork itself already contains the paper field. Do not use `--background-removal edge-key` on pale, warm, white, cream, or sky-heavy upper images: it can key out the Opera House, clouds, highlights, or other legitimate interior pixels and cause the upper panel to change color after composition. If a mask is created locally, inspect its preview and verify that all interior alpha values are opaque, especially over identity-critical face/skin, architectural shells, clouds, and light ground planes.
+For the upper artwork, treat transparency as the implementation of the Upper Boundary Contract, never as color removal. Use either (1) model-generated RGBA with the authored semantic contour or (2) a deterministic white-foreground/black-background outer-contour mask passed with `--background-removal mask --art-mask`. Do not use `--background-removal edge-key`. Inspect the mask preview and verify that the interior is opaque, especially over identity-critical face/skin, architectural shells, clouds, and light ground planes.
 
 Default fixed four-band collage output:
 
@@ -548,7 +589,7 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`O14 original-panel-retention` (blocking):** the untouched source photograph appears anywhere in the finished composition as a panel, inset, thumbnail, comparison strip, background, or visible source fragment. Remove it and restore exactly two visible generated stages: photographic-led partial abstraction above and stronger abstraction below.
 - **`X01 panel-redundancy`:** the lower panel is too similar to the upper panel in structure, abstraction depth, or visual role.
 - **`X02 weak-abstraction-escalation`:** the lower rectangular panel is not materially more abstract than the upper panel.
-- **`X03 upper-panel-rectangularization`:** the upper panel loses its free-edged, non-rectangular authored identity.
+- **`X03 upper-panel-rectangularization` (blocking):** the upper panel is a rectangle, arbitrary rectangular crop, or near-complete rectangle with slightly damaged edges. Rebuild it from the Upper Boundary Contract.
 - **`X04 lower-panel-overphotographic` (blocking):** the lower panel retains too much photographic detail and fails to read as an extreme abstraction of broad color planes, sparse lines, paper fields, and simplified silhouettes.
 - **`X08 lower-panel-human-readability-failure` (blocking):** when a primary person exists, lower reduces that person to an unreadable blob, loses personhood, or breaks the head/torso/limb relationship, orientation, pose, gesture, or approximate body contour. Rebuild a clearly human, source-related silhouette using one or at most two flat non-photographic colors.
 - **`X15 lower-primary-person-color-oversegmentation` (blocking):** the lower primary person uses more than two colors, gradients or tonal modeling, or assigns different colors to clothing layers, skin, limbs, torso, joints, or anatomical structure. Collapse the complete figure to one or two flat colors and recover readability through silhouette and pose rather than internal color separation.
@@ -561,7 +602,9 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`X13 lower-panel-full-bleed-failure` (blocking):** the lower rectangular artwork does not cover its complete panel edge-to-edge, contains internal margins or letterboxing, or is stretched/squeezed. Refit it with aspect-ratio-preserving cover placement and modest source-aware cropping.
 - **`X14 upper-authored-image-underoccupancy` (blocking):** the visible alpha-shaped upper artwork occupies less than 65% or more than 85% of its 52% board, feels like a timid floating insert, or is enlarged through clipping, stretching, or rectangularization. Refit toward 75% visible board occupancy while preserving the complete irregular contour and proportional geometry.
 - **`X12 upper-alpha-color-shift` (blocking):** the upper panel changes hue/value after being placed in the collage, or pale interior artwork (warm ivory architecture, clouds, highlights, skin, or paper planes) becomes transparent/gray because a sampled background color was keyed out. Rebuild the alpha from the authored outer contour only, use an explicit mask or true RGBA generation, and compare isolated versus composited RGB before delivery. Never repair this by recoloring the whole upper panel.
-- **`O06 semantic-content-field-failure`:** the upper panel uses a generic rectangle or arbitrary blob instead of a source-semantic free-edged contour, or the lower panel is not a strict rectangle.
+- **`O06 upper-boundary-contract-failure` (blocking):** the upper contour is a random blob, generic torn-paper shape, full-object cutout, noisy micro-contour, arbitrary crop, or color-key-derived alpha; or it cannot be explained by one dominant and at most one supporting source-semantic contour with 3–7 major directional changes. Rebuild only the boundary from source geometry without redesigning the upper composition. The lower panel remains a strict rectangle.
+- **`O15 upper-boundary-overtracing` (blocking):** the upper alpha follows leaves, hair, windows, railings, pedestrians, animals, furniture, ornaments, or other small-object silhouettes. Remove micro-contours and restore one calm scene-level field.
+- **`O16 upper-boundary-source-disconnection` (blocking):** the contour's entry, exit, dissolution, or major turns cannot be traced to roofline/façade, ridge/slope, shoreline/current, canopy/branch fall, cloud-bank flow, road/ground perspective, or primary pose/contact-ground evidence in the source.
 - **`O07 orientation-adaptive-collage-failure` (blocking):** the two-image collage ignores source orientation, flattens portrait subjects, severely crops tall anchors, or forces either panel into a rigid template.
 - **`O08 fixed-band-role-inconsistency` (blocking):** default `processed` output does not use the fixed four-band order and proportions—52% upper warm-paper board, 4% black main-title band, 40% full-bleed lower panel, and 4% black subtitle band—or retains any date band/date area, misplaces a band, or allows text to drift into an image panel.
 - **`F01 major-content-fabrication` (blocking):** a person, major object, building, landmark structure, or natural feature cannot be traced to visible source evidence or an explicit user request. Remove or regenerate it; never retain invented content for composition, symbolism, or aesthetics.
