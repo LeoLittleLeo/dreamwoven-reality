@@ -1,4 +1,4 @@
 interface:
   display_name: "虚实交织影像"
-  short_description: "以艺术效果优先重构高身份保真的虚实交织照片海报作品"
-  default_prompt: "Use $interweave-photo-abstraction to create an ordered real/abstract editorial poster that prioritizes the final artistic effect, preserves the primary face at approximately 95% perceptual identity fidelity, and allows clothing, color, edges, lighting, texture, and silhouette transitions to integrate with the artwork."
+  short_description: "生成仅含局部抽象与强抽象两阶段的虚实交织海报"
+  default_prompt: "Use $interweave-photo-abstraction to create a two-generated-stage editorial poster containing only a photographic-led partial abstraction above and a stronger abstraction below. Use the uploaded original only as visual, geometry, identity, palette, and metadata reference; do not show it in the final poster."

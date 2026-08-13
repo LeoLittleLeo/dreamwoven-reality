@@ -35,12 +35,14 @@ Route here when architecture is seen through a window, doorway, arch, passage, l
 
 Use it to verify:
 
-- cross-cultural intervention comes from Huizhou-derived framed views, layered enclosure, reveal/conceal sequence, solid/void rhythm, and compressed-to-open depth—not from Chinese ink styling;
+- architectural framing remains source-grounded and any sketch treatment follows the visible building's own Chinese/East Asian or Western visual language;
 - the hero architecture remains unmistakable through decisive silhouette and a calm recognition core;
 - windows and room planes act as spatial thresholds instead of rectangular photo frames pasted into an illustration;
 - sofas, cushions, seats, tables, and comparable disposable supports retain zero photographic material;
 - high-line-density ships, vehicles, or terminals are compressed into a few broad unequal bands with minimal recognition-critical lines;
 - interior warmth and exterior coolness form a clear hierarchy without recoloring protected natural regions implausibly.
+
+This exemplar is a composition and threshold reference only. It does not activate a Huizhou or other cross-cultural architectural module for unrelated sources.
 
 Do not copy the Sydney subject, cruise ship, red funnel, window layout, or brown/blue palette into unrelated scenes. Never add literal Huizhou motifs.
 

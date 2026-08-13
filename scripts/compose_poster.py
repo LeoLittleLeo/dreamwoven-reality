@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compose an adaptive standalone poster or original/generated postcard."""
+"""Compose an adaptive two-generated-stage poster or full-bleed interpretation."""
 
 from __future__ import annotations
 
@@ -27,6 +27,11 @@ FONT_CANDIDATES = {
     ],
 }
 POSITIONS = ("top-left", "top-right", "bottom-left", "bottom-right")
+ORIENTATION_PROFILES = {
+    "landscape": {"panel_fraction": 0.44, "band_fraction": 0.04},
+    "portrait": {"panel_fraction": 0.44, "band_fraction": 0.04},
+    "near-square": {"panel_fraction": 0.44, "band_fraction": 0.04},
+}
 
 
 def parse_color(value: str) -> tuple[int, int, int]:
@@ -59,6 +64,48 @@ def contain(image: Image.Image, size: tuple[int, int]) -> Image.Image:
     copy = image.copy()
     copy.thumbnail(size, Image.Resampling.LANCZOS)
     return copy
+
+
+def source_orientation(image: Image.Image) -> str:
+    ratio = image.width / image.height
+    if 0.90 <= ratio <= 1.10:
+        return "near-square"
+    return "landscape" if ratio > 1 else "portrait"
+
+
+def fit_source_contain(image: Image.Image, size: tuple[int, int], ground: tuple[int, int, int]) -> Image.Image:
+    """Proportionally contain the complete source without independent x/y scaling."""
+    fitted = contain(image.convert("RGB"), size)
+    layer = Image.new("RGB", size, ground)
+    layer.paste(fitted, ((size[0] - fitted.width) // 2, (size[1] - fitted.height) // 2))
+    return layer
+
+
+def source_derived_canvas(
+    original: Image.Image,
+    mode: str,
+    width_cap: int | None,
+    height_cap: int | None,
+    export_long_edge: int | None,
+) -> tuple[int, int, str]:
+    """Derive composition geometry from the source; explicit sizes are export caps only."""
+    orientation = source_orientation(original)
+    if mode == "fullbleed":
+        raw_width, raw_height = original.size
+    else:
+        photo_fraction = ORIENTATION_PROFILES[orientation]["panel_fraction"]
+        raw_width = original.width
+        raw_height = round(original.height / photo_fraction)
+
+    limits = [1.0]
+    if width_cap:
+        limits.append(width_cap / raw_width)
+    if height_cap:
+        limits.append(height_cap / raw_height)
+    if export_long_edge:
+        limits.append(export_long_edge / max(raw_width, raw_height))
+    scale = min(limits)
+    return max(1, round(raw_width * scale)), max(1, round(raw_height * scale)), orientation
 
 
 def derive_ground(image: Image.Image) -> tuple[int, int, int]:
@@ -255,14 +302,15 @@ def draw_copy(draw, x, y, copy, palette, scale, date_text, rule_color=None):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("processed", "fullbleed", "postcard"), default="processed")
+    parser.add_argument("--mode", choices=("processed", "fullbleed"), default="processed")
     parser.add_argument("--original", required=True, type=Path)
-    parser.add_argument("--poster", required=True, type=Path, help="generated artwork without final typography")
+    parser.add_argument("--upper-poster", type=Path, help="photographic-led partial abstraction; required for processed mode")
+    parser.add_argument("--poster", required=True, type=Path, help="strong lower abstraction without final typography")
     parser.add_argument("--title", default="")
     parser.add_argument("--subtitle", default="")
-    parser.add_argument("--date", dest="date_text", default=None, help="date text; defaults to today unless --no-date")
+    parser.add_argument("--date", dest="date_text", default=None, help="explicit date text; processed mode defaults to today's date")
     parser.add_argument("--no-date", action="store_true")
-    parser.add_argument("--text-position", choices=("auto",) + POSITIONS, default="auto")
+    parser.add_argument("--text-position", choices=("auto", "lower-left", "bottom-centered", "source-aware-quiet-zone") + POSITIONS, default="auto")
     parser.add_argument("--max-title-lines", type=int, default=3)
     parser.add_argument("--background-removal", choices=("alpha", "edge-key", "none", "mask"), default="alpha")
     parser.add_argument("--art-mask", type=Path)
@@ -271,30 +319,43 @@ def main() -> None:
     parser.add_argument("--basename", default=None)
     parser.add_argument("--font", type=Path)
     parser.add_argument("--background-color", type=parse_color)
-    parser.add_argument("--text-color", type=parse_color, help="override postcard copy color for contrast")
-    parser.add_argument("--width", type=int, default=1800)
-    parser.add_argument("--height", type=int, default=3000)
-    parser.add_argument("--paper-orientation", choices=("auto", "portrait", "landscape"), default="auto")
+    parser.add_argument("--text-color", type=parse_color, help="override editorial copy color for contrast")
+    parser.add_argument("--width", type=int, default=None, help="optional export width cap; never changes composition ratio")
+    parser.add_argument("--height", type=int, default=None, help="optional export height cap; never changes composition ratio")
+    parser.add_argument("--export-long-edge", type=int, default=3000, help="maximum output long edge; use 0 to disable the cap")
+    parser.add_argument("--paper-orientation", choices=("auto", "portrait", "landscape"), default="auto", help="legacy export hint; source orientation remains authoritative")
     args = parser.parse_args()
 
-    for path in (args.original, args.poster):
+    required_paths = [args.original, args.poster]
+    if args.mode == "processed":
+        if not args.upper_poster:
+            parser.error("processed mode requires --upper-poster")
+        if Image.open(args.upper_poster).mode not in ("RGBA", "LA"):
+            parser.error("processed mode requires --upper-poster with an alpha channel for the non-rectangular upper panel")
+        required_paths.append(args.upper_poster)
+    for path in required_paths:
         if not path.is_file():
             parser.error(f"image not found: {path}")
-    if args.width <= 0 or args.height <= 0 or args.max_title_lines <= 0:
-        parser.error("dimensions and --max-title-lines must be positive")
+    if any(value is not None and value <= 0 for value in (args.width, args.height)) or args.export_long_edge < 0 or args.max_title_lines <= 0:
+        parser.error("width/height caps and --max-title-lines must be positive; --export-long-edge may be 0 to disable")
 
     original_source = Image.open(args.original)
+    upper_artwork_source = Image.open(args.upper_poster) if args.upper_poster else None
     artwork_source = Image.open(args.poster)
     original = original_source.convert("RGB")
     artwork = artwork_source.convert("RGB")
-    date_text = "" if args.no_date else (args.date_text if args.date_text is not None else date.today().strftime("%Y.%m.%d"))
+    date_text = "" if args.no_date else (args.date_text or (date.today().strftime("%Y.%m.%d") if args.mode == "processed" else ""))
     has_copy = bool(args.title or args.subtitle or date_text)
     font_path = find_font(args.font) if has_copy else None
     args.output_dir.mkdir(parents=True, exist_ok=True)
     base = args.basename or args.poster.stem
+    canvas_width, canvas_height, orientation = source_derived_canvas(
+        original, args.mode, args.width, args.height, args.export_long_edge or None
+    )
 
     if args.mode == "fullbleed":
-        canvas = artwork.copy()
+        ground = args.background_color or derive_ground(original)
+        canvas = fit_source_contain(artwork, (canvas_width, canvas_height), ground)
         if has_copy and font_path:
             margin = round(min(canvas.size) * 0.045)
             copy_w = round(canvas.width * 0.34)
@@ -309,71 +370,73 @@ def main() -> None:
         return
 
     if args.mode == "processed":
-        paper_width, paper_height = args.width, args.height
-        if args.paper_orientation == "landscape" or (args.paper_orientation == "auto" and original.width > original.height):
-            paper_width, paper_height = max(args.width, args.height), min(args.width, args.height)
-        elif args.paper_orientation == "portrait":
-            paper_width, paper_height = min(args.width, args.height), max(args.width, args.height)
+        assert upper_artwork_source is not None
+        paper_width, paper_height = canvas_width, canvas_height
         ground = args.background_color or derive_ground(original)
         canvas = Image.new("RGB", (paper_width, paper_height), ground)
         draw = ImageDraw.Draw(canvas)
-        field_x = round(paper_width * 0.065)
-        field_y = round(paper_height * 0.065)
-        field_w = paper_width - field_x * 2
-        field_h = round(paper_height * 0.82)
-        removal = args.background_removal
-        if removal == "alpha" and artwork_source.mode not in ("RGBA", "LA"):
-            removal = "edge-key"
-        art, mask = artwork_layer(artwork_source, (field_w, field_h), removal, args.art_mask, max(8, paper_width // 110))
-        art_x = field_x + max(0, (field_w - art.width) // 2)
-        art_y = field_y + max(0, (field_h - art.height) // 2)
-        canvas.paste(art, (art_x, art_y), mask)
+
+        profile = ORIENTATION_PROFILES[orientation]
+        panel_h = round(paper_height * profile["panel_fraction"])
+        band_h = max(1, round(paper_height * profile["band_fraction"]))
+        upper_h = panel_h
+        lower_h = panel_h
+        title_band_h = band_h
+        subtitle_band_h = band_h
+        date_band_h = paper_height - upper_h - lower_h - title_band_h - subtitle_band_h
+        if date_band_h <= 0:
+            parser.error("source-derived canvas leaves no room for the fixed five-band layout")
+
+        # The upper artwork must carry an authored alpha contour; the lower panel is
+        # always a complete rectangle.
+        upper_box = (paper_width, upper_h)
+        upper_art, upper_mask = artwork_layer(upper_artwork_source, upper_box, "alpha", None, max(8, paper_width // 110))
+        upper_x = (paper_width - upper_art.width) // 2
+        upper_y = date_band_h
+        canvas.paste(upper_art, (upper_x, upper_y), upper_mask)
+
+        title_y = date_band_h + upper_h
+        lower_y = title_y + title_band_h
+        lower_art = fit_source_contain(artwork_source.convert("RGB"), (paper_width, lower_h), ground)
+        canvas.paste(lower_art, (0, lower_y))
+
+        subtitle_y = lower_y + lower_h
+        black = (28, 28, 28)
+        canvas.paste(Image.new("RGB", (paper_width, title_band_h), black), (0, title_y))
+        canvas.paste(Image.new("RGB", (paper_width, subtitle_band_h), black), (0, subtitle_y))
+        # The date strip is a dedicated warm-white editorial band, independent
+        # of the source-derived paper ground used around the authored upper edge.
+        date_band_color = (246, 238, 220)
+        canvas.paste(Image.new("RGB", (paper_width, date_band_h), date_band_color), (0, 0))
+
         if args.mask_preview:
-            mask.save(args.output_dir / f"{base}-mask.png")
+            upper_mask.save(args.output_dir / f"{base}-upper-mask.png")
         if has_copy and font_path:
-            copy_w = round(paper_width * 0.25)
-            copy_scale = round(paper_width * 0.52)
-            copy = build_copy(font_path, args.title, args.subtitle, date_text, copy_w, copy_scale, args.max_title_lines)
-            copy_x = round(paper_width * 0.065)
-            copy_y = paper_height - round(paper_height * 0.045) - copy[-1]
-            palette = (args.text_color, args.text_color, args.text_color) if args.text_color else text_palette(ground)
-            draw_copy(draw, copy_x, copy_y, copy, palette, copy_scale, date_text)
+            ink = args.text_color or (244, 239, 226)
+            dark = args.text_color or (44, 42, 38)
+            title_font, title_lines = fit_wrapped(font_path, args.title, round(paper_width * 0.82), max(12, round(title_band_h * 0.58)), args.max_title_lines)
+            subtitle_font, subtitle_lines = fit_wrapped(font_path, args.subtitle, round(paper_width * 0.82), max(12, round(subtitle_band_h * 0.42)), 2)
+            date_font = ImageFont.truetype(str(font_path), max(12, round(date_band_h * 0.44)))
+
+            def centered(draw_obj, text_value, font_obj, y, fill):
+                bbox = draw_obj.textbbox((0, 0), text_value, font=font_obj)
+                x = (paper_width - (bbox[2] - bbox[0])) // 2
+                draw_obj.text((x, y), text_value, font=font_obj, fill=fill)
+
+            if date_text:
+                centered(draw, date_text, date_font, max(1, (date_band_h - date_font.size) // 2 - 2), dark)
+            if args.title:
+                line = title_lines[0] if title_lines else args.title
+                centered(draw, line, title_font, max(1, title_y + (title_band_h - title_font.size) // 2 - 3), ink)
+            if args.subtitle:
+                line = subtitle_lines[0] if subtitle_lines else args.subtitle
+                centered(draw, line, subtitle_font, max(1, subtitle_y + (subtitle_band_h - subtitle_font.size) // 2 - 2), ink)
         output = args.output_dir / f"{base}-processed.png"
         canvas.save(output)
         print(output.resolve())
         return
 
-    ground = args.background_color or derive_ground(original)
-    canvas = Image.new("RGB", (args.width, args.height), ground)
-    draw = ImageDraw.Draw(canvas)
-    outer, inner = round(args.width * 0.034), round(args.width * 0.065)
-    frame_color = tuple(max(0, c - 95) for c in ground) if luminance(ground) >= 150 else tuple(min(255, c + 85) for c in ground)
-    draw.rectangle((outer, outer, args.width - outer, args.height - outer), outline=frame_color, width=max(1, args.width // 900))
-    top_x, top_y = inner + round(args.width * 0.045), inner + round(args.height * 0.025)
-    top_w, top_h = args.width - top_x * 2, round(args.height * 0.36)
-    canvas.paste(cover(original, (top_w, top_h)), (top_x, top_y))
-    draw.rectangle((top_x - 1, top_y - 1, top_x + top_w, top_y + top_h), outline=frame_color, width=max(2, args.width // 750))
-
-    lower_top = top_y + top_h + round(args.height * 0.045)
-    lower_bottom = args.height - inner - round(args.height * 0.02)
-    copy_x, copy_w = inner + round(args.width * 0.015), round(args.width * 0.25)
-    art_x, art_w, art_h = round(args.width * 0.34), args.width - inner - round(args.width * 0.34), lower_bottom - lower_top
-    art, mask = artwork_layer(artwork_source, (art_w, art_h), args.background_removal, args.art_mask, max(8, args.width // 110))
-    art_y, art_left = lower_top + max(0, (art_h - art.height) // 2), art_x + max(0, (art_w - art.width) // 2)
-    canvas.paste(art, (art_left, art_y), mask)
-    if args.mask_preview:
-        mask.save(args.output_dir / f"{base}-mask.png")
-
-    if has_copy and font_path:
-        copy_scale = round(args.width * 0.56)
-        copy = build_copy(font_path, args.title, args.subtitle, date_text, copy_w, copy_scale, args.max_title_lines)
-        bottom_margin = round(args.height * 0.035)
-        copy_y = max(lower_top, lower_bottom - bottom_margin - copy[-1])
-        palette = (args.text_color, args.text_color, args.text_color) if args.text_color else text_palette(ground)
-        draw_copy(draw, copy_x, copy_y, copy, palette, copy_scale, date_text, frame_color)
-    output = args.output_dir / f"{base}-postcard.png"
-    canvas.save(output)
-    print(output.resolve())
+    parser.error("unsupported mode")
 
 
 if __name__ == "__main__":
