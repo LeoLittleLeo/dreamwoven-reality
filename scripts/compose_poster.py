@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import colorsys
 import platform
 import sys
 from collections import deque
@@ -115,9 +116,51 @@ def source_derived_canvas(
     return max(1, round(raw_width * scale)), max(1, round(raw_height * scale)), orientation
 
 
+ROBOT_DREAMS_BOARD_BASES = {
+    "warm-ivory": (239, 228, 207),
+    "dusty-peach": (232, 207, 196),
+    "powder-blue": (205, 220, 229),
+    "soft-lilac": (220, 211, 228),
+    "mineral-sage": (210, 220, 204),
+}
+
+
 def derive_ground(image: Image.Image) -> tuple[int, int, int]:
-    sample = ImageOps.fit(image.convert("RGB"), (64, 64), method=Image.Resampling.BILINEAR)
-    return tuple(round(channel * 0.24 + 236 * 0.76) for channel in ImageStat.Stat(sample).mean)  # type: ignore[return-value]
+    """Select a pale Robot Dreams board base from the source palette relationship."""
+    sample = ImageOps.fit(image.convert("RGB"), (96, 96), method=Image.Resampling.BILINEAR)
+    colors = sample.quantize(colors=8, method=Image.Quantize.MEDIANCUT).convert("RGB").getcolors()
+    assert colors is not None
+    total = sum(count for count, _ in colors)
+    hue_weights = {"warm": 0.0, "blue": 0.0, "green": 0.0, "neutral": 0.0}
+    mean_luminance = 0.0
+    for count, color in colors:
+        weight = count / total
+        r, g, b = (channel / 255 for channel in color)
+        hue, saturation, value = colorsys.rgb_to_hsv(r, g, b)
+        mean_luminance += weight * value
+        if saturation < 0.12:
+            hue_weights["neutral"] += weight
+        elif hue < 0.12 or hue >= 0.91:
+            hue_weights["warm"] += weight
+        elif 0.12 <= hue < 0.47:
+            hue_weights["green"] += weight
+        else:
+            hue_weights["blue"] += weight
+
+    dominant = max(("warm", "blue", "green"), key=hue_weights.get)
+    if hue_weights["neutral"] >= 0.62:
+        base_name = "soft-lilac" if mean_luminance > 0.68 else "warm-ivory"
+    elif dominant == "blue":
+        base_name = "dusty-peach"
+    elif dominant == "warm":
+        base_name = "powder-blue"
+    else:
+        base_name = "warm-ivory" if mean_luminance < 0.62 else "mineral-sage"
+
+    base = ROBOT_DREAMS_BOARD_BASES[base_name]
+    source_mean = ImageStat.Stat(sample).mean
+    # Retain a restrained source echo without allowing the board to become noisy.
+    return tuple(round(base[i] * 0.88 + source_mean[i] * 0.12) for i in range(3))  # type: ignore[return-value]
 
 
 def luminance(color: tuple[int, int, int]) -> float:
