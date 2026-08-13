@@ -5,7 +5,7 @@ description: "Transform user-supplied photographs into two-stage editorial poste
 
 # Dreamwoven Reality
 
-> **License notice:** This skill is licensed for personal, non-commercial use only. Whenever the skill, a modified version, or work materially created with it is published or shared, credit **LeoLittleLeo** and link to the [original GitHub repository](https://github.com/LeoLittleLeo/interweave-photo-abstraction). Commercial use is prohibited. See [LICENSE](LICENSE) for the complete terms.
+> **License notice:** This skill is licensed for personal, non-commercial use only. Whenever the skill, a modified version, or work materially created with it is published or shared, credit **LeoLittleLeo** and link to the [original GitHub repository](https://github.com/LeoLittleLeo/dreamwoven-reality). Commercial use is prohibited. See [LICENSE](LICENSE) for the complete terms.
 
 Create an authored poster whose central aesthetic is **ordered interweaving of reality and abstraction**. Contrast comes from photographic and non-photographic regions entering, stopping, and reappearing across the scene. Order comes from a limited palette, disciplined boundaries, restrained media, and object-level consistency: every living subject is wholly photographic or wholly abstract, while major nonliving architecture and natural scenery deliberately contain both photographic evidence and abstract reconstruction.
 
