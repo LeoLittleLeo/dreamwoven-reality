@@ -413,6 +413,58 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - Reduce clustered pedestrians and nonessential secondary pedestrians to one coherent single-tone silhouette system. Use exactly one shared opaque flat fill across all such people in the image; preserve only group range, density, proportion, pose rhythm, direction, spacing, and necessary overlap. Use crisp hard edges, merge collisions into clean union masses or open a narrow paper-colored separation gap, and allow no face, garment detail, tonal depth steps, transparency, hatch, paper grain, sketch texture, ink/watercolor wash, photographic islands, internal modeling, or edge bleed.
 - Keep hierarchy classes visually distinct. Do not give secondary people the structural line language used for architecture. Assign photographic texture to identity anchors, sparse structural marks to selected built forms, and solid fill-only silhouettes to crowds.
 
+### Architectural Hierarchy and Hero Selection
+
+Define architectural roles by scene function rather than by size, distance, or whether a structure is a famous landmark.
+
+```yaml
+architecture_hierarchy:
+  hero_architecture:
+    definition: >
+      The single identifiable building or coherent building group that contributes most to
+      scene recognition, visual center of gravity, and compositional relationships.
+    selection_priority:
+      1: explicit-user-designation
+      2: scene-recognition-contribution
+      3: visual-center-of-gravity
+      4: compositional-relationship
+      5: landmark-distinctiveness
+    constraints:
+      - may-be-a-single-building-or-a-coherent-structural-group
+      - do-not-select-only-by-largest-area-or-nearest-distance
+    upper_treatment: approximately-55-percent-photographic-plus-45-percent-contiguous-recognition-skeleton-reconstruction
+    lower_treatment: extreme-semantic-reconstruction
+  secondary_architecture:
+    definition: >
+      Every identifiable artificial structure other than hero_architecture, including
+      background city skylines, distant building groups, port structures, bridges, roofs,
+      façades, and other built forms.
+    upper_treatment: quiet-silhouette-or-simplified-structural-abstraction
+    lower_treatment: broad-semantic-planes-plus-sparse-structural-cues
+    photographic_detail: prohibited
+```
+
+A background city skyline remains `secondary_architecture` even when it is small, distant,
+low-contrast, partially cropped, or visually subordinate. It must not be classified as ordinary
+environmental background and must not retain photographic windows, façade texture, masonry,
+roof detail, or individually readable repeated structures. Compress it into a quiet silhouette,
+low-contrast geometric mass, or sparse structural rhythm while preserving only the source-derived
+skyline direction and scene relationship.
+
+Before generation, record the role of every visible built region:
+
+```yaml
+architecture_role_inventory:
+  - region: <source-grounded region>
+    role: hero_architecture | secondary_architecture
+    reason: <scene recognition, visual weight, compositional relationship, or explicit designation>
+    upper_treatment: <stage-specific treatment>
+    lower_treatment: <stage-specific treatment>
+```
+
+If any identifiable background building remains photographic in the upper stage, fail the
+secondary-architecture gate and regenerate or locally re-edit the upper stage before composition.
+
 ### Upper Architectural Reconstruction
 
 Apply this treatment to one recognizable hero building in the **upper stage**. Keep approximately 55% as photographic reality and reconstruct approximately 45% from the building's recognition skeleton. This balance is an upper-stage rule only; lower architecture follows the extreme semantic reconstruction contract.
