@@ -22,7 +22,7 @@
 
 Use one source and one semantic scene with two deliberately different rendering contracts:
 
-- **Upper:** photographic-led partial abstraction; strict source geometry; default 45–60% material reconstruction; approximately 95% perceptual fidelity for the primary face; upper hero architecture approximately 55% photographic plus 45% skeleton-driven reconstruction; free-edged alpha contour.
+- **Upper:** photographic-led partial abstraction; strict source geometry; default 45–60% material reconstruction; approximately 95% perceptual fidelity for the primary face; upper hero architecture approximately 55% photographic plus 45% contiguous planar material replacement constrained by its recognition skeleton; free-edged alpha contour.
 - **Lower:** 85–100% non-photographic semantic distillation; spatial re-authoring allowed; no realistic face or skin; readable abstract primary-person silhouette; extreme architectural reconstruction; strict rectangle; mandatory `robot-dreams-logic` palette.
 
 Preserve semantic identity across stages. Do not preserve rendering treatment across stages.
@@ -73,7 +73,7 @@ The 95% facial target is upper-only. Lower realistic facial content is a failure
 
 ## Architecture
 
-For the upper hero architecture, use `structural-distillation` as the primary operation: identify its recognition skeleton and compress repeated windows, columns, trim, seams, and ornament into structural rhythms. Optionally support it with either `planar-replacement` or `semantic-omission`. The result should read as approximately 55% photographic reality and 45% actual material reconstruction, not surface decoration.
+For the upper hero architecture, use `planar-replacement` as the primary operation and optionally support it with `semantic-omission`. Identify the recognition skeleton first, but treat it only as an identity and geometry constraint. Replace approximately 45% of the visible hero with one contiguous region or structurally connected set of broad opaque planes; remove photographic windows, tiles, trim, seams, shadows, and surface texture inside that zone. Sparse skeleton lines may clarify alignment but contribute zero reconstruction coverage. The result should read as approximately 55% photographic reality and 45% actual material replacement, not surface decoration.
 
 For lower architecture, use broad color planes and sparse lines under extreme reconstruction. Retain the same building identity and minimum recognition skeleton, but permit spatial re-authoring and do not apply upper photographic-balance checks.
 
@@ -111,7 +111,7 @@ artistic_proposition: <source-grounded sentence>
 upper_preserved_geometry: [<framing, position, perspective, pose, landmark anchors>]
 upper_reconstructed_regions: [<at least two nonliving regions>]
 upper_primary_face: <approximately-95-percent or none>
-upper_hero_architecture: <55/45 plan; structural-distillation plus optional planar-replacement or semantic-omission; or none>
+upper_hero_architecture: <55/45 plan; contiguous planar-replacement plus optional semantic-omission, constrained by a non-counting recognition skeleton; or none>
 upper_board_base: <scene diagnosis; dominant temperature; Robot Dreams pale family; contrast purpose>
 lower_semantic_anchors: [<identity and relationship cues>]
 lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
@@ -126,7 +126,7 @@ upper_board_occupancy: 65-85-percent-prefer-75
 
 - If upper loses photographic dominance, restore material depth and source geometry without weakening counted abstraction.
 - If the upper face drifts, correct only the failing identity carrier through generation or localized editing; never source-composite.
-- If upper architecture is detached or merely decorated, restore recognition-skeleton-driven material replacement and credible structural connections.
+- If upper architecture is detached or merely decorated, restore contiguous planar material replacement and credible structural connections; use the recognition skeleton only to constrain geometry.
 - If the upper board competes with the artwork or loses its free-edge contrast, reselect a quieter source-semantic Robot Dreams pale base.
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
 - If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.

@@ -1,6 +1,6 @@
 ---
 name: dreamwoven-reality
-description: "Transform user-supplied photographs into two-stage editorial posters with an upper photographic-led partial abstraction and a lower extreme semantic abstraction. Keep the original as analysis and geometry authority only; never show it as a panel. Preserve an upper primary face at about 95% perceptual fidelity without source-person compositing, while reducing the lower primary person to a readable abstract silhouette. Use for photo posterization, virtual/real contrast, recognition-skeleton-driven architectural reconstruction, controlled palettes, paper-field posters, and full-bleed interpretations."
+description: "Transform user-supplied photographs into two-stage editorial posters with an upper photographic-led partial abstraction and a lower extreme semantic abstraction. Keep the original as analysis and geometry authority only; never show it as a panel. Preserve an upper primary face at about 95% perceptual fidelity without source-person compositing, while reducing the lower primary person to a readable abstract silhouette. Use for photo posterization, virtual/real contrast, materially replaced architecture constrained by a recognition skeleton, controlled palettes, paper-field posters, and full-bleed interpretations."
 ---
 
 # Dreamwoven Reality
@@ -21,7 +21,7 @@ stage_contract:
     photographic_read: dominant
     source_geometry: strict
     primary_face: approximately-95-percent-perceptual-fidelity
-    hero_architecture: approximately-55-percent-photographic-plus-45-percent-recognition-skeleton-driven-reconstruction
+    hero_architecture: approximately-55-percent-photographic-plus-45-percent-materially-replaced-reconstruction-constrained-by-recognition-skeleton
     natural_hue_policy: source-faithful-neighboring-range
     board_base_color: source-semantic-robot-dreams-pale-counterpoint
     outer_boundary: non-rectangular-free-edge
@@ -45,15 +45,12 @@ Stage-specific rules override generic rendering rules. Upper-stage fidelity requ
 
 Treat this section as the single source of truth for what abstraction means, which operations are available, and how many may be combined. Other sections may assign an operation to an object or stage, but must not introduce additional abstraction methods.
 
-Abstraction counts only when visible source material is replaced through at least one of these five operations:
+Abstraction counts only when visible source material is replaced through at least one of these four operations:
 
 ```yaml
 canonical_abstraction_vocabulary:
   planar-replacement:
     action: replace photographic material with broad coherent color or value planes
-    primary_stage: upper-and-lower
-  structural-distillation:
-    action: reduce an object to its recognition skeleton, axes, joints, contours, or a few structural rhythms
     primary_stage: upper-and-lower
   silhouette-merging:
     action: merge repeated, secondary, or living subjects into one or a few readable flat masses
@@ -70,19 +67,21 @@ stage_limits:
     role: photographic-led-partial-abstraction
     source_geometry: strongly-preserved
     default_material_reconstruction: 45-60-percent
-    allowed_operations: [planar-replacement, structural-distillation, silhouette-merging, semantic-omission]
+    allowed_operations: [planar-replacement, silhouette-merging, semantic-omission]
     operation_limit: one-primary-plus-at-most-one-supporting
     execution: few-large-contiguous-regions
   lower:
     role: extreme-semantic-abstraction
     source_geometry: spatial-reauthoring-allowed
     non-photographic_target: 85-100-percent
-    allowed_operations: [planar-replacement, structural-distillation, silhouette-merging, semantic-omission, spatial-reauthoring]
+    allowed_operations: [planar-replacement, silhouette-merging, semantic-omission, spatial-reauthoring]
     operation_limit: one-primary-plus-at-most-one-supporting
     execution: few-large-semantic-masses
 ```
 
 An operation is not a visual medium. Colored linework, flat paint, charcoal, ink, pencil, watercolor, gouache, paper, or digital shape language may realize an allowed operation, but naming or layering a medium does not create another abstraction method. Choose one consistent material voice for the primary operation and, only when necessary, one quieter supporting voice. Do not stack multiple textures or mark-making systems to increase apparent abstraction.
+
+`recognition skeleton` is an identity and geometry constraint, not a countable abstraction operation. Use it to decide which silhouette, axis, joint, opening rhythm, overlap, support, and proportion must survive material replacement. Lines that merely describe this skeleton over intact photography never count toward reconstruction coverage.
 
 For the upper stage, cleanliness is a hard requirement: make 2–4 large reconstruction decisions across at least two major nonliving semantic regions; keep transitions source-grounded; leave photographic areas calm; and avoid small alternating patches, scattered strokes, repeated edge effects, or all-over surface treatment. When the upper looks busy, remove the supporting operation first, enlarge the remaining regions, and reduce internal marks before changing coverage.
 
@@ -163,7 +162,7 @@ Transform what exists; do not invent a different scene. Apply faithfulness in th
 - **Pixel/material faithfulness — stage-dependent:** keep the upper photographic-led and identity-sensitive; make the lower 85–100% non-photographic with almost no microdetail. The lower may materially reconstruct any object while retaining enough semantic anchors to remain the same scene.
 
 - **Primary person:** globally preserve who the person is, their source-related pose/gesture/orientation, interaction, clothing category, and scene role. Apply approximately 95% facial fidelity, expression/gaze preservation, and strict source position only in the upper stage. In the lower stage prohibit realistic face/skin and preserve the person through a readable abstract silhouette and scene relationship.
-- **Architecture:** globally preserve the same building identity, building count/range, landmark-defining profile, and recognition-critical relationships. In the upper hero, retain approximately 55% photographic reality and reconstruct approximately 45% from its recognition skeleton in an openly chosen non-photographic language. The lower may spatially re-author architecture as extreme semantic reconstruction without inventing or substituting structures.
+- **Architecture:** globally preserve the same building identity, building count/range, landmark-defining profile, and recognition-critical relationships. In the upper hero, retain approximately 55% photographic reality and materially replace approximately 45% primarily through contiguous planar replacement, optionally supported by semantic omission; use the recognition skeleton only to constrain identity and geometry. The lower may spatially re-author architecture as extreme semantic reconstruction without inventing or substituting structures.
 - **Natural landscape:** globally preserve the identity and relationships of source mountains, terrain, coast, water, vegetation masses, horizon, and major weather evidence. The upper preserves source geometry closely; the lower may recompose these features into source-derived semantic masses.
 - **Objects:** do not introduce people, buildings, ornaments, birds, vehicles, furniture, vegetation, boats, lamps, signs, clouds, celestial objects, or another major object merely for balance, symbolism, storytelling, or aesthetics. Construction lines, pigment, paper texture, hatch, ink traces, and abstract color fields are allowed only when they read as rendering language rather than physical objects.
 - **Occlusion and ambiguity:** preserve visible evidence, simplify uncertain regions, leave incomplete sketch marks or negative space, and softly omit ambiguity. Never complete hidden, cropped, blurred, or unclear anatomy, architecture, terrain, text, signage, or objects with unsupported detail. When uncertain, simplify rather than invent.
@@ -214,7 +213,7 @@ stage_generation: coordinated-whole-image-edits
 primary_subject: <visible subject>
 artistic_proposition: <one source-grounded relationship, tension, transition, or emotional fact>
 upper_architecture_hierarchy: none | identifiable-hero | selected-hero-by-compositional-harmony
-architecture_stage_plan: [<hero identity -> upper 55% photographic plus 45% recognition-skeleton-driven reconstruction; lower extreme semantic reconstruction>]
+architecture_stage_plan: [<hero identity -> upper 55% photographic plus 45% contiguous material replacement constrained by recognition skeleton; lower extreme semantic reconstruction>]
 identity_sensitivity: low | medium | high
 upper_person_mode: none | face-locked-body-flexible-no-source-composite | fully-abstract-faceless | illustrated-portrait
 upper_identity_fidelity_target: none | approximately-95-percent-facial-perceptual
@@ -293,7 +292,7 @@ stage_treatment_matrix:
     upper: one-shared-opaque-flat-silhouette
     lower: simplified-grouped-semantic-masses-or-shared-flat-silhouettes
   hero_architecture:
-    upper: approximately-55-percent-photographic-plus-45-percent-recognition-skeleton-driven-reconstruction
+    upper: approximately-55-percent-photographic-plus-45-percent-contiguous-planar-replacement-optionally-supported-by-semantic-omission
     lower: extreme-semantic-architectural-reconstruction
   secondary_architecture:
     upper: simplified-structural-abstraction-or-quiet-silhouette
@@ -361,7 +360,7 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - **Stage-scoped clustered life:** detect clusters globally, then render them by stage. Upper clusters use one coherent abstract language; lower clusters become simplified grouped semantic masses or compatible shared silhouettes. The protected upper primary person may remain an exception.
 - **Upper crowd single-tone lock:** every upper non-primary person uses exactly one shared opaque flat fill color with crisp edges and no internal detail.
 - **Lower secondary-person treatment:** lower non-primary people become simplified grouped semantic masses or shared flat silhouettes; they do not inherit the upper single-tone rendering requirement unless that choice supports the lower composition.
-- **Upper nonliving duality:** every major upper non-architectural engineered or landscape region should visibly combine one calm photographic recognition region with one contiguous abstract reconstruction region. Upper hero architecture follows its 55/45 skeleton-driven reconstruction rule. Lower nonliving regions follow extreme semantic reconstruction instead.
+- **Upper nonliving duality:** every major upper non-architectural engineered or landscape region should visibly combine one calm photographic recognition region with one contiguous abstract reconstruction region. Upper hero architecture follows its 55/45 contiguous planar material-replacement rule, with the recognition skeleton acting only as a geometry constraint. Lower nonliving regions follow extreme semantic reconstruction instead.
 - **Boundary discipline:** for non-architectural regions, place real/abstract transitions on source-grounded seams—structural joints, perspective axes, shorelines, currents, ridges, slopes, shadow edges, or occlusion boundaries. Architectural transitions follow the recognition skeleton and credible structural connections; they need not use one fixed edge style.
 - **Stage-specific vocabulary restraint:** follow the Canonical Abstraction Vocabulary: one primary operation plus at most one supporting operation per stage, with one coherent material voice per operation. Keep the two stages compatible in palette and proposition but distinct in rendering density.
 - **High-line-density forced abstraction:** for non-architectural objects, compress repeated lines into broad unequal planes and sparse structural marks. For architecture, preserve the recognition skeleton and compress repeated windows, columns, seams, trim, ornament, and surface texture into a few readable rhythms. Do not describe every unit one by one or replace the building with generic planes.
@@ -370,7 +369,7 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - **Lower-panel palette lock:** the lower panel must use `robot-dreams-logic` as a selected palette, not merely as an optional candidate. Use 4–6 softened colors, warm/cool opposition, 2–3 value steps per semantic mass, charcoal/deep blue instead of pure black, and at most one concentrated accent. Reject naturalistic color scattering, random neon, realistic skin tones, global grayscale, and generic painterly color treatment.
 - **Multi-region transformation:** distribute counted abstraction across at least two major nonliving semantic regions—for example architecture plus ground, water plus terrain, shoreline plus supporting buildings, or road plus built fixtures. A single large flat sky or background field cannot satisfy the requirement by itself. Fully photographic living subjects are exempt from abstraction but do not reduce the coverage target for the remaining composition.
 - **Upper photographic-corridor cap:** apply the <=35% cap only to uncontrolled continuous environmental photographic corridors across the upper composition. It does not override the upper primary-face identity region or the designated upper hero architecture governed by its 55/45 rule. Do not apply this cap to the lower stage, whose 85–100% non-photographic contract already controls photographic retention.
-- **Upper architectural hierarchy lock:** identify one upper-stage hero building when architecture is present. Retain approximately 55% of that hero as photographic reality and reconstruct approximately 45% primarily through `structural-distillation`, optionally supported by either `planar-replacement` or `semantic-omission`. Treat secondary architecture more quietly. This balance must never constrain lower architecture.
+- **Upper architectural hierarchy lock:** identify one upper-stage hero building when architecture is present. Retain approximately 55% of that hero as photographic reality and materially replace approximately 45% primarily through `planar-replacement`, optionally supported by `semantic-omission`. Use the recognition skeleton only as an identity and geometry constraint; it contributes zero coverage by itself. Treat secondary architecture more quietly. This balance must never constrain lower architecture.
 - **Stage-scoped architectural identity:** in the upper stage preserve the hero's source location, footprint, silhouette, viewpoint, perspective, façade geometry, window/column rhythms, roof geometry, proportions, and recognition skeleton. In the lower stage preserve only the same architectural semantic identity, minimum recognition skeleton, and source-derived structural relationships; permit extreme reconstruction, spatial re-authoring, broad color planes, and sparse structural lines. Neither stage may replace the source architecture with unrelated structures.
 - **Disposable support fixtures — zero photographic retention by default:** classify every non-hero bench, chair, stool, seat, cushion, sofa, low wall used as seating, table, or comparable furniture/support surface as disposable. Rebuild it completely in one abstract language. Integrate the person above it while preserving anatomy, weight, and contact; garment or body edges may blend into the artwork, but the fixture retains no photographic material unless explicitly protected.
 - **Stage-scoped ground lock:** upper ground requires a photographic core plus one contiguous reconstruction zone with preserved perspective and spatial function. Lower ground uses broad semantic planes and sparse source-derived perspective cues.
@@ -405,7 +404,7 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - Use scene-semantic brightness. Favor calm middle-to-lower values for quiet, historic, intimate, autumnal, or overcast scenes; allow brighter values for sunny, snowy, seaside, summer, or celebratory scenes.
 - Build a few unequal semantic masses. Use an echo color only when it carries a necessary structural or conceptual turn; otherwise set it to `none`. Never add accent marks merely because a source hue is available.
 - Partially deconstruct prominent tall nonliving anchors while retaining decisive silhouette, spatial role, and one or two identifying features. Make the intervention legible through one contiguous reconstructed zone, large omissions, and a few hierarchical marks; do not substitute all-over sketch texture for deconstruction.
-- In the upper stage, select one hero building or coherent architectural group by dominance or compositional harmony. Keep approximately 55% photographic and reconstruct approximately 45% from the smallest source-derived skeleton that preserves identity. Choose the reconstruction language for the scene rather than from a fixed medium: colored line study, exposed structural frame, assembled or scaffolded skeleton, structural color planes, transparent construction, paper omission, or another coherent non-photographic system. Upper supporting architecture remains quieter. Lower architecture follows its extreme semantic contract instead.
+- In the upper stage, select one hero building or coherent architectural group by dominance or compositional harmony. Keep approximately 55% photographic and materially replace approximately 45% with one contiguous region or structurally connected set of broad source-aligned planes. Optionally omit secondary material inside that zone. Use the smallest source-derived recognition skeleton only to preserve identity, alignment, joints, overlaps, and proportions. Sparse structural lines may clarify the replaced planes but never count as reconstruction. Upper supporting architecture remains quieter. Lower architecture follows its extreme semantic contract instead.
 - Fully abstract disposable support fixtures by default, even when their texture appears visually quiet or helps explain contact. Inventory every bench, chair, stool, seat, cushion, sofa, low seating wall, table, and comparable support before editing; assign the entire fixture a zero-photographic-retention treatment. Preserve contact logic through abstract geometry and a coherently generated or locally edited person above it, never through a photographic patch of the fixture or source-person reinsertion.
 - Omit or strongly merge non-architectural source elements when they fragment the intended semantic masses without supporting recognition or the artistic proposition. Never apply this omission rule to recognizable architecture: architectural identity, geometry, and structural continuity take priority.
 - Give a dominant low-variety region contained value bands or material rhythm; keep construction-line language mainly on architecture and engineered structures.
@@ -432,7 +431,7 @@ architecture_hierarchy:
     constraints:
       - may-be-a-single-building-or-a-coherent-structural-group
       - do-not-select-only-by-largest-area-or-nearest-distance
-    upper_treatment: approximately-55-percent-photographic-plus-45-percent-contiguous-recognition-skeleton-reconstruction
+    upper_treatment: approximately-55-percent-photographic-plus-45-percent-contiguous-planar-replacement-constrained-by-recognition-skeleton
     lower_treatment: extreme-semantic-reconstruction
   secondary_architecture:
     definition: >
@@ -467,22 +466,20 @@ secondary-architecture gate and regenerate or locally re-edit the upper stage be
 
 ### Upper Architectural Reconstruction
 
-Apply this treatment to one recognizable hero building in the **upper stage**. Keep approximately 55% as photographic reality and reconstruct approximately 45% from the building's recognition skeleton. This balance is an upper-stage rule only; lower architecture follows the extreme semantic reconstruction contract.
+Apply this treatment to one recognizable hero building in the **upper stage**. Keep approximately 55% as photographic reality and materially replace approximately 45% through contiguous `planar-replacement`, optionally supported by `semantic-omission`. The building's recognition skeleton constrains the replacement but is not itself an abstraction method and contributes no coverage. This balance is an upper-stage rule only; lower architecture follows the extreme semantic reconstruction contract.
 
 Identify the smallest source-derived skeleton that preserves the building's identity: landmark silhouette, roofline or crown, façade axis, major wall planes, tower, dome, gate, arch, column grouping, structural diagonal, opening rhythm, and other decisive relationships actually visible in the source. Compress repeated windows, columns, seams, trim, ornament, and surface texture into a few readable rhythms.
 
-Choose the reconstruction language freely according to the scene and proposition. Valid directions include:
+Choose one planar material language according to the scene and proposition. Valid directions include:
 
-- colored architectural linework or drawing;
-- exposed beams, columns, shells, trusses, or structural frame;
-- an assembled, scaffolded, or partially built skeleton;
 - structural color planes or simplified volumes;
-- transparent construction layers, paper omission, or interrupted material;
-- another coherent non-photographic system derived from the same recognition skeleton.
+- broad opaque paper planes aligned to shells, walls, roofs, or façades;
+- planar construction fields with sparse skeleton lines used only as identifiers;
+- planar replacement supported by deliberate paper omission or interrupted material.
 
-These are options, not a checklist. Use one primary language and at most one supporting language. A monochrome frame, colored study, or materially reduced construction may all succeed when structurally intentional. Do not require watercolor, pigment, colored linework, cultural style classification, or an unfinished-building effect.
+These are options, not a checklist. Use `planar-replacement` as the primary operation and at most `semantic-omission` as support. A line-only frame, colored study, transparent drawing, or intact photograph beneath structural marks is insufficient even when structurally intentional.
 
-Make the reconstruction replace photographic material rather than decorate a complete photograph. It may occupy one connected region or several structurally connected components when the building's skeleton supports that choice. Maintain credible perspective, proportions, silhouette, supports, joints, and recognition-critical relationships between the photographic and rebuilt portions. A real contour may continue into a drawn line, beam, open frame, color plane, or deliberate structural gap; literal contour continuation is not mandatory when another connection is clearer.
+Make the reconstruction replace photographic material rather than decorate a complete photograph. It may occupy one connected region or several structurally connected components when the building's skeleton supports that choice. Maintain credible perspective, proportions, silhouette, supports, joints, and recognition-critical relationships between the photographic and rebuilt portions. A real contour must continue into a source-aligned color plane, planar joint, or deliberate omission; a drawn line alone cannot carry the transition.
 
 Do not paste, duplicate, or offset architectural fragments. Do not invent unsupported wings, towers, openings, roofs, or structural systems. At thumbnail scale, the result must still read as the same building, with the 55% photographic reality and 45% authored reconstruction both clearly visible.
 
@@ -494,7 +491,7 @@ upper_architecture_priority:
   2: recognition-skeleton
   3: perspective-and-structural-alignment
   4: approximately-55-percent-photographic-reality
-  5: approximately-45-percent-recognition-skeleton-driven-reconstruction
+  5: approximately-45-percent-contiguous-planar-material-replacement
   6: detail-compression
   7: coherent-reconstruction-language
 lower_architecture_priority:
@@ -581,7 +578,7 @@ The upper panel is not the untouched original photograph. Generate or edit the c
 - Keep enough photographic surface, tonal depth, material evidence, and natural light that the viewer reads it first as a transformed photograph rather than a flat illustration.
 - Do not create it by placing cut-out source people, faces, bodies, garments, or local source patches over generated content. Generate or locally edit the whole scene coherently.
 - Apply the same palette and material family used below so the two stages feel authored together.
-- When architecture is present, make approximately 45% of the upper hero visibly reconstructed from its recognition skeleton. Select a coherent structural language—such as colored linework, exposed frame, assembled skeleton, structural planes, transparent construction, or paper omission—without prescribing one medium.
+- When architecture is present, materially replace approximately 45% of the upper hero with contiguous source-aligned planes, optionally supported by semantic omission. Preserve the recognition skeleton as a non-counting geometry constraint. Sparse linework may clarify joints but cannot substitute for material replacement.
 - Build the upper outer contour exactly through the Upper Boundary Contract; do not substitute a blob, cutout, torn-paper perimeter, or distressed rectangle.
 - Preserve the main recognition anchors and allow the upper panel to carry the primary identity and landmark burden.
 
@@ -712,7 +709,7 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`B03 living-cluster-retention`:** a detected cluster retains photographic miniatures or loses its group identity. In upper, use one shared abstract language; in lower, use grouped semantic masses or compatible shared silhouettes.
 - **`B04 upper-secondary-person-retention` (blocking):** an upper non-primary person retains a face, garment texture, photographic detail, individual modeling, or differs from the one shared opaque flat fill. Lower secondary people are evaluated against the lower grouped-mass treatment instead.
 - **`V01 weak-virtual-real-contrast`:** both photographic evidence and authored abstraction are materially visible; the result is neither an almost unchanged photograph nor a nearly unrelated full illustration.
-- **`V02 upper-architectural-balance-failure`:** the upper hero does not retain approximately 55% photographic reality plus approximately 45% visible recognition-skeleton-driven reconstruction. Never apply this gate to lower architecture, which should be extremely reconstructed.
+- **`V02 upper-architectural-balance-failure`:** the upper hero does not retain approximately 55% photographic reality plus approximately 45% visible contiguous planar material replacement, optionally supported by semantic omission. Recognition-skeleton lines contribute zero coverage. Never apply this gate to lower architecture, which should be extremely reconstructed.
 - **`V03 transition-disorder`:** upper real/abstract boundaries ignore source structure or scatter competing media. Lower may re-author boundaries but must keep coherent semantic masses and source-derived relationships.
 - **`P04 human-layer-offset` (blocking):** reject any duplicated person edge, shifted silhouette, partial body offset, non-overlapping source and generated body section, visible cutout seam, compositing offset, floating source-photo fragment, pasted face, pasted body, or mismatched resolution/noise/exposure in the human figure. Slight clothing-edge deformation, body-edge simplification, painterly body transition, white sticker outline, graphic contour, and paper-cut boundary are allowed only when deliberate and visually coherent. If this gate fails, regenerate the person region or the complete image; do not apply additional source compositing.
 - **`H01 vocabulary-collision`:** architecture, identity anchors, and secondary people use distinct visual vocabularies; crowd silhouettes contain no architectural line work.
@@ -728,8 +725,8 @@ By default, `compose_poster.py` reads the original image dimensions and derives 
 - **`M05 architectural-medium-replacement` (blocking):** either stage replaces source architecture with a different building or invented components. Upper changes rendering state only; lower may radically change form placement and geometry emphasis while retaining the same semantic identity and minimum recognition skeleton.
 - **`M06 upper-architectural-registration-failure` (blocking):** the upper transition contains duplicated contours, shifted copies, detached fragments, offset openings, hard masking, or pasted layers. Lower spatial re-authoring is allowed but must remain semantically source-derived.
 - **`M07 upper-architectural-reconstruction-dispersion` (blocking):** the upper reconstruction is scattered as unrelated decorative patches rather than a coherent region or structurally connected system.
-- **`M10 upper-architectural-surface-decoration` (blocking):** the upper hero remains fully photographic beneath superficial lines or effects. Replace photographic material with an actual skeleton-driven reconstruction.
-- **`M11 architectural-reconstruction-language-failure` (blocking):** the upper reconstructed portion lacks a coherent structural language or its marks do not describe the building's frame, planes, joints, massing, or recognition skeleton.
+- **`M10 upper-architectural-surface-decoration` (blocking):** the upper hero remains fully photographic beneath superficial lines or effects. Replace photographic material with contiguous opaque or deliberately omitted planes; skeleton lines alone never pass.
+- **`M11 architectural-reconstruction-language-failure` (blocking):** the upper reconstructed portion lacks one coherent planar material language, or its planes do not follow the building's frame, joints, massing, proportions, and recognition skeleton.
 - **`M12 upper-structural-connection-failure` (blocking):** photographic and reconstructed portions meet through arbitrary breaks, impossible joints, detached fragments, or unsupported transitions. Reconnect them through credible structure or a deliberate source-grounded omission.
 - **`M13 upper-architectural-thumbnail-legibility`:** at reduced size the hero silhouette, 55/45 contrast, recognition skeleton, or reconstructed structure is unclear. Lower is judged by minimum recognition skeleton instead.
 - **`M08 upper-secondary-architecture-treatment-failure` (blocking):** upper secondary architecture either retains any photographic architectural detail or competes with the hero through elaborate reconstruction. Collapse it to a quiet silhouette or simplified structural abstraction before composition. Lower secondary architecture follows simplified masses and sparse lines.

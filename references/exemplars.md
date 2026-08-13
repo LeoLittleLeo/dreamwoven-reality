@@ -39,7 +39,7 @@ Use it to verify:
 
 - each tree or connected botanical subject is wholly photographic or wholly abstract from roots through trunk, branches, and crown;
 - a grove cluster shares one coherent botanical language instead of mixing photographic trunks with painted foliage;
-- structural distillation and planar replacement remain visually distinct but limited to one primary and one supporting canonical operation;
+- planar replacement remains the countable reconstruction operation while the recognition skeleton acts only as a non-counting geometry constraint; use semantic omission as the sole optional supporting operation;
 - architecture retains its source location while repetitive façade detail is compressed;
 - the content boundary follows canopy fall, branch spread, root/ground contact, and slope rather than a generic cutout;
 - one warm built mass can separate protected sky and vegetation without scattering accent color.
