@@ -8,12 +8,10 @@ restrictive requirement.
 
 This license applies only to the following original/processed exemplar pairs:
 
-- pastoral-living-cluster/original.jpg
-- pastoral-living-cluster/processed.png
-- huizhou-window-framing/original.jpg
-- huizhou-window-framing/processed.png
-- botanical-unity/original.jpg
-- botanical-unity/processed.png
+- circular-quay-framing/original.jpg
+- circular-quay-framing/processed.png
+- tree-architecture/original.jpg
+- tree-architecture/processed.png
 
 Permission is granted to store, inspect, and use these images solely for:
 

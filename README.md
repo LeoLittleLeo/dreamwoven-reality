@@ -14,7 +14,7 @@ Dreamwoven Reality 不是简单的滤镜、风格迁移或“一键插画化”�
 ---
 ## 效果示例
 
-### Botanical Unity
+### Tree and Architecture / 树与建筑
 
 <table>
   <tr>
@@ -22,12 +22,12 @@ Dreamwoven Reality 不是简单的滤镜、风格迁移或“一键插画化”�
     <td align="center"><strong>处理后</strong></td>
   </tr>
   <tr>
-    <td><img src="assets/exemplars/botanical-unity/original.jpg" width="420"></td>
-    <td><img src="assets/exemplars/botanical-unity/processed.png" width="420"></td>
+    <td><img src="assets/exemplars/tree-architecture/original.jpg" width="420"></td>
+    <td><img src="assets/exemplars/tree-architecture/processed.png" width="420"></td>
   </tr>
 </table>
 
-### Huizhou Window Framing
+### Circular Quay Framing / 环形码头框景
 
 <table>
   <tr>
@@ -35,21 +35,8 @@ Dreamwoven Reality 不是简单的滤镜、风格迁移或“一键插画化”�
     <td align="center"><strong>处理后</strong></td>
   </tr>
   <tr>
-    <td><img src="assets/exemplars/huizhou-window-framing/original.jpg" width="420"></td>
-    <td><img src="assets/exemplars/huizhou-window-framing/processed.png" width="420"></td>
-  </tr>
-</table>
-
-### Pastoral Living Cluster
-
-<table>
-  <tr>
-    <td align="center"><strong>原图</strong></td>
-    <td align="center"><strong>处理后</strong></td>
-  </tr>
-  <tr>
-    <td><img src="assets/exemplars/pastoral-living-cluster/original.jpg" width="420"></td>
-    <td><img src="assets/exemplars/pastoral-living-cluster/processed.png" width="420"></td>
+    <td><img src="assets/exemplars/circular-quay-framing/original.jpg" width="420"></td>
+    <td><img src="assets/exemplars/circular-quay-framing/processed.png" width="420"></td>
   </tr>
 </table>
 

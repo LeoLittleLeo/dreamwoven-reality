@@ -1,59 +1,39 @@
 # Curated Exemplar Routing
 
-> **Rights notice:** The three exemplar images are copyrighted reference assets licensed for personal use, internal evaluation, and non-commercial use within this skill only. Commercial use, resale, sublicensing, publication as standalone assets, dataset inclusion, and redistribution without the rights holder's prior written permission are prohibited. Any permitted copy or export must retain [the exemplar license](../assets/exemplars/LICENSE.txt).
+> **Rights notice:** The two exemplar pairs are copyrighted reference assets licensed for personal use, internal evaluation, and non-commercial use within this skill only. Commercial use, resale, sublicensing, publication as standalone assets, dataset inclusion, and redistribution without the rights holder's prior written permission are prohibited. Any permitted copy or export must retain [the exemplar license](../assets/exemplars/LICENSE.txt).
 
-Use these images as narrow quality references for transferable decisions. Inspect only the exemplar whose routing condition matches the source. Never combine all three by default, copy their subject matter, force their palette, or reproduce their exact composition.
+Use these images as narrow quality references for transferable decisions. Inspect only the exemplar whose routing condition matches the source. Never combine both by default, copy their subject matter, force their palette, or reproduce their exact composition.
 
-## Pastoral Living Cluster
-
-Pair:
-
-- [Original photograph](../assets/exemplars/pastoral-living-cluster/original.jpg)
-- [Processed exemplar](../assets/exemplars/pastoral-living-cluster/processed.png)
-
-Route here when the source contains a flock, herd, dispersed grazing group, or another repeated living cluster distributed across terrain.
-
-Use it to verify:
-
-- every cluster member uses one shared fully abstract language;
-- photographic fur, fleece, faces, and isolated detailed miniatures are absent;
-- group extent, density, depth bands, direction, and behavioral rhythm remain legible;
-- terrain becomes a few broad source-semantic bands;
-- the sky remains one continuous natural field;
-- the paper boundary follows cloud flow, ridge, and ground accumulation rather than a rounded rectangle.
-
-Do not copy the blue/olive/ochre palette unless supported by the source. Do not turn unrelated crowds, trees, or flowers into sheep-like silhouettes.
-
-## Huizhou Window Framing
+## Circular Quay Framing
 
 Pair:
 
-- [Original photograph](../assets/exemplars/huizhou-window-framing/original.jpg)
-- [Processed exemplar](../assets/exemplars/huizhou-window-framing/processed.png)
+- [Original photograph](../assets/exemplars/circular-quay-framing/original.jpg)
+- [Processed exemplar](../assets/exemplars/circular-quay-framing/processed.png)
 
-Route here when architecture is seen through a window, doorway, arch, passage, layered interior frame, or another existing enclosure; also use it when disposable interior furniture and a high-line-density ship or vehicle coexist with a hero building.
+Route here when architecture is seen through a window, doorway, arch, passage, layered interior frame, or another existing enclosure; also use it when a harbor scene combines hero architecture, vessels, water, and interior framing.
 
 Use it to verify:
 
 - architectural framing remains source-grounded and any sketch treatment follows the visible building's own Chinese/East Asian or Western visual language;
 - the hero architecture remains unmistakable through decisive silhouette and a calm recognition core;
 - windows and room planes act as spatial thresholds instead of rectangular photo frames pasted into an illustration;
-- sofas, cushions, seats, tables, and comparable disposable supports retain zero photographic material;
+- interior fixtures and support surfaces reduce to broad abstract planes with zero photographic material;
 - high-line-density ships, vehicles, or terminals are compressed into a few broad unequal bands with minimal recognition-critical lines;
 - interior warmth and exterior coolness form a clear hierarchy without recoloring protected natural regions implausibly.
 
-This exemplar is a composition and threshold reference only. It does not activate a Huizhou or other cross-cultural architectural module for unrelated sources.
+This exemplar is a composition and threshold reference only. It does not authorize adding harbor architecture, vessels, or window framing to unrelated sources.
 
-Do not copy the Sydney subject, cruise ship, red funnel, window layout, or brown/blue palette into unrelated scenes. Never add literal Huizhou motifs.
+Do not copy the Sydney subject, cruise ship, red funnel, window layout, or brown/blue palette into unrelated scenes.
 
-## Botanical Unity
+## Tree and Architecture
 
 Pair:
 
-- [Original photograph](../assets/exemplars/botanical-unity/original.jpg)
-- [Processed exemplar](../assets/exemplars/botanical-unity/processed.png)
+- [Original photograph](../assets/exemplars/tree-architecture/original.jpg)
+- [Processed exemplar](../assets/exemplars/tree-architecture/processed.png)
 
-Route here when a tree, grove, canopy, or repeated plant group is a dominant living anchor.
+Route here when a tree, grove, canopy, or repeated plant group is a dominant living anchor and architecture remains a secondary recognition mass.
 
 Use it to verify:
 
@@ -70,7 +50,7 @@ Do not copy the orange building, tree arrangement, or exact charcoal density unl
 
 - Diagnose the source first; exemplar similarity never overrides source evidence.
 - Inspect each routed original/processed pair together. Compare semantic preservation, omission, reconstruction coverage, living-subject treatment, line-density reduction, palette routing, and boundary design; never inspect only the processed image when deriving a transformation.
-- Select zero, one, or at most two exemplars. Use two only when the source genuinely combines both routed conditions.
+- Select zero or one exemplar. Use both only when the source genuinely combines framed architecture with a dominant botanical anchor.
 - Record which transferable properties are being borrowed and which visible source evidence justifies them.
 - Preserve user constraints, identity locks, living-subject unity, architecture presence, abstraction coverage, palette protection, and all blocking quality gates.
 - If an exemplar conflicts with a hard rule or the source, follow the hard rule and source.
