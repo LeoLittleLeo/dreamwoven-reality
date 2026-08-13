@@ -22,7 +22,7 @@
 
 Use one source and one semantic scene with two deliberately different rendering contracts:
 
-- **Upper:** photographic-led partial abstraction; strict source geometry; approximately 95% perceptual fidelity for the primary face; upper hero architecture approximately 70% photographic plus 20–35% visibly colored partial sketch; free-edged alpha contour.
+- **Upper:** photographic-led partial abstraction; strict source geometry; approximately 95% perceptual fidelity for the primary face; upper hero architecture approximately 55% photographic plus 45% visibly colored partial sketch; free-edged alpha contour.
 - **Lower:** 85–100% non-photographic semantic distillation; spatial re-authoring allowed; no realistic face or skin; readable abstract primary-person silhouette; extreme architectural reconstruction; strict rectangle; mandatory `robot-dreams-logic` palette.
 
 Preserve semantic identity across stages. Do not preserve rendering treatment across stages.
@@ -41,7 +41,7 @@ Write one source-grounded sentence about a visible relationship—such as person
 
 Keep photography dominant while materially reconstructing 30–40% for `light` or 45–60% for default `medium`, distributed across at least two nonliving semantic regions. Count only replaced structure/material/boundary organization, not grading, blur, grain, texture, or global filtering.
 
-Apply the <=35% photographic-corridor cap only to uncontrolled connected upper environmental corridors. Exclude the upper primary-face identity region and the designated upper hero architecture governed by its 70/30 balance.
+Apply the <=35% photographic-corridor cap only to uncontrolled connected upper environmental corridors. Exclude the upper primary-face identity region and the designated upper hero architecture governed by its 55/45 balance.
 
 Preserve natural/living hues within plausible source-neighbor ranges. Route stronger color displacement through coherent built or designed regions. Keep the upper free edge source-semantic and implemented through authored alpha or an explicit outer-contour mask; never use color keying that deletes pale architecture, clouds, skin, highlights, or water glints.
 
@@ -53,7 +53,7 @@ Use a strict 4–6 color `robot-dreams-logic` construction: softened warm/cool o
 
 If a primary person exists, preserve immediate human readability through an approximate source-related pose, orientation, gesture, body rhythm, and head/torso/limb relationship. Use one or at most two flat colors across the complete figure. Do not use different colors to distinguish garments, garment layers, skin, limbs, torso, joints, lighting, or anatomical structure. If a second color is necessary, use it only as a restrained compositional accent or edge/overlap aid. Remove realistic face, skin, hands, hair strands, garment construction, fabric texture, gradients, tonal modeling, and photographic shading.
 
-Reconstruct architecture extremely. Preserve only the same architectural semantic identity, minimum recognition skeleton, and source-derived structural relationships. Do not retain or test a 70% photographic body in lower.
+Reconstruct architecture extremely. Preserve only the same architectural semantic identity, minimum recognition skeleton, and source-derived structural relationships. Do not retain or test a 55% photographic body in lower.
 
 ## Color
 
@@ -71,7 +71,7 @@ The 95% facial target is upper-only. Lower realistic facial content is a failure
 
 ## Architecture
 
-Apply partial-sketch deconstruction only to the upper hero. Identify its recognition skeleton; compress repeated windows, columns, trim, seams, and ornament into structural rhythms; continue selected real contours into aligned drawn contours; and make visible source-derived color build roof, façade, tower, depth, and light planes. The result should read as approximately 70% built reality and 20–35% colored, partially unbuilt architectural study.
+Apply partial-sketch deconstruction only to the upper hero. Identify its recognition skeleton; compress repeated windows, columns, trim, seams, and ornament into structural rhythms; continue selected real contours into aligned drawn contours; and make visible source-derived color build roof, façade, tower, depth, and light planes. The result should read as approximately 55% built reality and 45% colored, partially unbuilt architectural study.
 
 Match Chinese/East Asian and Western line-and-color languages to the source. Avoid monochrome tracing, surface-only decoration, hard masks, shifted overlays, invented openings, foreign components, scattered sketch zones, or generic patches.
 
@@ -111,7 +111,7 @@ artistic_proposition: <source-grounded sentence>
 upper_preserved_geometry: [<framing, position, perspective, pose, landmark anchors>]
 upper_reconstructed_regions: [<at least two nonliving regions>]
 upper_primary_face: <approximately-95-percent or none>
-upper_hero_architecture: <70/30 plan and colored sketch zone or none>
+upper_hero_architecture: <55/45 plan and colored sketch zone or none>
 lower_semantic_anchors: [<identity and relationship cues>]
 lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
 lower_primary_person: <readable abstract silhouette using one or at most two flat colors; no clothing/body color segmentation; or none>
@@ -128,6 +128,6 @@ upper_board_occupancy: 65-85-percent-prefer-75
 - If upper architecture is monochrome or detached, restore colored structural planes and aligned contour continuation.
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
 - If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.
-- If lower architecture is being judged by 70/30, remove that scope error and evaluate semantic identity plus extreme reconstruction.
+- If lower architecture is being judged by 55/45, remove that scope error and evaluate semantic identity plus extreme reconstruction.
 - If processed typography enters artwork or uses left/quiet-zone placement, return it to centered black bands.
 - If any date area, equal-panel system, or top seam appears, restore `52 / 4 / 40 / 4`.
