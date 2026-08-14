@@ -275,11 +275,11 @@ subtitle_text: <short centered subtitle-band copy; optional when copy-free>
 date_text: omitted
 processed_typography_layout: centered-black-bands
 typography_family: book-serif | humanist-serif | restrained-editorial-serif
-processed_typography_color: source-derived-dark-ink-on-paper
+processed_typography_color: warm-ivory-on-charcoal-black-bands
 upper_board_base_color: <source-semantic Robot Dreams pale base; record source mood, dominant temperature, selected family, and contrast purpose>
 copy_mode: none | poetic | editorial | cinematic
 content_field_boundary: <one dominant source-semantic contour; optional one supporting contour; 3-7 major direction changes; paper-entry/exit points; subordinate edge material>
-content_field_occupancy: <target 68-82% of paper area; justified exception>
+content_field_occupancy: 75-85% of upper board
 processed_layout: {upper_board: 53%, title_band: 2%, lower_panel: 43%, subtitle_band: 2%}
 upper_artwork_board_occupancy: 75-85%
 text_hierarchy: {title: centered-first-band, subtitle: centered-second-band, date: omitted}
@@ -405,7 +405,7 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - **Processed canvas geometry:** derive the canvas width from the source width and the canvas height from the source height divided by the 53% upper-board fraction. Use exactly `53 / 2 / 43 / 2`; export caps may resize only the complete composition proportionally.
 - **Proportional scaling only:** never stretch, squeeze, widen, flatten, or independently scale either generated stage. Preserve the full authored upper contour with contain-style placement and require 75–85% visible occupancy inside the 53% board. Fit the lower abstraction edge-to-edge by proportional cover; modest source-aware crop is allowed.
 - **Single processed hierarchy:** the upper board is visibly larger than the lower panel; the lower abstraction remains a full-width strict rectangle. No postcard message field, stamp, postmark, date band, fullbleed variant, or alternate arrangement is permitted.
-- **Postcard paper base:** choose the full card's base color from scene meaning and source palette relationships. Diagnose scene atmosphere, dominant temperature, natural/built balance, light level, season/weather impression, and the hero artwork's largest color masses. Select one visibly tinted low-chroma Robot Dreams family—warm ivory, dusty peach, powder blue, soft lilac, or mineral sage—that supports the proposition and creates calm figure/ground separation. Pure white, off-white that reads as white, and neutral near-white gray are prohibited unless the user explicitly requests a white card. Prefer a restrained temperature counterpoint: cool/blue scenes may receive dusty peach; warm scenes may receive powder blue; dark or neutral structural scenes may receive warm ivory; quiet pale neutrals may receive soft lilac; bright vegetation-led scenes may receive mineral sage when it remains distinct from the artwork. This is semantic art direction, not literal average-color sampling.
+- **Upper board paper base:** choose the 53% upper board's base color from scene meaning and source palette relationships. Diagnose scene atmosphere, dominant temperature, natural/built balance, light level, season/weather impression, and the upper artwork's largest color masses. Select one visibly tinted low-chroma Robot Dreams family—warm ivory, dusty peach, powder blue, soft lilac, or mineral sage—that supports the proposition and creates calm figure/ground separation. Pure white, off-white that reads as white, and neutral near-white gray are prohibited unless the user explicitly requests a white board. Prefer a restrained temperature counterpoint: cool/blue scenes may receive dusty peach; warm scenes may receive powder blue; dark or neutral structural scenes may receive warm ivory; quiet pale neutrals may receive soft lilac; bright vegetation-led scenes may receive mineral sage when it remains distinct from the artwork. This is semantic art direction, not literal average-color sampling.
 - Keep the 53% upper board visually quiet, visibly colored, materially paper-like, and intentionally structured rather than vacant. It must not compete with the upper authored image, repeat its dominant hue so closely that the free edge disappears, introduce random accent color, or collapse toward white. Preserve a subtle source echo while using Robot Dreams warm/cool logic. An explicit non-white user color overrides automatic selection; otherwise record the chosen family and contrast purpose in the strategy record.
 - **Upper outer boundary:** follow the Upper Boundary Contract. Do not improvise another contour system elsewhere in the workflow.
 - **Upper-panel color-preservation lock:** implement the Upper Boundary Contract with authored RGBA or an explicit outer-contour mask. Never derive alpha from sampled color. Keep pale architecture, clouds, skin, highlights, water glints, and paper-like reconstructed planes opaque and color-identical after compositing. Compare isolated and composited RGB at matched scale; reject hue/value shift or interior deletion.
@@ -729,6 +729,11 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 
 #### P. Primary person and compositing
 
+- `P01`
+  - name: `stage-person-contract-drift`
+  - trigger: upper fails its face, pose, or contact fidelity requirements, or lower retains realistic face, skin, or material detail instead of a readable abstract silhouette.
+  - reject: `true`
+  - repair: Correct the failing person within the relevant stage contract through regeneration or localized editing; never source-composite.
 - `P00`
   - name: `upper-identity-fidelity-loss`
   - trigger: the upper primary face is not immediately recognizable at approximately 95% perceptual fidelity, or a major identity carrier is materially wrong.
@@ -760,6 +765,11 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 
 #### L/M. Architecture
 
+- `V02`
+  - name: `upper-architectural-balance-failure`
+  - trigger: the upper hero does not retain approximately 55% photographic reality plus approximately 45% visible contiguous planar material replacement, or recognition-skeleton lines are counted as reconstruction coverage.
+  - reject: `true`
+  - repair: Re-establish locatable photographic-core and reconstruction zones under the Upper Architecture Execution Lock; never apply this balance to lower.
 - `L02`
   - name: `hierarchy-conflict`
   - trigger: no unmistakable hero remains, or upper supporting architecture retains photographic windows, façade texture, roof/masonry microdetail, or individually readable repetition; blur, grading, desaturation, distance, or small scale do not excuse retention.
@@ -839,6 +849,11 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 
 #### O. Boundary, geometry, and output
 
+- `O01`
+  - name: `wrong-mode`
+  - trigger: delivery uses any mode or layout other than processed `53 / 2 / 43 / 2`, including postcard, fullbleed, date-field, stamp, or alternate-band output.
+  - reject: `true`
+  - repair: Recompose only as processed `53 / 2 / 43 / 2` before any delivery.
 - `O14`
   - name: `original-panel-retention`
   - trigger: the untouched source photograph appears anywhere in the finished composition as a panel, inset, thumbnail, comparison strip, background, or visible source fragment.
@@ -897,6 +912,11 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 
 #### X. Upper–lower progression and collage
 
+- `X02`
+  - name: `weak-abstraction-escalation`
+  - trigger: the lower panel is not materially more abstract than the upper, or differs mainly through crop, zoom, repetition, or surface styling.
+  - reject: `true`
+  - repair: Rebuild lower as 85–100% non-photographic semantic abstraction while preserving its connection to the same source scene.
 - `X03`
   - name: `upper-panel-rectangularization`
   - trigger: the upper panel is a rectangle, arbitrary rectangular crop, or near-complete rectangle with slightly damaged edges.
@@ -966,13 +986,11 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 - **`L01 upper-landmark-generic`:** the upper hero loses decisive identifiers or its reconstructed portion no longer derives from the source recognition skeleton. Lower is evaluated by semantic identity and minimum recognition skeleton, not the upper 55/45 balance.
 - **`L03 architecture-erasure`:** in upper, preserve recognizable architecture at its source location, footprint, silhouette, viewpoint, and perspective. In lower, permit spatial re-authoring but require the same architectural semantic identity, minimum recognition skeleton, and source-derived structural relationships. In either stage reject replacement by unrelated structures.
 - **`L05 architectural-detail-undercompression`:** repeated windows, columns, brick seams, trim, carving, ornament, or façade texture are copied one by one and overwhelm the building's graphic read. Compress them into fewer source-aligned structural rhythms without changing architectural identity.
-- **`P01 stage-person-contract-drift`:** upper fails its face/pose/contact fidelity requirements, or lower fails its readable abstract silhouette while retaining prohibited realistic face/skin/material detail.
 - **`P02 identity-integration-failure`:** an upper person appears accidentally pasted, patched, mismatched, or anatomically broken, or a lower silhouette loses coherent personhood. Regenerate the relevant stage; never repair by source compositing.
 - **`B01 biological-language-split`:** every non-human living individual or connected organism uses one coherent treatment across its complete visible body. No tree mixes photographic trunk/branches with abstract foliage; no animal or bird mixes photographic anatomy with graphic body regions. Reclassify the whole organism as photographic or abstract and restore/rebuild it consistently before delivery.
 - **`B02 living-subject-split`:** within each stage, a non-primary organism uses one coherent treatment. For the upper primary person, require coherent anatomy and facial identity; for lower, require coherent abstract personhood without realistic face or material detail.
 - **`B03 living-cluster-retention`:** a detected cluster retains photographic miniatures or loses its group identity. In upper, use one shared abstract language; in lower, use grouped semantic masses or compatible shared silhouettes.
 - **`V01 weak-virtual-real-contrast`:** both photographic evidence and authored abstraction are materially visible; the result is neither an almost unchanged photograph nor a nearly unrelated full illustration.
-- **`V02 upper-architectural-balance-failure`:** the upper hero does not retain approximately 55% photographic reality plus approximately 45% visible contiguous planar material replacement, optionally supported by semantic omission. Recognition-skeleton lines contribute zero coverage. Never apply this gate to lower architecture, which should be extremely reconstructed.
 - **`V03 transition-disorder`:** upper real/abstract boundaries ignore source structure or scatter competing media. Lower may re-author boundaries but must keep coherent semantic masses and source-derived relationships.
 - **`H01 vocabulary-collision`:** architecture, identity anchors, and secondary people use distinct visual vocabularies; crowd silhouettes contain no architectural line work.
 - **`D01 detail-clutter`:** nonessential fixtures and repetitive textures are simplified.
@@ -985,10 +1003,8 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 - **`M04 robot-dreams-auto-misfire`:** for upper automatic palette selection, Robot Dreams lacks sufficient built/design levers, weakens source truth, or fails its comparison against `shifted`. Lower Robot Dreams is mandatory and is instead evaluated by `X09` for coherent source-derived semantic color relationships.
 - **`T01 copy-generic`:** original copy is specific to the source and proposition; quotations and cinematic references are verified.
 - **`T02 typography-failure`:** processed title or subtitle is illegible, not centered in its 2% black band, visually dominant, inconsistent in size/color, or placed inside an image panel.
-- **`O01 wrong-mode`:** delivery uses any mode or layout other than processed `53 / 2 / 43 / 2`.
 - **`O03 semantic-boundary-failure`:** the upper architectural reconstruction boundary or other authored content boundary is generic, arbitrary, or unrelated to source geometry and structure. The lower panel itself remains a complete rectangle; its internal abstraction must still express the scene's dominant structure.
 - **`X01 panel-redundancy`:** the lower panel is too similar to the upper panel in structure, abstraction depth, or visual role.
-- **`X02 weak-abstraction-escalation`:** the lower rectangular panel is not materially more abstract than the upper panel.
 - **`X05 processed-incoherence`:** the upper and lower panels do not feel like one unified artwork or one shared proposition.
 - **`X06 processed-copy-placement-failure`:** title or subtitle leaves its centered black band, enters an image panel, or introduces a fabricated date.
 - **`X07 role-reversal`:** the lower panel or typography dominates while the upper fails to remain the primary visual entry point.

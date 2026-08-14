@@ -1,8 +1,8 @@
 # Visual Direction Reference
 
-`SKILL.md` owns all hard workflow, stage, layout, geometry, typography, and rule-priority requirements. This file elaborates visual direction only. If it differs from `SKILL.md`, `SKILL.md` wins. The guidance below is synchronized to the current Stage Contract. Use the current source-derived diptych contract, never a rigid legacy fixed-band template or shared rendering treatment.
+`SKILL.md` owns all hard workflow, stage, layout, geometry, typography, and rule-priority requirements. This file elaborates visual direction only. If it differs from `SKILL.md`, `SKILL.md` wins. The guidance below is synchronized to the current Stage Contract and the single processed output contract.
 
-The current default is the source-derived `52 / 4 / 40 / 4` editorial diptych defined by the Output Mode Priority Contract in `SKILL.md`: larger upper paper board with free-edged upper stage, black centered-title band, full-width lower stage, and black centered-message band. It has no date. Treat every postcard-specific direction below as conditional on an explicit postcard/明信片/`processed` request.
+The only output is the source-derived `53 / 2 / 43 / 2` processed artwork: 53% upper paper board, 2% black centered-title band, 43% full-width lower panel, and 2% black centered-subtitle band. The free-edged upper artwork occupies 75–85% of its board. There is no postcard, date field, stamp, postmark, fullbleed variant, or alternate layout.
 
 ## Contents
 
@@ -90,20 +90,19 @@ In upper, fully abstract disposable seating/support fixtures and retain zero pho
 Use exactly:
 
 ```text
-[ 74% landscape hero field (68% portrait) with free-edged partial abstraction ]
-[ 26% landscape message field (32% portrait) with left-aligned copy/date ]
-[ lower-right bordered stamp sticker containing extreme abstraction ]
+[ 53% upper paper board with free-edged partial abstraction ]
+[  2% black centered-title band ]
+[ 43% full-width rectangular extreme abstraction ]
+[  2% black centered-subtitle band ]
 ```
 
-Choose `3:2` landscape when source width is at least height and `2:3` portrait otherwise. Target 78% hero occupancy and accept 45–90% when contour geometry prevents safe enlargement. Preserve its complete contour without stretching, clipping, rectangularization, or color-key removal. Fit the extreme abstraction by proportional cover inside a stamp sized at about 20% of card width in landscape or 30% in portrait. Let it overlap the hero/message seam slightly, never the copy.
+Require 75–85% visible upper-artwork occupancy inside the 53% board. Preserve the complete upper contour with proportional contain-style placement; never reach the target through stretching, clipping, rectangularization, or color-key removal. Fit the lower extreme abstraction edge-to-edge inside the 43% strict rectangle using proportional cover and only modest source-aware cropping. Do not letterbox or add margins.
 
-Derive the complete canvas from source dimensions, aspect ratio, and orientation. Never use a fixed `1800x3000`, `3000x1800`, `3:5`, or `5:3` master canvas; never stretch or squeeze.
+Derive canvas width from source width and canvas height from source height divided by `0.53`. Never use a fixed `1800x3000`, `3000x1800`, `3:5`, or `5:3` master canvas; never stretch or squeeze either stage.
 
 ## Typography
 
-Processed defaults to a short heading and compact message. Add a date only when metadata is reliable or the user supplies it, and render the exact date one character per outlined postal-code square. Left-align restrained editorial serif copy in dark source-derived ink on a subtly tinted message field, with clear size hierarchy and enough room for the stamp. Derive one broad colored-mass family from dominant source evidence across the whole board: 2–3 layered filled wave fields for water-led scenes, filled ridge silhouettes for mountains, compressed filled skyline masses for city scenes, or broad overlapping leaf masses for vegetation-led scenes. These are low-contrast color fields, not replacement line patterns. Use plain postal guides only when no motif is reliable. Never mix motif families or add a feature absent from the source. Add one text-free, low-contrast postmark near the sticker using two concentric rings and three wavy cancellation lines, partially hidden behind the sticker; never fabricate location or date text. Omit unknown dates rather than inventing them.
-
-Only `fullbleed` may use source-aware negative-space placement, including `--text-position`. Keep fullbleed copy subordinate and use the same restrained editorial serif direction.
+Use one short title and one short subtitle, centered in the two 2% black bands with identical-sized warm-ivory restrained editorial serif type. Either band may remain copy-free. Never add a date, place text inside an image panel, use left-aligned message-field copy, or create an alternate typography zone.
 
 ## Prompt Record
 
@@ -122,8 +121,9 @@ lower_spatial_reauthoring: [<scale/crop/axis/depth/spacing changes>]
 lower_primary_person: <readable abstract silhouette using one or at most two flat colors; no clothing/body color segmentation; or none>
 lower_architecture: <minimum skeleton plus extreme reconstruction or none>
 lower_robot_dreams_palette: [<4-6 semantic colors and warm/cool roles>]
-processed_layout: orientation-aware-3:2-landscape-74/26-or-2:3-portrait-68/32-hero-message-plus-stamp
-upper_board_occupancy: 45-90-percent-prefer-78
+processed_layout: 53-upper-board/2-title-band/43-lower-panel/2-subtitle-band
+upper_board_occupancy: 75-85-percent
+stage_fit: upper-contain-complete-contour; lower-proportional-cover-full-width
 ```
 
 ## Targeted Corrections
@@ -136,5 +136,6 @@ upper_board_occupancy: 45-90-percent-prefer-78
 - If lower retains photographic detail, rebuild it with broad planes and sparse lines.
 - If lower personhood is lost, restore it through silhouette and pose using no more than two flat colors; never add clothing or anatomical color segmentation.
 - If lower architecture is being judged by 55/45, remove that scope error and evaluate semantic identity plus extreme reconstruction.
-- If processed typography collides with the stamp or enters the hero field, return it to the left side of the lower message field.
-- If the composition becomes a long stacked diptych or the stamp grows into a second panel, restore the orientation-specific 74/26 landscape or 68/32 portrait hierarchy and small corner-sticker scale.
+- If title or subtitle enters an image panel or leaves its black band, return it to the center of the correct 2% band.
+- If any alternate field, date area, stamp, margin, or layout appears, restore the exact `53 / 2 / 43 / 2` hierarchy.
+- If upper is cropped or lower is letterboxed, restore upper contain-style placement and lower full-width proportional cover.
