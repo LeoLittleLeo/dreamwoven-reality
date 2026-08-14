@@ -193,7 +193,7 @@ Before delivery, verify that every primary person, major building, natural featu
 1. Inspect the source and metadata. Diagnose the scene before choosing a style: scene type, primary subject, identity sensitivity, face clarity, tall anchors, dominant regions, palette, negative space, and reliable capture date.
 2. Read [references/visual-direction.md](references/visual-direction.md). When the scene contains a living cluster, an architecture-led framed view, disposable interior furniture, or a dominant botanical group, also read [references/exemplars.md](references/exemplars.md) and inspect only the routed exemplar image(s). Use exemplars as structural and quality references, never as fixed palettes or composition templates. Then state one source-grounded artistic proposition: a relationship, tension, transition, or emotional fact that the poster will clarify. Do not invent a story unsupported by the image.
 3. Write a compact strategy record using the schema below. Make preservation, omission, reconstruction, echo color, negative space, and copy all serve the proposition and remain traceable to visible evidence or an explicit user request.
-4. Choose `light`, `medium`, or `strong` upper abstraction. Respect a user-requested intensity; otherwise use `medium` with a 45–60% materially reconstructed-area target. Select one primary Canonical Abstraction Vocabulary operation and at most one supporting operation. Lower only for identity-sensitive documentary portraits; raise for robust silhouettes, scenery, distant figures, or explicit permission.
+4. Choose `light` or `medium` upper abstraction. Respect a user-requested allowed intensity; otherwise use `medium` with a 45–60% materially reconstructed-area target. Use `light` for identity-sensitive documentary portraits, complex contact points, or fragile landmarks. Select one primary Canonical Abstraction Vocabulary operation and at most one supporting operation.
 5. Assign each visible living subject one coherent treatment. Use `face-locked, body-flexible, no-source-composite` for the primary person by default and `fully abstract` only for distant/nonessential faceless people or explicit identity reinterpretation. Keep facial identity and semantic pose coherent while allowing the body, clothing, peripheral hair, and edges to be regenerated or integrated.
 6. Assign every major nonliving built or landscape region a controlled real/abstract division using only the Canonical Abstraction Vocabulary. Preserve a calm photographic recognition core and make 2–4 large contiguous reconstruction decisions; avoid tiny alternating patches. For the lower panel, use a few large semantic masses and the same vocabulary, with `spatial-reauthoring` additionally available.
 7. Generate or edit each stage as a coherent whole under the Stage Contract. In upper, preserve the primary face at approximately 95% perceptual fidelity without source compositing. In lower, prohibit realistic facial content and preserve the primary person through a readable abstract silhouette.
@@ -212,7 +212,7 @@ source_orientation: landscape | portrait | near-square
 layout_adaptation: source-derived-processed-collage
 photo_section_priority: source-integrity-first
 abstract_axis_bias: horizontal | vertical | balanced
-section_proportions_profile: landscape-default | portrait-adapted | square-adapted
+section_proportions_profile: fixed-53/2/43/2-all-orientations
 canvas_basis: source-image-dimensions
 scaling_policy: proportional-only
 crop_policy: minimal-and-source-aware
@@ -226,7 +226,7 @@ upper_abstraction_strength: light | medium
 upper_photographic_read: dominant
 lower_stage: extreme-source-semantic-abstraction
 lower_abstraction_strength: extreme
-stage_progression: partial-to-strong
+stage_progression: photographic-led-to-extreme-semantic
 stage_generation: coordinated-whole-image-edits
 primary_subject: <visible subject>
 artistic_proposition: <one source-grounded relationship, tension, transition, or emotional fact>
@@ -238,8 +238,8 @@ upper_identity_fidelity_target: none | approximately-95-percent-facial-perceptua
 lower_primary_person: none | readable-abstract-human-silhouette-maximum-two-flat-colors
 identity_core: [<facial geometry, expression, gaze, eyewear, hairline, ears, jaw, distinctive features>]
 identity_integration_allowances: [<garment color/edge, peripheral hair, lighting, texture, body-edge and silhouette transitions allowed for artistic coherence>]
-abstraction_strength: light | medium | strong
-abstract_coverage_target: light 30-40% | medium 45-60% | strong 65-85% | extreme 85-100%
+abstraction_strength: upper light | medium; lower extreme
+abstract_coverage_target: upper light 30-40% | upper medium 45-60% | lower extreme 85-100%
 abstract_regions: [<at least two major semantic regions and their assigned canonical operations>]
 upper_largest_uncontrolled_photographic_corridor: <target at most 35%; exclude primary face and upper hero architecture>
 preserved_evidence: [<recognition-critical features>]
@@ -379,7 +379,7 @@ In the upper stage, every non-primary person uses one shared opaque flat silhoue
 - **Boundary discipline:** for non-architectural regions, place real/abstract transitions on source-grounded seams—structural joints, perspective axes, shorelines, currents, ridges, slopes, shadow edges, or occlusion boundaries. Architectural transitions follow the recognition skeleton and credible structural connections; they need not use one fixed edge style.
 - **Stage-specific vocabulary restraint:** follow the Canonical Abstraction Vocabulary: one primary operation plus at most one supporting operation per stage, with one coherent material voice per operation. Keep the two stages compatible in palette and proposition but distinct in rendering density.
 - **High-line-density forced abstraction:** for non-architectural objects, compress repeated lines into broad unequal planes and sparse structural marks. For architecture, preserve the recognition skeleton and compress repeated windows, columns, seams, trim, ornament, and surface texture into a few readable rhythms. Do not describe every unit one by one or replace the building with generic planes.
-- **Tiered abstract coverage:** count only material replacement through the Canonical Abstraction Vocabulary. Reconstruct upper `light` at 30–40%, `medium` at 45–60% (default), or `strong` at 65–85%; reconstruct lower `extreme` at 85–100% non-photographic. The vocabulary's non-counting list overrides any implication elsewhere that grading, texture, marks, masking, or filtering contributes coverage.
+- **Tiered abstract coverage:** count only material replacement through the Canonical Abstraction Vocabulary. Reconstruct upper `light` at 30–40% or `medium` at 45–60% (default); reconstruct lower `extreme` at 85–100% non-photographic. The vocabulary's non-counting list overrides any implication elsewhere that grading, texture, marks, masking, or filtering contributes coverage.
 - **Lower-panel primary-person silhouette and two-color lock:** when the source has a primary person, preserve a clearly human, immediately legible approximation of the source pose, orientation, body proportion, gesture, and dominant outer silhouette. Render the complete figure with one or at most two flat colors total. Do not use different colors to distinguish garments, garment layers, skin, limbs, torso, joints, anatomy, lighting, or body structure. If two colors are used, treat the second as one restrained compositional accent or edge/overlap aid across the figure, not as descriptive segmentation. Remove real skin, facial features, hair strands, garment folds, fabric texture, gradients, tonal modeling, and photographic shading. Personhood must come from the outer silhouette, pose, gesture, and head/torso/limb relationship—not internal color coding.
 - **Lower-panel palette lock:** the lower panel must use `robot-dreams-logic` as a selected palette, not merely as an optional candidate. Use 4–6 softened colors, warm/cool opposition, 2–3 value steps per semantic mass, charcoal/deep blue instead of pure black, and at most one concentrated accent. Reject naturalistic color scattering, random neon, realistic skin tones, global grayscale, and generic painterly color treatment.
 - **Multi-region transformation:** distribute counted abstraction across at least two major nonliving semantic regions—for example architecture plus ground, water plus terrain, shoreline plus supporting buildings, or road plus built fixtures. A single large flat sky or background field cannot satisfy the requirement by itself. Fully photographic living subjects are exempt from abstraction but do not reduce the coverage target for the remaining composition.
@@ -529,11 +529,10 @@ Avoid literal one-by-one detail copying, decorative surface tracing, random nons
 
 ## Abstraction Strength
 
-Use `light`, `medium`, or `strong` for upper-stage intervention planning. The processed lower stage always uses the Stage Contract's `extreme` 85–100% non-photographic tier.
+Use only `light` or `medium` for upper-stage intervention planning. The processed lower stage always uses the Stage Contract's `extreme` 85–100% non-photographic tier.
 
 - **`light` — 30–40%:** retain most identity/documentary evidence, but reconstruct at least two identity-safe semantic regions. Prefer for sensitive portraits, complex contact points, or fragile landmarks.
 - **`medium` — 45–60% (default):** retain selected photographic anchors while replacing substantial portions of at least two major regions through the Canonical Abstraction Vocabulary. The first generated pass must target this range, not the 30% floor.
-- **`strong` — 65–85%:** rely on large masses, paper omissions, broken planes, displaced axes, drawing/paint systems, and sparse photographic anchors. Use for robust silhouettes, scenery, distant figures, or explicit requests.
 
 ## Person Modes
 
@@ -652,7 +651,7 @@ python scripts/compose_poster.py \
   --mode processed \
   --original input.jpg \
   --upper-poster partial-abstraction.png \
-  --poster strong-abstraction.png \
+  --poster extreme-abstraction.png \
   --title "Exact main title" \
   --subtitle "Exact short subtitle" \
   --output-dir outputs
@@ -966,7 +965,7 @@ Any blocking failure immediately rejects the current candidate. Do not pass it i
 
 - **`S01 proposition-drift`:** every major intervention supports the source-grounded artistic proposition; no decorative motif competes with it.
 - **`R01 recognition-loss`:** the source remains recognizable through large relationships and preserved evidence rather than copied microdetail.
-- **`A01 insufficient-abstraction`:** upper counted reconstruction misses its chosen light/medium/strong tier, or lower misses its 85–100% non-photographic contract. Count only Canonical Abstraction Vocabulary operations.
+- **`A01 insufficient-abstraction`:** upper counted reconstruction misses its chosen light/medium tier, or lower misses its 85–100% non-photographic contract. Count only Canonical Abstraction Vocabulary operations.
 - **`A02 single-region-abstraction`:** upper counted abstraction does not span at least two major semantic regions. Lower is instead evaluated for complete extreme semantic reconstruction across its visible field.
 - **`A03 upper-photographic-corridor`:** no uncontrolled continuous upper environmental photographic corridor exceeds 35% of the full upper artwork area; exclude the primary-face identity region and upper hero architecture governed by its 55/45 rule. Do not apply this gate to lower.
 - **`C01 mass-fragmentation`:** the scene reads as a few coherent semantic masses.
