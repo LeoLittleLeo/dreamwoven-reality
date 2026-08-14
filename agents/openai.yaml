@@ -1,4 +1,4 @@
 interface:
   display_name: "Dreamwoven Reality"
-  short_description: "生成摄影主导与极端抽象上下二分图，并按需输出明信片版本"
-  default_prompt: "Use $dreamwoven-reality to turn the uploaded photograph into the default two-panel artwork: a photographic-led partial abstraction above and an extreme semantic abstraction below. Use the postcard layout only when I explicitly request a postcard."
+  short_description: "生成唯一的 53/2/43/2 processed 双阶段编辑作品"
+  default_prompt: "Use $dreamwoven-reality to turn the uploaded photograph into the only processed layout: a 53% upper board with 75–85% artwork occupancy, a 2% title band, a 43% full-width extreme abstraction, and a 2% subtitle band."

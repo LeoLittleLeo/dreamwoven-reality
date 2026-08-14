@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compose an orientation-aware postcard or full-bleed interpretation."""
+"""Compose the single processed 53/2/43/2 editorial artwork."""
 
 from __future__ import annotations
 
@@ -339,7 +339,7 @@ def artwork_layer(artwork: Image.Image, size, removal: str, mask_path: Path | No
 def fit_upper_authored_image(
     artwork: Image.Image,
     board_size: tuple[int, int],
-    target_occupancy: float = 0.75,
+    target_occupancy: float = 0.80,
 ) -> tuple[Image.Image, Image.Image, float]:
     """Fit an RGBA authored image by visible alpha area, preserving its free contour."""
     source = artwork.convert("RGBA")
@@ -485,7 +485,7 @@ def draw_board_motif(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("diptych", "processed", "fullbleed"), default="diptych")
+    parser.add_argument("--mode", choices=("processed",), default="processed")
     parser.add_argument("--original", required=True, type=Path)
     parser.add_argument("--upper-poster", type=Path, help="photographic-led partial abstraction; required for processed mode")
     parser.add_argument("--poster", required=True, type=Path, help="strong lower abstraction without final typography")
@@ -514,24 +514,21 @@ def main() -> None:
     args = parser.parse_args()
 
     required_paths = [args.original, args.poster]
-    if args.mode in ("diptych", "processed"):
-        if not args.upper_poster:
-            parser.error(f"{args.mode} mode requires --upper-poster")
-        required_paths.append(args.upper_poster)
-    if args.mode == "processed":
-        if args.text_position != "auto":
-            parser.error("--text-position applies only to fullbleed mode")
-        if args.copy_free:
-            if args.title or args.subtitle or args.date_text or args.single_text_level:
-                parser.error("--copy-free cannot be combined with title, subtitle, date, or --single-text-level")
-        elif args.single_text_level == "title":
-            if not args.title or args.subtitle:
-                parser.error("--single-text-level title requires --title and prohibits --subtitle")
-        elif args.single_text_level == "subtitle":
-            if not args.subtitle or args.title:
-                parser.error("--single-text-level subtitle requires --subtitle and prohibits --title")
-        if Image.open(args.upper_poster).mode not in ("RGBA", "LA"):
-            parser.error("processed mode requires --upper-poster with an alpha channel for the authored postcard hero")
+    if not args.upper_poster:
+        parser.error("processed mode requires --upper-poster")
+    required_paths.append(args.upper_poster)
+    if args.text_position != "auto":
+        parser.error("processed mode uses fixed centered title and subtitle bands")
+    if args.date_text:
+        parser.error("processed mode has no date field")
+    if args.copy_free and (args.title or args.subtitle or args.single_text_level):
+        parser.error("--copy-free cannot be combined with title, subtitle, or --single-text-level")
+    if args.single_text_level == "title" and (not args.title or args.subtitle):
+        parser.error("--single-text-level title requires --title and prohibits --subtitle")
+    if args.single_text_level == "subtitle" and (not args.subtitle or args.title):
+        parser.error("--single-text-level subtitle requires --subtitle and prohibits --title")
+    if Image.open(args.upper_poster).mode not in ("RGBA", "LA"):
+        parser.error("processed mode requires --upper-poster with an authored alpha contour")
     for path in required_paths:
         if not path.is_file():
             parser.error(f"image not found: {path}")
@@ -548,164 +545,62 @@ def main() -> None:
     font_path = find_font(args.font) if has_copy else None
     args.output_dir.mkdir(parents=True, exist_ok=True)
     base = args.basename or args.poster.stem
-    if args.mode == "diptych":
-        orientation = source_orientation(original)
-        raw_width = original.width
-        raw_height = round(original.height / 0.52)
-        limits = [1.0]
-        if args.width:
-            limits.append(args.width / raw_width)
-        if args.height:
-            limits.append(args.height / raw_height)
-        if args.export_long_edge:
-            limits.append(args.export_long_edge / max(raw_width, raw_height))
-        scale = min(limits)
-        canvas_width, canvas_height = max(1, round(raw_width * scale)), max(1, round(raw_height * scale))
-    else:
-        canvas_width, canvas_height, orientation = source_derived_canvas(
-            original, args.mode, args.width, args.height, args.export_long_edge or None
+    orientation = source_orientation(original)
+    raw_width = original.width
+    raw_height = round(original.height / 0.53)
+    limits = [1.0]
+    if args.width:
+        limits.append(args.width / raw_width)
+    if args.height:
+        limits.append(args.height / raw_height)
+    if args.export_long_edge:
+        limits.append(args.export_long_edge / max(raw_width, raw_height))
+    scale = min(limits)
+    paper_width = max(1, round(raw_width * scale))
+    paper_height = max(1, round(raw_height * scale))
+
+    assert upper_artwork_source is not None
+    ground = args.background_color or derive_ground(original)
+    canvas = Image.new("RGB", (paper_width, paper_height), ground)
+    draw = ImageDraw.Draw(canvas)
+    upper_h = round(paper_height * 0.53)
+    band_h = max(1, round(paper_height * 0.02))
+    lower_h = round(paper_height * 0.43)
+    upper_h += paper_height - upper_h - lower_h - band_h * 2
+
+    upper_art, upper_mask, upper_occupancy = fit_upper_authored_image(upper_artwork_source, (paper_width, upper_h))
+    if not 0.75 <= upper_occupancy <= 0.85:
+        parser.error(
+            f"upper authored image occupies {upper_occupancy:.1%} of its 53% board; "
+            "provide a free-edged RGBA artwork that reaches 75%-85% without clipping or distortion"
         )
+    upper_x = (paper_width - upper_art.width) // 2
+    upper_y = (upper_h - upper_art.height) // 2
+    canvas.paste(upper_art, (upper_x, upper_y), upper_mask)
 
-    if args.mode == "diptych":
-        assert upper_artwork_source is not None
-        ground = args.background_color or derive_ground(original)
-        paper_width, paper_height = canvas_width, canvas_height
-        canvas = Image.new("RGB", (paper_width, paper_height), ground)
-        draw = ImageDraw.Draw(canvas)
-        band_h = max(1, round(paper_height * 0.04))
-        upper_h = round(paper_height * 0.52)
-        lower_h = round(paper_height * 0.40)
-        upper_h += paper_height - upper_h - lower_h - band_h * 2
-        upper_art, upper_mask, upper_occupancy = fit_upper_authored_image(upper_artwork_source, (paper_width, upper_h))
-        if not 0.45 <= upper_occupancy <= 0.90:
-            parser.error(f"upper authored image occupies {upper_occupancy:.1%} of its board; provide a fuller free-edged RGBA artwork")
-        upper_x = (paper_width - upper_art.width) // 2
-        upper_y = (upper_h - upper_art.height) // 2
-        canvas.paste(upper_art, (upper_x, upper_y), upper_mask)
-        title_band_y = upper_h
-        lower_y = title_band_y + band_h
-        lower = fit_source_cover(artwork_source.convert("RGB"), (paper_width, lower_h))
-        canvas.paste(lower, (0, lower_y))
-        subtitle_band_y = lower_y + lower_h
-        black_ink = (28, 28, 28)
-        band_text = args.text_color or (244, 239, 226)
-        draw.rectangle((0, title_band_y, paper_width, title_band_y + band_h), fill=black_ink)
-        draw.rectangle((0, subtitle_band_y, paper_width, subtitle_band_y + band_h), fill=black_ink)
-        if has_copy and font_path:
-            band_font = fit_processed_band_font(font_path, (args.title, args.subtitle), round(paper_width * 0.82), max(12, round(band_h * 0.52)))
-            if args.title:
-                bounds = draw.textbbox((0, 0), args.title, font=band_font)
-                draw.text(((paper_width - (bounds[2] - bounds[0])) / 2, title_band_y + (band_h - band_font.size) // 2 - 2), args.title, font=band_font, fill=band_text)
-            if args.subtitle:
-                bounds = draw.textbbox((0, 0), args.subtitle, font=band_font)
-                draw.text(((paper_width - (bounds[2] - bounds[0])) / 2, subtitle_band_y + (band_h - band_font.size) // 2 - 2), args.subtitle, font=band_font, fill=band_text)
-        output = args.output_dir / f"{base}-diptych.png"
-        canvas.save(output)
-        print(f"upper authored-image occupancy: {upper_occupancy:.1%}", file=sys.stderr)
-        print(output.resolve())
-        return
-
-    if args.mode == "fullbleed":
-        ground = args.background_color or derive_ground(original)
-        canvas = fit_source_contain(artwork, (canvas_width, canvas_height), ground)
-        if has_copy and font_path:
-            margin = round(min(canvas.size) * 0.045)
-            copy_w = round(canvas.width * 0.34)
-            copy = build_copy(font_path, args.title, args.subtitle, date_text, copy_w, round(canvas.width * 0.62), args.max_title_lines)
-            box_h = min(copy[-1], canvas.height - margin * 2)
-            position = choose_position(canvas, args.text_position, margin, copy_w, box_h)
-            box = position_box(canvas.size, position, margin, copy_w, box_h)
-            draw_copy(ImageDraw.Draw(canvas), box[0], box[1], copy, text_palette(derive_ground(canvas)), canvas.width, date_text)
-        output = args.output_dir / f"{base}-processed.png"
-        canvas.save(output)
-        print(output.resolve())
-        return
-
-    if args.mode == "processed":
-        assert upper_artwork_source is not None
-        paper_width, paper_height = canvas_width, canvas_height
-        ground = args.background_color or derive_ground(original)
-        canvas = Image.new("RGB", (paper_width, paper_height), ground)
-        draw = ImageDraw.Draw(canvas)
-
-        profile = POSTCARD_PROFILES[orientation]
-        outer_margin = max(12, round(min(paper_width, paper_height) * 0.020))
-        upper_h = round(paper_height * profile["image_fraction"])
-        divider_y = upper_h
-        field_tint = tuple(max(0, channel - 7) for channel in ground)
-        field_top = divider_y + round((paper_height - divider_y) * 0.10)
-        field_bottom = paper_height - outer_margin
-        draw.rounded_rectangle(
-            (outer_margin, field_top, round(paper_width * 0.69), field_bottom),
-            radius=max(8, round(paper_width * 0.008)),
-            fill=field_tint,
-        )
-        guide = tuple(max(0, channel - 24) for channel in ground)
-        guide_x0 = round(paper_width * 0.40)
-        guide_x1 = round(paper_width * 0.68)
-        if args.board_motif == "none":
-            for row in range(3):
-                guide_y = field_top + round((field_bottom - field_top) * (0.28 + row * 0.20))
-                draw.line((guide_x0, guide_y, guide_x1, guide_y), fill=guide, width=max(1, round(paper_width * 0.0007)))
-        else:
-            draw_board_motif(draw, (0, 0, paper_width, paper_height), args.board_motif, ground, paper_width)
-        upper_box = (paper_width - outer_margin * 2, upper_h - outer_margin * 2)
-        upper_art, upper_mask, upper_occupancy = fit_upper_authored_image(upper_artwork_source, upper_box)
-        if not 0.45 <= upper_occupancy <= 0.90:
-            parser.error(
-                "upper authored image occupies "
-                f"{upper_occupancy:.1%} of its hero field; provide a fuller free-edged RGBA artwork "
-                "so visible occupancy can reach 45%-90% without clipping or distortion"
-            )
-        upper_x = (paper_width - upper_art.width) // 2
-        upper_y = outer_margin + (upper_box[1] - upper_art.height) // 2
-        canvas.paste(upper_art, (upper_x, upper_y), upper_mask)
-        rule = tuple(max(0, channel - 35) for channel in ground)
-        draw.line((outer_margin, divider_y, paper_width - outer_margin, divider_y), fill=rule, width=max(1, round(paper_width * 0.0012)))
-
-        # The strong abstraction returns as a stamp-sized sticker rather than a
-        # second full-width panel. It slightly overlaps the image/content seam.
-        stamp_w = round(paper_width * profile["stamp_width_fraction"])
-        stamp_border = max(7, round(stamp_w * 0.055))
-        stamp = make_stamp(artwork_source, stamp_w, stamp_border)
-        angle = -2.0 if orientation == "landscape" else 2.0
-        stamp = stamp.rotate(angle, resample=Image.Resampling.BICUBIC, expand=True, fillcolor=(0, 0, 0, 0))
-        stamp_x = paper_width - outer_margin - stamp.width
-        stamp_y = max(outer_margin, divider_y - round(stamp.height * 0.18))
-        shadow = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-        shadow_draw = ImageDraw.Draw(shadow)
-        shadow_draw.rounded_rectangle(
-            (stamp_x + 5, stamp_y + 7, stamp_x + stamp.width + 5, stamp_y + stamp.height + 7),
-            radius=max(2, stamp_border // 2), fill=(46, 39, 31, 58)
-        )
-        shadow = shadow.filter(ImageFilter.GaussianBlur(max(2, stamp_border // 2)))
-        canvas = Image.alpha_composite(canvas.convert("RGBA"), shadow)
-        postmark_ink = tuple(max(0, channel - 60) for channel in ground) + (105,)
-        draw_postmark(ImageDraw.Draw(canvas), stamp_x, stamp_y, stamp.width, paper_width, postmark_ink)
-        canvas.alpha_composite(stamp, (stamp_x, stamp_y))
-        draw = ImageDraw.Draw(canvas)
-        if args.mask_preview:
-            upper_mask.save(args.output_dir / f"{base}-upper-mask.png")
-        if has_copy and font_path:
-            copy_left = outer_margin
-            copy_top = divider_y + round((paper_height - divider_y) * 0.16)
-            copy_right = stamp_x - outer_margin
-            copy_width = max(round(paper_width * 0.34), copy_right - copy_left)
-            copy = build_copy(
-                font_path, args.title, args.subtitle, date_text, copy_width,
-                round(paper_width * (0.55 if orientation == "landscape" else 0.72)), args.max_title_lines
-            )
-            palette = text_palette(ground)
-            if args.text_color:
-                palette = (args.text_color, args.text_color, args.text_color)
-            draw_copy(draw, copy_left, copy_top, copy, palette, paper_width, date_text, rule_color=rule)
-        output = args.output_dir / f"{base}-processed.png"
-        canvas.convert("RGB").save(output)
-        print(f"upper authored-image occupancy: {upper_occupancy:.1%}", file=sys.stderr)
-        print(output.resolve())
-        return
-
-    parser.error("unsupported mode")
+    title_band_y = upper_h
+    lower_y = title_band_y + band_h
+    lower = fit_source_cover(artwork_source.convert("RGB"), (paper_width, lower_h))
+    canvas.paste(lower, (0, lower_y))
+    subtitle_band_y = lower_y + lower_h
+    black_ink = (28, 28, 28)
+    band_text = args.text_color or (244, 239, 226)
+    draw.rectangle((0, title_band_y, paper_width, title_band_y + band_h), fill=black_ink)
+    draw.rectangle((0, subtitle_band_y, paper_width, subtitle_band_y + band_h), fill=black_ink)
+    if has_copy and font_path:
+        band_font = fit_processed_band_font(font_path, (args.title, args.subtitle), round(paper_width * 0.82), max(10, round(band_h * 0.52)))
+        if args.title:
+            bounds = draw.textbbox((0, 0), args.title, font=band_font)
+            draw.text(((paper_width - (bounds[2] - bounds[0])) / 2, title_band_y + (band_h - band_font.size) // 2 - 2), args.title, font=band_font, fill=band_text)
+        if args.subtitle:
+            bounds = draw.textbbox((0, 0), args.subtitle, font=band_font)
+            draw.text(((paper_width - (bounds[2] - bounds[0])) / 2, subtitle_band_y + (band_h - band_font.size) // 2 - 2), args.subtitle, font=band_font, fill=band_text)
+    if args.mask_preview:
+        upper_mask.save(args.output_dir / f"{base}-upper-mask.png")
+    output = args.output_dir / f"{base}-processed.png"
+    canvas.save(output)
+    print(f"upper authored-image occupancy: {upper_occupancy:.1%}", file=sys.stderr)
+    print(output.resolve())
 
 
 if __name__ == "__main__":
