@@ -86,23 +86,15 @@ Dreamwoven Reality 不是简单的滤镜、风格迁移或“一键插画化”�
 
 ### 2. 人物完整性保护
 
-对于画面中的主要人物，默认采用：
+对于画面中的主要人物，upper 默认采用：
 
-**Fully Photographic**
+**Face-locked, body-flexible, no-source-composite**
 
-即人物整体保持摄影状态，包括：
+Upper 需要保持约 95% 的面部感知保真度、表情、视线、姿态和接触关系，同时允许服装、外围头发、身体边缘、局部光线、颜色和材料语言为整体艺术一致性重新生成或整合。
 
-* 面部
-* 发型
-* 身体
-* 衣服
-* 手部
-* 姿态
-* 与环境发生接触的位置
+Lower 不保留真实面部或皮肤，而是以一至两种平涂颜色保持清晰可读、与原图姿态相关的人形轮廓。
 
-不会把一个人物切割成“半真人、半插画”。
-
-对于主要人物的脸部，还要求采用确定性的原图像素恢复，而不是依赖生成模型“重新画一个相似的人”。
+身份修复只能通过重新生成或局部生成式编辑完成；不得把原图人物、面部、身体、服装或局部照片像素重新贴回作品。
 
 ---
 
@@ -116,12 +108,7 @@ Dreamwoven Reality 不是简单的滤镜、风格迁移或“一键插画化”�
 * 树木
 * 独立植物
 
-每个主体只能选择：
-
-* 完整摄影
-* 完整抽象
-
-而不会在同一个主体内部随意切换真实与抽象。
+非主要生物主体在每个阶段使用一种完整、连贯的处理语言，不会在同一个主体内部随意切换真实与抽象。Upper 主要人物遵循 face-locked/body-flexible 合同；lower 主要人物遵循可读抽象人形轮廓合同。
 
 ---
 
@@ -182,7 +169,7 @@ Skill 提供三种主要抽象等级：
 
 ### 真实不是背景，抽象也不是装饰
 
-摄影区域和抽象区域应该具有相同的重要性。
+摄影证据与非摄影重构都必须清晰可见；upper 仍以摄影读取为主，lower 则承担极端语义抽象。
 
 抽象不应该只是：
 
@@ -255,7 +242,7 @@ Skill 提供三种主要抽象等级：
    ↓
 生成或编辑
    ↓
-恢复身份敏感区域
+生成式校正身份敏感区域
    ↓
 质量检查
    ↓
@@ -288,9 +275,9 @@ Use $dreamwoven-reality.
 
 Abstraction strength: medium.
 
-Keep the main person completely photographic.
-Transform the architecture and ground into a controlled mix of
-photography, structural linework, and abstract color planes.
+Preserve the upper primary face at approximately 95% perceptual fidelity
+without source compositing. Reconstruct architecture and ground through
+countable planar replacement; use structural lines only as supporting cues.
 ```
 
 ---
@@ -382,7 +369,7 @@ dreamwoven-reality/
 
 默认成品使用固定的 `53 / 2 / 43 / 2` 两段式渐进编辑拼贴：53% 上部画板承载摄影感主导的局部抽象，画面在画板内占 75–85%；其下依次为 2% 标题黑带、43% 全宽极端抽象面板和 2% 副标题黑带。两部分共享构图、人物与地标身份、配色和材料语言，不使用日期带、明信片或 fullbleed 变体。
 
-画布默认以原图尺寸和宽高比为构图基准。脚本会先读取 `original.width` 与 `original.height`，再按图片方向和各区段相对高度推导完整画布；不会先建立固定的 `1800×3000` 或 `3000×1800` 画布。
+画布宽度以 `original.width` 为基准，画布高度由 `original.height / 0.53` 推导；不会先建立固定的 `1800×3000` 或 `3000×1800` 画布。
 
 * 原图只作为尺寸、方向、取景逻辑与元数据基准；默认不会直接贴入顶部。
 * 原图不得作为面板、缩略图、对照条、背景或可见碎片出现在默认成品中。

@@ -618,8 +618,6 @@ For every visible **upper-stage** primary face, inspect the final artwork beside
 5. Permit broader transformation of clothing, garment edges, fabric texture, peripheral hair, body-edge transitions, and local silhouette details when anatomy, gesture, and contact remain credible.
 6. Prefer localized generation or editing when one facial feature drifts. Do not use source blending, face patches, body patches, or source-person reinsertion. Regenerate the person region or the complete image if necessary.
 
-The bundled `verify_identity_lock.py` is not an identity-repair method. Do not use it to justify exact pixel preservation, source-person reinsertion, or compositing; facial recognizability and visual coherence take priority over exact body pixels.
-
 ### Person Conflict Priority
 
 When person-related requirements conflict, resolve them in this order:
@@ -645,14 +643,7 @@ Compose final files with the two generated stages. Pass `--font /path/to/font.tt
 
 In `processed`, pass a short `--title` and compact `--subtitle` for the two centered bands. Either text level may be omitted; use `--copy-free` only for an explicitly copy-free request. Do not pass a date or alternate text position.
 
-For the lower abstract artwork, use the safest available background mode:
-
-- `--background-removal alpha` (default): use an existing alpha channel; keep an RGB image rectangular rather than guessing.
-- `--background-removal edge-key`: remove only corner-like paper connected to the image edge. Add `--mask-preview` to inspect the derived mask.
-- `--background-removal mask --art-mask mask.png`: use an explicit white-foreground/black-background mask.
-- `--background-removal none`: preserve the complete rectangular artwork.
-
-For the upper artwork, treat transparency as the implementation of the Upper Boundary Contract, never as color removal. Use either (1) model-generated RGBA with the authored semantic contour or (2) a deterministic white-foreground/black-background outer-contour mask passed with `--background-removal mask --art-mask`. Do not use `--background-removal edge-key`. Inspect the mask preview and verify that the interior is opaque, especially over identity-critical face/skin, architectural shells, clouds, and light ground planes.
+Keep the lower artwork as a complete rectangle; the compositor applies no background removal to it. For the upper artwork, implement the Upper Boundary Contract through either (1) model-generated RGBA with the authored semantic contour or (2) an RGB artwork plus a deterministic white-foreground/black-background outer-contour mask passed with `--art-mask mask.png`. Never infer transparency from color. Use `--mask-preview` when useful and verify that the interior remains opaque over identity-critical face/skin, architectural shells, clouds, and light ground planes.
 
 Default and only output:
 

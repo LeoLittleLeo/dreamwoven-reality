@@ -138,6 +138,25 @@ def fit_upper_authored_image(
     return fitted.convert("RGB"), fitted_alpha, occupancy
 
 
+def prepare_upper_artwork(artwork: Image.Image, mask_path: Path | None) -> Image.Image:
+    """Return an RGBA upper artwork from true alpha or one explicit contour mask."""
+    has_alpha = artwork.mode in ("RGBA", "LA")
+    if has_alpha and mask_path:
+        raise ValueError("use either upper RGBA alpha or --art-mask, not both")
+    if has_alpha:
+        return artwork.convert("RGBA")
+    if not mask_path:
+        raise ValueError("--upper-poster must have authored alpha or use --art-mask")
+    if not mask_path.is_file():
+        raise FileNotFoundError(f"mask not found: {mask_path}")
+    mask = Image.open(mask_path).convert("L")
+    if mask.size != artwork.size:
+        raise ValueError("--art-mask dimensions must match --upper-poster")
+    upper = artwork.convert("RGBA")
+    upper.putalpha(mask)
+    return upper
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=("processed",), default="processed")
@@ -148,6 +167,7 @@ def main() -> None:
     parser.add_argument("--subtitle", default="")
     parser.add_argument("--copy-free", action="store_true", help="omit title and subtitle")
     parser.add_argument("--single-text-level", choices=("title", "subtitle"))
+    parser.add_argument("--art-mask", type=Path, help="explicit upper outer-contour mask; use only with RGB upper art")
     parser.add_argument("--mask-preview", action="store_true", help="export the fitted upper alpha mask")
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
     parser.add_argument("--basename", default=None)
@@ -176,8 +196,10 @@ def main() -> None:
     original_source = Image.open(args.original)
     upper_source = Image.open(args.upper_poster)
     lower_source = Image.open(args.poster)
-    if upper_source.mode not in ("RGBA", "LA"):
-        parser.error("--upper-poster must have an authored alpha contour")
+    try:
+        upper_source = prepare_upper_artwork(upper_source, args.art_mask)
+    except (ValueError, FileNotFoundError) as error:
+        parser.error(str(error))
 
     original = original_source.convert("RGB")
     raw_width = original.width
