@@ -7,7 +7,7 @@ description: "Transform user-supplied photographs into one default processed 53/
 
 > **License notice:** This skill is licensed for personal, non-commercial use only. Whenever the skill, a modified version, or work materially created with it is published or shared, credit **LeoLittleLeo** and link to the [original GitHub repository](https://github.com/LeoLittleLeo/dreamwoven-reality). Commercial use is prohibited. See [LICENSE](LICENSE) for the complete terms.
 
-Create an authored poster whose central aesthetic is **ordered interweaving of reality and abstraction**. Contrast comes from photographic and non-photographic regions entering, stopping, and reappearing across the scene. Order comes from a limited palette, disciplined boundaries, restrained media, and object-level consistency: every living subject is wholly photographic or wholly abstract, while major nonliving architecture and natural scenery deliberately contain both photographic evidence and abstract reconstruction.
+Create an authored poster whose central aesthetic is **ordered interweaving of reality and abstraction**. Contrast comes from photographic and non-photographic regions entering, stopping, and reappearing across the scene. Order comes from a limited palette, disciplined boundaries, restrained media, and stage-scoped object consistency: the upper primary person follows a face-locked, body-flexible treatment; upper secondary living subjects use coherent whole-subject treatments; upper major nonliving regions interweave photographic evidence with material reconstruction; and the lower stage re-authors the same scene into extreme non-photographic semantic masses.
 
 ## Stage Contract
 
@@ -77,6 +77,11 @@ stage_limits:
     allowed_operations: [planar-replacement, silhouette-merging, semantic-omission, spatial-reauthoring]
     operation_limit: one-primary-plus-at-most-one-supporting
     execution: few-large-semantic-masses
+
+upper_tier_escalation:
+  if_hero_architecture_45_percent_requirement_makes_light_tier_infeasible:
+    promote_upper_tier: medium
+  never_reduce_hero_architecture_reconstruction_to_preserve_light_tier: true
 ```
 
 An operation is not a visual medium. Colored linework, flat paint, charcoal, ink, pencil, watercolor, gouache, paper, or digital shape language may realize an allowed operation, but naming or layering a medium does not create another abstraction method. Choose one consistent material voice for the primary operation and, only when necessary, one quieter supporting voice. Do not stack multiple textures or mark-making systems to increase apparent abstraction.
@@ -190,10 +195,10 @@ Before delivery, verify that every primary person, major building, natural featu
 
 ## Workflow
 
-1. Inspect the source and metadata. Diagnose the scene before choosing a style: scene type, primary subject, identity sensitivity, face clarity, tall anchors, dominant regions, palette, negative space, and reliable capture date.
+1. Inspect the source and metadata. Diagnose the scene before choosing a style: scene type, primary subject, identity sensitivity, face clarity, tall anchors, dominant regions, palette, and negative space.
 2. Read [references/visual-direction.md](references/visual-direction.md). When the scene contains a living cluster, an architecture-led framed view, disposable interior furniture, or a dominant botanical group, also read [references/exemplars.md](references/exemplars.md) and inspect only the routed exemplar image(s). Use exemplars as structural and quality references, never as fixed palettes or composition templates. Then state one source-grounded artistic proposition: a relationship, tension, transition, or emotional fact that the poster will clarify. Do not invent a story unsupported by the image.
 3. Write a compact strategy record using the schema below. Make preservation, omission, reconstruction, echo color, negative space, and copy all serve the proposition and remain traceable to visible evidence or an explicit user request.
-4. Choose `light` or `medium` upper abstraction. Respect a user-requested allowed intensity; otherwise use `medium` with a 45–60% materially reconstructed-area target. Use `light` for identity-sensitive documentary portraits, complex contact points, or fragile landmarks. Select one primary Canonical Abstraction Vocabulary operation and at most one supporting operation.
+4. Choose `light` or `medium` upper abstraction. Respect a user-requested allowed intensity; otherwise use `medium` with a 45–60% materially reconstructed-area target. Use `light` for identity-sensitive documentary portraits, complex contact points, or fragile landmarks. Apply `upper_tier_escalation` when the hero architecture requirement makes light infeasible. Select one primary Canonical Abstraction Vocabulary operation and at most one supporting operation.
 5. Assign each visible living subject one coherent treatment. Use `face-locked, body-flexible, no-source-composite` for the primary person by default and `fully abstract` only for distant/nonessential faceless people or explicit identity reinterpretation. Keep facial identity and semantic pose coherent while allowing the body, clothing, peripheral hair, and edges to be regenerated or integrated.
 6. Assign every major nonliving built or landscape region a controlled real/abstract division using only the Canonical Abstraction Vocabulary. Preserve a calm photographic recognition core and make 2–4 large contiguous reconstruction decisions; avoid tiny alternating patches. For the lower panel, use a few large semantic masses and the same vocabulary, with `spatial-reauthoring` additionally available.
 7. Generate or edit each stage as a coherent whole under the Stage Contract. In upper, preserve the primary face at approximately 95% perceptual fidelity without source compositing. In lower, prohibit realistic facial content and preserve the primary person through a readable abstract silhouette.
@@ -267,7 +272,11 @@ architectural_recognition_skeleton: [<smallest source-derived set that preserves
 upper_architectural_reconstruction_zone: <one coherent region or structurally connected set covering approximately 45% of the upper hero>
 architectural_detail_compression: [<repeated windows, columns, ornaments, seams, or trim -> fewer readable structural rhythms>]
 architectural_structural_connections: [<photographic structure -> credible reconstructed continuation, joint, support, or deliberate open termination>]
-upper_reconstruction_language: colored-line-study | exposed-frame | scaffolded-skeleton | structural-color-planes | transparent-construction | paper-omission | mixed-source-grounded
+upper_reconstruction_language: >
+  structural-color-planes |
+  broad-opaque-paper-planes |
+  planar-construction-fields-with-sparse-skeleton-lines |
+  planar-replacement-plus-semantic-omission
 upper_secondary_architecture_treatment: simplified-structural-abstraction | quiet-silhouette
 lower_architecture_treatment: extreme-semantic-reconstruction
 title_text: <short centered title-band copy; optional when copy-free>
@@ -279,7 +288,6 @@ processed_typography_color: warm-ivory-on-charcoal-black-bands
 upper_board_base_color: <source-semantic Robot Dreams pale base; record source mood, dominant temperature, selected family, and contrast purpose>
 copy_mode: none | poetic | editorial | cinematic
 content_field_boundary: <one dominant source-semantic contour; optional one supporting contour; 3-7 major direction changes; paper-entry/exit points; subordinate edge material>
-content_field_occupancy: 75-85% of upper board
 processed_layout: {upper_board: 53%, title_band: 2%, lower_panel: 43%, subtitle_band: 2%}
 upper_artwork_board_occupancy: 75-85%
 text_hierarchy: {title: centered-first-band, subtitle: centered-second-band, date: omitted}
